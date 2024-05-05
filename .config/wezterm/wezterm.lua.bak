@@ -1,7 +1,6 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 
-
 -- This table will hold the configuration.
 local config = {}
 
@@ -31,20 +30,13 @@ config.font_size = 13.0
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 
 -- Window
-
---[
--- Without padding values set to 0, you get black space around your terminal program
---]
 config.window_padding = {
     left = '0px',
     right = '0px',
     top = '0px',
     bottom = '0px',
 }
--- TODO activate this only the host OS is Windows
-if os == 'w' then
-    config.window_background_opacity = 0.9
-end
+config.window_background_opacity = 0.9
 
 -- Keybindings
 config.disable_default_key_bindings = true
