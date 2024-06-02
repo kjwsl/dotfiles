@@ -6,6 +6,6 @@ return {
         vim.cmd.colorscheme("catppuccin")
     end,
     opts = {
-        transparent_background = true,
+        transparent_background = false,
     },
 }

@@ -1,6 +1,10 @@
 local function map(mode, lhs, rhs, opts)
     local default_opts = { silent = true, noremap = false }
-    for k, v in pairs(opts) do default_opts[k] = v end
+
+    if opts ~= nil then
+        for k, v in pairs(opts) do default_opts[k] = v end
+    end
+
     vim.keymap.set(mode, lhs, rhs, default_opts)
 end
 
@@ -21,9 +25,19 @@ map("", "<leader>wo", "<C-w>o", { desc = "Maximize Window" })
 map("", "<leader>qq", ":confirm qa<CR>", { desc = "Exit NeoVim" })
 
 -- Editing
-map("", "=G", "mzgg=G'z", { desc = "Autoindent Buffer" })
-map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move Selected Line Down" })
-map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move Selected Line Up" })
+map("i", "<C-C>", "<ESC>")
+map("v", "J", function ()
+    return ":m '>" .. (vim.v.count > 1 and vim.v.count or 1) .."<CR>gv=gv"
+end, { expr = true, desc = "Move Selected Line Down" })
+
+map("v", "K", function ()
+    return ":m '<" .. (vim.v.count > 1 and -vim.v.count-1 or -2) .."<CR>gv=gv"
+end, { expr = true, desc = "Move Selected Line Up" })
+
+
+-- File
+map("n", "<leader>bw", "<CMD>w<CR>", {desc = "[B]uffer [W]rite"})
+map("i", "kjl", "<Esc>")
 
 -- Palindrome Support! lol
 map("v", "<leader>lp", "y:set revins<CR>gvA<C-r>\"<Esc>x:set norevins<CR>", { desc = "Palindromify Selection" })

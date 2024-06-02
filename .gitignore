@@ -7,3 +7,4 @@ rpmbuild
 .cache
 .bash_history
 .gitconfig
+.config/dconf/user

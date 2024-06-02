@@ -1,3 +1,3 @@
 return {
-    "https://github.com/RRethy/vim-illuminate"
+    "RRethy/vim-illuminate"
 }

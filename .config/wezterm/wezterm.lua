@@ -14,7 +14,7 @@ end
 -- For example, changing the color scheme:
 
 -- Default shell
-config.default_prog = { "/bin/fish" }
+config.default_prog = { "/bin/bash" }
 
 -- Colorscheme
 config.color_scheme = "Catppuccin Mocha"

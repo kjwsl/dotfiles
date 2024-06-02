@@ -21,5 +21,9 @@ require("lazy").setup({
         {import = "plugins"},
         {import = "plugins.editing"},
         {import = "plugins.ui"},
+        {import = "plugins.git"},
+        {import = "plugins.lsp"},
+        {import = "plugins.utils"},
+        {import = "plugins.integrations"},
     }
 })

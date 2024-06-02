@@ -1,12 +1,8 @@
 #!/usr/bin/bash
 
-
-if [ -f ~/scripts/mount_remote_server.sh ]; then
-    ~/scripts/mount_remote_server.sh
-fi
-
-if [ -f ~/scripts/mount_mat.sh ]; then
-    ~/scripts/mount_mat.sh
-fi
-
 eval "$(zoxide init bash)"
+
+export VISUAL="/usr/bin/nvim"
+export EDITOR="$VISUAL"
+
+alias vim='nvim'
