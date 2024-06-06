@@ -5,4 +5,6 @@ eval "$(zoxide init bash)"
 export VISUAL="/usr/bin/nvim"
 export EDITOR="$VISUAL"
 
+alias ls='ls --color'
+alias ll='ls --color -lah'
 alias vim='nvim'
