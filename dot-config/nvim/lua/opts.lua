@@ -14,12 +14,7 @@ vim.o.smarttab = true
 vim.g.timeout = false
 vim.g.ttimeout = false
 
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
 
-vim.api.nvim_create_autocmd('TextYankPost', {
-    group = vim.api.nvim_create_augroup('highlight_yank', {}),
-    desc = 'Hightlight selection on yank',
-    pattern = '*',
-    callback = function()
-        vim.highlight.on_yank { higroup = 'IncSearch', timeout = 200 }
-    end,
-})
+vim.opt.smartcase = true

@@ -22,7 +22,8 @@ map("", "<leader>wc", "<C-w>c", { desc = "Close Window" })
 map("", "<leader>wo", "<C-w>o", { desc = "Maximize Window" })
 
 -- General
-map("", "<leader>qq", ":confirm qa<CR>", { desc = "Exit NeoVim" })
+map("", "<leader>qq", "<cmd>confirm qa<cr>", { desc = "Exit NeoVim" })
+map("", "<leader>oc", "<cmd>e ~/.config/nvim<cr>", { desc = "Open Neovim Config" })
 
 -- Editing
 map("i", "<C-C>", "<ESC>")
@@ -36,8 +37,6 @@ end, { expr = true, desc = "Move Selected Line Up" })
 
 
 -- File
-map("n", "<leader>bw", "<CMD>w<CR>", {desc = "[B]uffer [W]rite"})
+map("n", "<leader>bw", "<cmd>w<cr>", {desc = "[B]uffer [W]rite"})
 map("i", "kjl", "<Esc>")
 
--- Palindrome Support! lol
-map("v", "<leader>lp", "y:set revins<CR>gvA<C-r>\"<Esc>x:set norevins<CR>", { desc = "Palindromify Selection" })

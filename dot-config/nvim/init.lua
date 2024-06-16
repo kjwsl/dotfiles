@@ -1,6 +1,7 @@
-require("opts") -- Import Options
-require("keymaps") -- Import Keymappings
-require("plugins") -- Import Keymappings
+require("opts")
+require("keymaps")
+require("plugins")
+require("autocmds")
 
 -- Lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

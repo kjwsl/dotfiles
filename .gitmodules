@@ -1,6 +1,7 @@
-[submodule "oh-my-tmux"]
-	path = oh-my-tmux
+[submodule "submodules/oh-my-tmux"]
+	path = submodules/oh-my-tmux
 	url = https://github.com/gpakosz/.tmux.git
-[submodule "modules/oh-my-bash"]
-	path = modules/oh-my-bash
+
+[submodule "submodules/oh-my-bash"]
+	path = submodules/oh-my-bash
 	url = https://github.com/ohmybash/oh-my-bash
