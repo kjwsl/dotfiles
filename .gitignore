@@ -8,3 +8,4 @@ rpmbuild
 .bash_history
 .gitconfig
 .config/dconf/user
+dot-config/nvim/lazy-lock.json
