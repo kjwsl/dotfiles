@@ -1,5 +1,6 @@
 return {
     'crusj/bookmarks.nvim',
+    enabled = false,
     keys = {
         { "<tab><tab>", mode = { "n" } },
     },

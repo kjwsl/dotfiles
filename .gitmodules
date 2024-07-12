@@ -1,7 +1,9 @@
-[submodule "submodules/oh-my-tmux"]
-	path = submodules/oh-my-tmux
-	url = https://github.com/gpakosz/.tmux.git
-
-[submodule "submodules/oh-my-bash"]
+[submodule "oh-my-bash"]
 	path = submodules/oh-my-bash
 	url = https://github.com/ohmybash/oh-my-bash
+[submodule "nvim-config"]
+	path = dot-config/nvim-config
+	url = https://github.com/kjwsl/nvim-config
+[submodule "oh-my-fish"]
+	path = submodules/oh-my-fish
+	url = https://github.com/oh-my-fish/oh-my-fish

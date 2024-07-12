@@ -6,3 +6,5 @@ alias ls="ls -a --color"
 alias ll="ls -al --color"
 
 zoxide init fish | source
+
+fastfetch
