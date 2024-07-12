@@ -1,6 +1,6 @@
+set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'catppuccin/tmux'
-set -g @plugin 'tmux-plugins/tpm'
 
 # catpuccin
 
@@ -56,3 +56,4 @@ bind-key -T copy-mode-vi 'C-\' select-pane -l
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.config/tmux/plugins/tpm/tpm'
+
