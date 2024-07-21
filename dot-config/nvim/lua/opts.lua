@@ -18,3 +18,8 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.smartcase = true
+vim.opt.ignorecase = true
+
+vim.o.undofile = true
+vim.g.undolevels = 5000
+

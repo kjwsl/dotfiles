@@ -2,7 +2,7 @@
 
 eval "$(zoxide init bash)"
 
-export VISUAL="/usr/bin/nvim"
+export VISUAL="/snap/bin/nvim"
 export EDITOR="$VISUAL"
 
 alias ls='ls --color'

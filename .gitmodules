@@ -1,13 +1,9 @@
-[submodule "oh-my-tmux"]
-	path = submodules/oh-my-tmux
-	url = https://github.com/gpakosz/.tmux.git
-
 [submodule "oh-my-bash"]
 	path = submodules/oh-my-bash
 	url = https://github.com/ohmybash/oh-my-bash
-[submodule "submodules/oh-my-bash"]
-	path = submodules/oh-my-bash
-	url = https://github.com/ohmybash/oh-my-bash
-[submodule "submodules/oh-my-tmux"]
-	path = submodules/oh-my-tmux
-	url = https://github.com/gpakosz/.tmux.git
+[submodule "nvim-config"]
+	path = dot-config/nvim-config
+	url = https://github.com/kjwsl/nvim-config
+[submodule "oh-my-fish"]
+	path = submodules/oh-my-fish
+	url = https://github.com/oh-my-fish/oh-my-fish
