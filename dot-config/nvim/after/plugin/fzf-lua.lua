@@ -6,3 +6,7 @@ vim.keymap.set("n", "<leader>fng", "<cmd>FzfLua grep<cr>", {silent = true, desc 
 vim.keymap.set("n", "<leader>flg", "<cmd>FzfLua live_grep<cr>", {silent = true, desc = "Live Grep"})
 vim.keymap.set("n", "<leader>flc", "<cmd>FzfLua lgrep_curbuf<cr>", {silent = true, desc = "Live Grep Current Buffer"})
 vim.keymap.set("n", "<leader>fc",  "<cmd>FzfLua files cwd=~/.config/nvim<cr>",{silent = true, desc = "Find Config Directory"})
+vim.keymap.set("n", "<leader>fh", "<cmd>FzfLua helptags<cr>", {silent = true, desc = "Find Helptags"})
+vim.keymap.set("n", "<leader>f:", "<cmd>FzfLua commands<cr>", {silent = true, desc = "Find Commands"})
+vim.keymap.set("n", "<leader>fj", "<cmd>FzfLua jumps<cr>", {silent = true, desc = "Find Jumps"})
+vim.keymap.set("n", "<leader>fm", "<cmd>FzfLua marks<cr>", {silent = true, desc = "Find Marks"})
