@@ -11,3 +11,6 @@ rpmbuild
 dot-config/gh/
 dot-config/nvim/lazy-lock.json
 dot-config/mimeapps.list
+dot-config/Google/AndroidStudio2024.1
+dot-config/github-copilot/apps.json
+dot-config/github-copilot

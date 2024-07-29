@@ -4,6 +4,7 @@ end
 
 alias ls="ls -a --color"
 alias ll="ls -al --color"
+alias bat='batcat'
 
 zoxide init fish | source
 
