@@ -8,7 +8,7 @@ vim.g.confirm = true
 vim.o.tabstop = 4
 vim.o.shiftwidth= 4
 vim.o.expandtab = true
-vim.o.scrolloff = 12
+vim.o.scrolloff = 24
 vim.o.smarttab = true
 
 vim.g.timeout = false

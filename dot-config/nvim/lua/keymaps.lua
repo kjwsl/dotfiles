@@ -27,6 +27,7 @@ map("", "<leader>oc", "<cmd>e ~/.config/nvim<cr>", { desc = "Open Neovim Config"
 map("", "<leader>wb", "<cmd>w<cr>", { desc = "Write to Buffer" })
 map("", "<leader>wa", "<cmd>wa<cr>", { desc = "Write All" })
 map("", "<leader>wq", "<cmd>wq<cr>", { desc = "Write and Quit" })
+map("", "<leader>so", "<cmd>so<cr>", { desc = "Source Current Buffer" })
 
 -- Editing
 map("", "<leader>y", "\"+y", { desc = "Yank to Clipboard" })
@@ -52,6 +53,6 @@ map("n", "<leader>cr", vim.lsp.buf.rename, {desc = "Rename Symbol"})
 map("n", "gd", vim.lsp.buf.definition, {desc = "Go to Definition"})
 map("n", "gD", vim.lsp.buf.declaration, {desc = "Go to Declaration"})
 map("n", "gr", vim.lsp.buf.references, {desc = "Go to References"})
-map("n", "<C-r><C-w>", ":%s/\\<<C-r><C-w>\\>//g<left><left>", {desc = "Rename All Occurrences"})
+map("n", "<leader>cR", ":%s/\\<<C-r><C-w>\\>//g<left><left>", {desc = "Rename All Occurrences"})
 
 

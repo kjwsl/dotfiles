@@ -12,3 +12,4 @@ dot-config/gh/
 dot-config/nvim/lazy-lock.json
 dot-config/mimeapps.list
 .uuid
+dot-config/gtk-3.0
