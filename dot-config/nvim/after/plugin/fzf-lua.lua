@@ -10,3 +10,5 @@ vim.keymap.set("n", "<leader>fh", "<cmd>FzfLua helptags<cr>", {silent = true, de
 vim.keymap.set("n", "<leader>f:", "<cmd>FzfLua commands<cr>", {silent = true, desc = "Find Commands"})
 vim.keymap.set("n", "<leader>fj", "<cmd>FzfLua jumps<cr>", {silent = true, desc = "Find Jumps"})
 vim.keymap.set("n", "<leader>fm", "<cmd>FzfLua marks<cr>", {silent = true, desc = "Find Marks"})
+
+vim.keymap.set("n", "<leader>fld", "<cmd>FzfLua lsp_document_diagnostics<cr>", {silent = true, desc = "Find Diagnostics"})

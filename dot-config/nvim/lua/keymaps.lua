@@ -1,5 +1,5 @@
 local function map(mode, lhs, rhs, opts)
-    local default_opts = { silent = true, noremap = false }
+    local default_opts = { silent = true, noremap = true }
 
     if opts ~= nil then
         for k, v in pairs(opts) do default_opts[k] = v end
@@ -14,8 +14,8 @@ end
 -- map("", "<C-j>", "<C-w>j", { desc = "Move to Down Window" })
 -- map("", "<C-k>", "<C-w>k", { desc = "Move to Up Window" })
 -- map("", "<C-l>", "<C-w>l", { desc = "Move to Right Window" })
-map("", "<leader>pc", "<C-w>c", { desc = "Close Window" })
-map("", "<leader>pm", "<C-w>o", { desc = "Maximize Window" })
+map("", "<leader>wc", "<C-w>c", { desc = "Close Window" })
+map("", "<leader>wm", "<C-w>o", { desc = "Maximize Window" })
 map("", "<leader>sh", ":vsplit<CR>", { desc = "Split Window to the Left" })
 map("", "<leader>sj", ":split<CR><C-w>j", { desc = "Split Window to the Bottom" })
 map("", "<leader>sk", ":split<CR>", { desc = "Split Window to the Top" })
@@ -28,10 +28,13 @@ map("", "<leader>wb", "<cmd>w<cr>", { desc = "Write to Buffer" })
 map("", "<leader>wa", "<cmd>wa<cr>", { desc = "Write All" })
 map("", "<leader>wq", "<cmd>wq<cr>", { desc = "Write and Quit" })
 map("", "<leader>so", "<cmd>so<cr>", { desc = "Source Current Buffer" })
+map("n", "<C-p>", "<cmd>bp<cr>", { desc = "Navigate to Previous Buffer" })
+map("n", "<C-n>", "<cmd>bn<cr>", { desc = "Navigate to Next Buffer" })
 
 -- Editing
 map("", "<leader>y", "\"+y", { desc = "Yank to Clipboard" })
 map("i", "<C-C>", "<ESC>")
+map("n", "==", "gg=G<C-o>", { desc = "Indent Buffer", noremap = false })
 
 map("v", "J", function ()
     return ":m '>" .. (vim.v.count > 1 and vim.v.count or 1) .."<CR>gv=gv"
