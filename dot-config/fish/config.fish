@@ -4,6 +4,8 @@ end
 
 alias ls="ls -a --color"
 alias ll="ls -al --color"
+alias vim="nvim"
+alias v="nvim"
 
 zoxide init fish | source
 

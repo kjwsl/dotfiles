@@ -7,3 +7,6 @@
 [submodule "oh-my-fish"]
 	path = submodules/oh-my-fish
 	url = https://github.com/oh-my-fish/oh-my-fish
+[submodule "dot-config/nvim"]
+	path = dot-config/nvim
+	url = https://github.com/kjwsl/nvim-config

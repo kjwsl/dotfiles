@@ -14,7 +14,7 @@ end
 -- For example, changing the color scheme:
 
 -- Default shell
-config.default_prog = { "/bin/bash" }
+config.default_prog = { "/usr/bin/fish" }
 
 -- Colorscheme
 config.color_scheme = "Catppuccin Mocha"
@@ -26,8 +26,8 @@ config.font = wezterm.font_with_fallback({
     "Arial",
 })
 config.font_size = 13.0
-  -- Ligature
-config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
+-- Ligature
+config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=1' }
 
 -- Window
 config.window_padding = {
@@ -39,6 +39,15 @@ config.window_padding = {
 config.window_background_opacity = 0.9
 
 -- Keybindings
+
+-- Set a key binding to toggle the tab bar
+-- @param key string: The key to bind
+-- @param mods string: The modifiers to bind
+-- @param action string: The action to bind
+local function set_key_binding(key, mods, action)
+    config.keys[#config.keys + 1] = { key = key, mods = mods, action = action }
+end
+
 config.disable_default_key_bindings = true
 local act = wezterm.action
 local dirs = { Left = "h", Down = "j", Up = "k", Right = "l" }
