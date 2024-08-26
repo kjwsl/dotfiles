@@ -19,3 +19,4 @@ dot-config/tmux/plugins/tmux
 dot-config/tmux/plugins/tmux-sensible
 dot-config/tmux/plugins/vim-tmux-navigator
 dot-config/tmux/plugins/tpm/.gitattributes
+dot-config/wslu
