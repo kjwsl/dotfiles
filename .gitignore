@@ -14,3 +14,7 @@ dot-config/mimeapps.list
 dot-config/Google/AndroidStudio2024.1
 dot-config/github-copilot/apps.json
 dot-config/github-copilot
+dot-config/wslu
+dot-config/tmux/plugins/tmux
+dot-config/tmux/plugins/tmux-sensible
+dot-config/tmux/plugins/vim-tmux-navigator

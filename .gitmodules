@@ -10,3 +10,6 @@
 [submodule "dot-config/nvim"]
 	path = dot-config/nvim
 	url = https://github.com/kjwsl/nvim-config
+[submodule "dot-config/tmux/plugins/tpm/tpm"]
+	path = dot-config/tmux/plugins/tpm/tpm
+	url = https://github.com/tmux-plugins/tpm

@@ -9,6 +9,10 @@ alias bat='batcat'
 alias vim='nvim'
 alias v='nvim'
 
+if grep -qEi "(Microsoft|WSL)" /proc/sys/kernel/osrelease
+    set -x BROWSER wslview
+end
+
 zoxide init fish | source
 
 fastfetch
