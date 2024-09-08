@@ -20,3 +20,6 @@ dot-config/tmux/plugins/tmux-sensible
 dot-config/tmux/plugins/vim-tmux-navigator
 dot-config/tmux/plugins/tpm/.gitattributes
 dot-config/wslu
+dot-fonts/CascadiaCode/.uuid
+dot-fonts/.uuid
+dot-config/tmux/plugins
