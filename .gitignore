@@ -23,3 +23,4 @@ dot-config/wslu
 dot-fonts/CascadiaCode/.uuid
 dot-fonts/.uuid
 dot-config/tmux/plugins
+dot-config/environment.d
