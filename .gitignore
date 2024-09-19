@@ -11,6 +11,7 @@ rpmbuild
 dot-config/gh/
 dot-config/nvim/lazy-lock.json
 dot-config/mimeapps.list
+<<<<<<< HEAD
 dot-config/Google/AndroidStudio2024.1
 dot-config/github-copilot/apps.json
 dot-config/github-copilot
@@ -24,3 +25,9 @@ dot-fonts/CascadiaCode/.uuid
 dot-fonts/.uuid
 dot-config/tmux/plugins
 dot-config/environment.d
+=======
+dot-fonts/CascadiaCode/.uuid
+dot-fonts/.uuid
+dot-config/tmux/plugins
+.config/github-copilot/versions.json
+>>>>>>> master

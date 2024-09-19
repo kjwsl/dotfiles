@@ -1,15 +1,9 @@
 [submodule "oh-my-bash"]
 	path = submodules/oh-my-bash
 	url = https://github.com/ohmybash/oh-my-bash
-[submodule "nvim-config"]
-	path = dot-config/nvim-config
-	url = https://github.com/kjwsl/nvim-config
 [submodule "oh-my-fish"]
 	path = submodules/oh-my-fish
 	url = https://github.com/oh-my-fish/oh-my-fish
-[submodule "dot-config/nvim"]
-	path = dot-config/nvim
+[submodule ".config/nvim"]
+	path = .config/nvim
 	url = https://github.com/kjwsl/nvim-config
-[submodule "dot-config/tmux/plugins/tpm/tpm"]
-	path = dot-config/tmux/plugins/tpm/tpm
-	url = https://github.com/tmux-plugins/tpm
