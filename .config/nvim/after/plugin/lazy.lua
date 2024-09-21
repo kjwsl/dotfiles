@@ -1,1 +1,1 @@
-vim.keymap.set("n", "<leader>l", "[[:Lazy<CR>]]", { silent=true, noremap=true, desc="Lazy"})
+larp.fn.map('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Open Lazy Menu' })

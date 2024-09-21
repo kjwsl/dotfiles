@@ -1,1 +1,1 @@
-vim.keymap.set('', '<leader>to', '<cmd>AerialToggle<cr>', { desc = 'Toggle Aerial Overview' })
+larp.fn.map('', '<leader>to', '<cmd>AerialToggle<cr>', { desc = 'Toggle Aerial Overview' })
