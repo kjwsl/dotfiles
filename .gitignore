@@ -14,10 +14,6 @@ rpmbuild
 .config/Google/AndroidStudio2024.1
 .config/github-copilot
 .config/wslu
-.config/tmux/plugins/tmux
-.config/tmux/plugins/tmux-sensible
-.config/tmux/plugins/vim-tmux-navigator
-.config/tmux/plugins/tpm/.gitattributes
 .config/wslu
 .fonts/CascadiaCode/.uuid
 .fonts/.uuid
@@ -25,4 +21,6 @@ rpmbuild
 .config/environment.d
 .fonts/CascadiaCode/.uuid
 .fonts/.uuid
-.config/tmux/plugins
+
+.config/tmux/plugins/*
+!.config/tmux/plugins/tpm
