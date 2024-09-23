@@ -10,11 +10,13 @@ larp.fn.map('', '<leader>wh', '<C-w>h', { desc = 'Move to Left Window' })
 larp.fn.map('', '<leader>wj', '<C-w>j', { desc = 'Move to Bottom Window' })
 larp.fn.map('', '<leader>wk', '<C-w>k', { desc = 'Move to Top Window' })
 larp.fn.map('', '<leader>wl', '<C-w>l', { desc = 'Move to Right Window' })
+
 -- Split Windows
 larp.fn.map('', '<leader>sh', ':vsplit<CR>', { desc = 'Split Window to the Left' })
 larp.fn.map('', '<leader>sj', '<cmd>split<cr><C-w>j', { desc = 'Split Window to the Bottom' })
 larp.fn.map('', '<leader>sk', ':split<CR>', { desc = 'Split Window to the Top' })
 larp.fn.map('', '<leader>sl', ':vsplit<CR><C-w>l', { desc = 'Split Window to the Right' })
+larp.fn.map('', '<leader>wx', '<C-w>x', { desc = 'Swap Window to Next' })
 -- Resize Windows
 larp.fn.map('', '<leader>w+', '<c-w>+', { desc = 'Increase Window Height' })
 larp.fn.map('', '<leader>w-', '<c-w>-', { desc = 'Decrease Window Height' })
@@ -44,7 +46,6 @@ larp.fn.map('t', '<esc><esc>', '<c-\\><c-n>', { desc = 'Exit Terminal Mode' })
 
 -- # Editing
 larp.fn.map({ 'i', 'v' }, 'zx', '<Esc>') --
-larp.fn.map({ 'i', 'v' }, 'xz', '<Esc>') -- Use a key sequence to exit Insert Mode
 larp.fn.map('i', '<C-C>', 'ESC') -- Use <C-C> to act as <ESC>
 larp.fn.map('', '<leader>y', '"+y', { desc = 'Yank to Clipboard' })
 larp.fn.map('', '<leader>cR', ':%s/\\<<C-r><C-w>\\>//g<left><left>', { desc = 'Rename All Occurrences' })
