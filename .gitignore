@@ -17,3 +17,4 @@ dot-config/tmux/plugins
 .config/sops/age/keys.txt
 .config/github-copilot/
 .config/gh/hosts.yml
+.config/wslu
