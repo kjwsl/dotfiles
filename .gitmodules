@@ -5,6 +5,7 @@
 	path = submodules/oh-my-fish
 	url = https://github.com/oh-my-fish/oh-my-fish
 [submodule ".config/nvim"]
+    branch = "master"
 	path = .config/nvim
 	url = https://github.com/kjwsl/nvim-config
 [submodule ".config/tmux/plugins/tpm"]
