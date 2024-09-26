@@ -117,3 +117,5 @@ fi
 # To initialize zoxide, add this to your configuration (usually ~/.zshrc):
 #
 # eval "$(zoxide init zsh)"
+
+if [ -e /home/ray/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ray/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

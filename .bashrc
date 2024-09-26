@@ -489,3 +489,4 @@ fi
 if [ -f .bash_eww ]; then
     . .bash_eww
 fi
+eval "$(/bin/brew shellenv)"
