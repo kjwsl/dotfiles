@@ -1,13 +1,17 @@
+[submodule ".config/nvim"]
+    branch = "master"
+	path = .config/nvim
+	url = https://github.com/kjwsl/nvim-config
+[submodule "norgs"]
+    branch = "master"
+	path = norgs
+	url = https://github.com/kjwsl/norgs
 [submodule "oh-my-bash"]
 	path = submodules/oh-my-bash
 	url = https://github.com/ohmybash/oh-my-bash
 [submodule "oh-my-fish"]
 	path = submodules/oh-my-fish
 	url = https://github.com/oh-my-fish/oh-my-fish
-[submodule ".config/nvim"]
-    branch = "master"
-	path = .config/nvim
-	url = https://github.com/kjwsl/nvim-config
 [submodule ".config/tmux/plugins/tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
