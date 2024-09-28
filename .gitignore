@@ -6,7 +6,6 @@ rpmbuild
 .var/app
 .cache
 .bash_history
-.gitconfig
 .fonts/CascadiaCode/.uuid
 .fonts/.uuid
 .config/dconf/user
