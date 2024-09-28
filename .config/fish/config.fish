@@ -4,6 +4,10 @@ if status is-interactive
     alias ll="ls -al --color"
     alias vim="nvim"
     alias v="nvim"
+    alias v.="nvim ."
+
+    export EDITOR="nvim"
+    export VISUAL=$EDITOR
 
     if type -q zoxide
         zoxide init fish | source
@@ -12,7 +16,5 @@ if status is-interactive
     if type -q fastfetch
         fastfetch
     end
-
-    eval "$(/opt/homebrew/bin/brew shellenv)"
 end
 
