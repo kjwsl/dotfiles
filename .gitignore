@@ -21,3 +21,4 @@ rpmbuild
 .config/wslu
 .config/fish/conf.d/nix.fish
 .config/wslu/*
+.config/Bitwarden\ CLI/*
