@@ -9,6 +9,7 @@ if status is-interactive
     export EDITOR="nvim"
     export VISUAL=$EDITOR
     export PATH="$HOME/.local/bin:$PATH"
+    export PKG_CONFIG_PATH="$HOME/.luarocks/share/lua/5.1:$HOME/.nix-profile/bin:$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH"
 
     if type -q zoxide
         zoxide init fish | source
