@@ -7,3 +7,5 @@
 [user]
 	name = kjwsl
 	email = kjwdev01@gmail.com
+[alias]
+	supdate = submodule update --remote --rebase
