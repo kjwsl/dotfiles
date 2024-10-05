@@ -5,6 +5,7 @@ if status is-interactive
     alias vim="nvim"
     alias v="nvim"
     alias v.="nvim ."
+    alias fish_reload="source $HOME/.config/fish/config.fish"
 
     export EDITOR="nvim"
     export VISUAL=$EDITOR
