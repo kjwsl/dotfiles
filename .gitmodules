@@ -1,9 +1,11 @@
-[submodule ".config/nvim"]
+[submodule "nvim"]
     branch = "master"
+    update = merge
 	path = .config/nvim
 	url = https://github.com/kjwsl/nvim-config
 [submodule "norgs"]
     branch = "master"
+    update = merge
 	path = norgs
 	url = https://github.com/kjwsl/norgs
 [submodule "oh-my-bash"]
@@ -12,6 +14,6 @@
 [submodule "oh-my-fish"]
 	path = submodules/oh-my-fish
 	url = https://github.com/oh-my-fish/oh-my-fish
-[submodule ".config/tmux/plugins/tpm"]
+[submodule "tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
