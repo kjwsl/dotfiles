@@ -1,6 +1,24 @@
 -- Pull in the wezterm API
-local utils = require("utils")
+--
+--TODO: Separate it into another file. This fails when only symlinking wezterm.lua without other files.
+--      The Idea you can use is get the script path and use that for absolute paths.
+function get_os_name()
+    -- ask LuaJIT first
+    if jit then
+        return jit.os
+    end
+
+    -- Unix, Linux variants
+    local fh, err = assert(io.popen("uname -o 2>/dev/null", "r"))
+    if fh then
+        osname = fh:read()
+    end
+
+    return osname or "Windows"
+end
+
 local wezterm = require("wezterm")
+
 
 -- This table will hold the configuration.
 local config = {}
@@ -16,7 +34,7 @@ end
 
 -- local current_os = package.config:sub(1, 1) == "\\" and "win" or "unix"
 
-local current_os = utils.get_os_name()
+local current_os = get_os_name()
 
 -- Default shell
 local default_shell = current_os ~= "Windows" and os.getenv("SHELL") or "pwsh.exe"
@@ -35,7 +53,7 @@ config.font = wezterm.font_with_fallback({
     "Monaco",
     "Courier New",
 })
-config.font_size = 18
+config.font_size = 15
 -- Ligature
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
