@@ -494,6 +494,10 @@ if command -v brew > /dev/null; then
     eval "$(/bin/brew shellenv)"
 fi
 
+if command -v zoxide > /dev/null; then
+    eval "$(zoxide init bash)"
+fi
+
 if [[ -f $HOME/.aliasrc ]]; then
     source $HOME/.aliasrc
 fi
