@@ -489,4 +489,15 @@ fi
 if [ -f .bash_eww ]; then
     . .bash_eww
 fi
-eval "$(/bin/brew shellenv)"
+
+if command -v brew > /dev/null; then
+    eval "$(/bin/brew shellenv)"
+fi
+
+if [[ -f $HOME/.aliasrc ]]; then
+    source $HOME/.aliasrc
+fi
+
+if [[ -d $HOME/.local/bin ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
