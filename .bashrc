@@ -490,3 +490,11 @@ if [ -f .bash_eww ]; then
     . .bash_eww
 fi
 . "$HOME/.cargo/env"
+
+if  command -v "zoxide" > /dev/null ; then
+    eval "$(zoxide init bash)"
+fi
+
+if [[ -f .aliasrc ]]; then
+    source .aliasrc
+fi
