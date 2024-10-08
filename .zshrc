@@ -82,7 +82,27 @@ plugins=(
     bundler
     dotenv
     macos
+    zsh-autosuggestions
+    battery
+    brew
+    bgnotify
+    cp
+    emoji
+    emoji-clock
+    fzf
+    git-auto-fetch
+    git-commit
+    gitfast
+    git-prompt
+    history
+    ssh
+    sudo
+    vi-mode
+    zoxide
+    zsh-interactive-cd
 )
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#f09d97,bold,underline"
 
 source $ZSH/oh-my-zsh.sh
 
