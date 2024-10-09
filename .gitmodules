@@ -2,12 +2,12 @@
     branch = "master"
     update = merge
 	path = .config/nvim
-	url = https://github.com/kjwsl/nvim-config
+	url = git@github.com:kjwsl/nvim-config
 [submodule "norgs"]
     branch = "master"
     update = merge
 	path = norgs
-	url = https://github.com/kjwsl/norgs
+	url = git@github.com:kjwsl/norgs
 [submodule "oh-my-bash"]
 	path = submodules/oh-my-bash
 	url = https://github.com/ohmybash/oh-my-bash
@@ -20,3 +20,6 @@
 [submodule "submodules/eza-themes"]
 	path = submodules/eza-themes
 	url = https://github.com/eza-community/eza-themes.git
+[submodule "oh-my-zsh"]
+	path = .oh-my-zsh
+	url = https://github.com/ohmyzsh/ohmyzsh
