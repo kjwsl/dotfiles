@@ -98,6 +98,7 @@ plugins=(
     ssh
     sudo
     vi-mode
+    eza
     zoxide
     zsh-interactive-cd
 )

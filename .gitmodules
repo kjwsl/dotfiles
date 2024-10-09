@@ -17,3 +17,6 @@
 [submodule "tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "submodules/eza-themes"]
+	path = submodules/eza-themes
+	url = https://github.com/eza-community/eza-themes.git
