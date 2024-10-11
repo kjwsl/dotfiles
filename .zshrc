@@ -35,6 +35,14 @@ if [[ -f $HOME/.aliasrc ]]; then
     source $HOME/.aliasrc;
 fi
 
+## Modules
+
+if [[ -d $HOME/modules ]]; then
+    for file in $HOME/modules/*.sh; do
+        source $file;
+    done
+fi
+
 
 # Plugins
 
