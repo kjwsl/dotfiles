@@ -15,9 +15,6 @@
 [submodule "submodules/eza-themes"]
 	path = submodules/eza-themes
 	url = https://github.com/eza-community/eza-themes.git
-[submodule "oh-my-zsh"]
-	path = .oh-my-zsh
-	url = https://github.com/ohmyzsh/ohmyzsh
 [submodule "notes"]
     branch = "master"
     update = merge
