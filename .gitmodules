@@ -19,5 +19,7 @@
 	path = .oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh
 [submodule "notes"]
+    branch = "master"
+    update = merge
 	path = notes
 	url = git@github.com:kjwsl/notes.git
