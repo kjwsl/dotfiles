@@ -498,10 +498,15 @@ if command -v zoxide > /dev/null; then
     eval "$(zoxide init bash)"
 fi
 
-if [[ -f $HOME/.aliasrc ]]; then
-    source $HOME/.aliasrc
-fi
-
-if [[ -d $HOME/.local/bin ]]; then
+if [[ -d "$HOME/.local/bin" ]]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
+
+if [[ -f "$HOME/.aliasrc" ]]; then
+    source "$HOME/.aliasrc"
+fi
+
+if command -v zoxide > /dev/null; then
+    eval "$(zoxide init bash)"
+fi
+
