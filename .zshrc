@@ -29,7 +29,6 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
-
 ## Aliases
 if [[ -f $HOME/.aliasrc ]]; then
     source $HOME/.aliasrc;
@@ -52,8 +51,36 @@ fi
 
 # Plugins
 
+# Plugin history-search-multi-word loaded with investigating.
+zinit load zdharma-continuum/history-search-multi-word
+
+# Two regular plugins loaded without investigating.
+zinit light zsh-users/zsh-autosuggestions
+zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit ice depth=1; zinit light romkatv/powerlevel10k
+
+# Path to the timestamp file
+zinit_update_stamp="$HOME/.zinit_last_update"
+
+# Check if the file exists, and if not, create it with the current date
+if [[ ! -f "$zinit_update_stamp" ]]; then
+    date +%s > "$zinit_update_stamp"
+fi
+
+# Calculate how many days have passed since the last update
+last_update=$(cat "$zinit_update_stamp")
+current_time=$(date +%s)
+# 86400 seconds in a day
+days_passed=$(( (current_time - last_update) / 86400 ))
+
+# If 15 days have passed, run zinit update and update the timestamp
+if [[ $days_passed -ge 15 ]]; then
+    echo "Updating zinit..."
+    zinit self-update
+    zinit update
+    date +%s > "$zinit_update_stamp"
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
