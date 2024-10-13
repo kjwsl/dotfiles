@@ -3,6 +3,11 @@
     update = merge
 	path = .config/nvim
 	url = git@github.com:kjwsl/nvim-config
+[submodule "notes"]
+    branch = "master"
+    update = merge
+	path = notes
+	url = git@github.com:kjwsl/notes.git
 [submodule "oh-my-bash"]
 	path = submodules/oh-my-bash
 	url = https://github.com/ohmybash/oh-my-bash
@@ -12,11 +17,3 @@
 [submodule "tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
-[submodule "submodules/eza-themes"]
-	path = submodules/eza-themes
-	url = https://github.com/eza-community/eza-themes.git
-[submodule "notes"]
-    branch = "master"
-    update = merge
-	path = notes
-	url = git@github.com:kjwsl/notes.git
