@@ -109,14 +109,13 @@ config.keys = {
 	{ key = "x", mods = "CTRL|SHIFT", action = act.ActivateCopyMode },
 }
 
-local dirs = { Left = "h", Down = "j", Up = "k", Right = "l" }
+local dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
 
-for direction, key in pairs(dirs) do
-	-- Adjust pane size
-	config.keys[#config.keys + 1] =
-		{ key = key, mods = "CTRL|SHIFT|ALT", action = act.AdjustPaneSize({ direction, 5 }) }
-
-	config.keys[#config.keys + 1] = { key = key, mods = "CTRL", action = act.ActivatePaneDirection(direction) }
+for key, direction in pairs(dirs) do
+	-- -- Adjust pane size
+	-- config.keys[#config.keys + 1] = { key = key, mods = "ALT", action = act.AdjustPaneSize({ direction, 5 }) }
+	--
+	-- config.keys[#config.keys + 1] = { key = key, mods = "CTRL", action = act.ActivatePaneDirection(direction) }
 
 	config.keys[#config.keys + 1] = {
 		key = key,
@@ -154,6 +153,11 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
 	end
 	window:set_config_overrides(overrides)
 end)
+
+local smart_splits = require("modules.smart-splits")
+for _, key in ipairs(smart_splits.get_keys(wezterm)) do
+	config.keys[#config.keys + 1] = key
+end
 
 -- and finally, return the configuration to wezterm
 return config
