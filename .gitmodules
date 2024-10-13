@@ -2,7 +2,7 @@
     branch = "master"
     update = merge
 	path = .config/nvim
-	url = git@github.com:kjwsl/nvim-config
+	url = git@github.com:kjwsl/nvim_config
 [submodule "notes"]
     branch = "master"
     update = merge
