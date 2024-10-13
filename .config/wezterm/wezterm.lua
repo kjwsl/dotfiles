@@ -116,11 +116,11 @@ for direction, key in pairs(dirs) do
 	config.keys[#config.keys + 1] =
 		{ key = key, mods = "CTRL|SHIFT|ALT", action = act.AdjustPaneSize({ direction, 5 }) }
 
-	config.keys[#config.keys + 1] = { key = key, mods = "ALT", action = act.ActivatePaneDirection(direction) }
+	config.keys[#config.keys + 1] = { key = key, mods = "CTRL", action = act.ActivatePaneDirection(direction) }
 
 	config.keys[#config.keys + 1] = {
 		key = key,
-		mods = "CTRL|ALT",
+		mods = "CTRL|SHIFT",
 		action = act.SplitPane({
 			direction = direction,
 			command = { domain = "CurrentPaneDomain" },

@@ -35,6 +35,12 @@ if [[ -f $HOME/.aliasrc ]]; then
     source $HOME/.aliasrc;
 fi
 
+## Environment Variables
+
+if [[ -f $HOME/.envrc ]]; then
+    source $HOME/.envrc;
+fi
+
 ## Modules
 
 if [[ -d $HOME/modules ]]; then
