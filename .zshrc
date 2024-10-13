@@ -78,7 +78,7 @@ days_passed=$(( (current_time - last_update) / 86400 ))
 if [[ $days_passed -ge 15 ]]; then
     echo "Updating zinit..."
     zinit self-update
-    zinit update
+    zinit update --parallel
     date +%s > "$zinit_update_stamp"
 fi
 
