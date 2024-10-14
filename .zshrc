@@ -40,13 +40,6 @@ if [[ -f $HOME/.envrc ]]; then
     source $HOME/.envrc;
 fi
 
-## Modules
-
-if [[ -d $HOME/modules ]]; then
-    for file in $HOME/modules/*.sh; do
-        source $file;
-    done
-fi
 
 
 # Plugins
@@ -80,6 +73,14 @@ if [[ $days_passed -ge 15 ]]; then
     zinit self-update
     zinit update --parallel
     date +%s > "$zinit_update_stamp"
+fi
+
+## Modules
+
+if [[ -d $HOME/modules ]]; then
+    for file in $HOME/modules/*.sh; do
+        source $file;
+    done
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
