@@ -510,7 +510,7 @@ if [[ -f "$HOME/.envrc" ]]; then
     source "$HOME/.envrc"
 fi
 
-for f in "$HOME/modules/*.sh"; do
+for f in $HOME/modules/*.sh; do
     source "$f"
 done
 
