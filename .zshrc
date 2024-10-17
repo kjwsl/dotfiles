@@ -44,8 +44,6 @@ if [[ -f $HOME/.envrc ]]; then
     source $HOME/.envrc;
 fi
 
-
-
 # Plugins
 
 # Plugin history-search-multi-word loaded with investigating.
