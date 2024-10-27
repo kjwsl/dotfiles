@@ -1,4 +1,4 @@
-#!/usr/env/bash
+#!/usr/bin/bash
 
 FILES=(
     .bashrc
