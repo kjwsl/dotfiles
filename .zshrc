@@ -1,3 +1,5 @@
+#!/usr/bin/zsh
+
 if [[ -f /etc/zshrc ]]; then
     source /etc/zshrc
 fi
