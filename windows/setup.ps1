@@ -12,11 +12,13 @@ function Create-Symlink {
         [Parameter(Mandatory)]
         [string]$dest,
 
+        [Alias('T')]
+        [string]$Type = "SymbolicLink",
         [Alias('F')]
         [switch]$Force
     )
     $params = @{
-        Type = "SymbolicLink"
+        Type = $Type
         Value = "$dotfilesDirectory/$src"
         Path = "$dest"
     }
@@ -72,7 +74,7 @@ Install-Programs
 Setup-Env
 
 Create-Symlink -src ".config" -dest "$HOME/.config"
-Create-Symlink -src "windows/Files/.wslconfig" -dest "$HOME/.wslconfig"
+Create-Symlink -src "windows/Files/.wslconfig" -dest "$HOME/.wslconfig" -Type HardLink -Force
 Create-Symlink -src "windows/Files/Microsoft.PowerShell_profile.ps1" -dest $PROFILE -Force
 Create-Symlink -src "notes" -dest "$HOME/notes" -Force
 Create-Symlink -src ".gitconfig" -dest "$HOME/.gitconfig" -Force
