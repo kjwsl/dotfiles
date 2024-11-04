@@ -74,6 +74,8 @@ Setup-Env
 Create-Symlink -src ".config" -dest "$HOME/.config"
 Create-Symlink -src "windows/Files/.wslconfig" -dest "$HOME/.wslconfig"
 Create-Symlink -src "windows/Files/Microsoft.PowerShell_profile.ps1" -dest $PROFILE -Force
+Create-Symlink -src "notes" -dest "$HOME/notes" -Force
+Create-Symlink -src ".gitconfig" -dest "$HOME/.gitconfig" -Force
 
 Write-Output "Done!"
 
