@@ -1,0 +1,5 @@
+[wsl2]
+process=14
+memory=14GB
+swap=40GB
+swapfile=%USERPROFILE%\AppData\Local\Temp\swap.vhdx
