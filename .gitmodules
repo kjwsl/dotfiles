@@ -17,3 +17,6 @@
 [submodule "tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "obsidian-vault"]
+	path = obsidian-vault
+	url = git@github.com:kjwsl/obsidian-vault

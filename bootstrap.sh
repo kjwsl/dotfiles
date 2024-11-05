@@ -10,7 +10,7 @@ FILES=(
     .zshrc
     .fonts
     .clang-format
-    notes
+    obsidian-vault
     programs
     modules
     .config/nvim
