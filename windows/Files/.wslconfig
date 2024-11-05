@@ -1,0 +1,5 @@
+[wsl2]
+processors=14
+memory=14GB
+swap=40GB
+swapfile=C:/Users/gamer/swap.vhdx

@@ -7,7 +7,7 @@
     branch = "master"
     update = merge
 	path = notes
-	url = git@github.com:kjwsl/notes.git
+	url = git@github.com:kjwsl/notes
 [submodule "oh-my-bash"]
 	path = submodules/oh-my-bash
 	url = https://github.com/ohmybash/oh-my-bash
@@ -17,3 +17,6 @@
 [submodule "tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "obsidian-vault"]
+	path = obsidian-vault
+	url = git@github.com:kjwsl/obsidian-vault
