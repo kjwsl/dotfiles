@@ -8,6 +8,7 @@ FILES=(
     .gitconfig
     .p10k.zsh
     .zshrc
+    .zshenv
     .fonts
     .clang-format
     obsidian-vault

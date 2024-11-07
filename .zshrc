@@ -56,6 +56,7 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light zdharma-continuum/fast-syntax-highlighting
 
 zinit ice depth=1; zinit light romkatv/powerlevel10k
+zinit light marlonrichert/zsh-autocomplete
 
 # Path to the timestamp file
 zinit_update_stamp="$HOME/.zinit_last_update"
