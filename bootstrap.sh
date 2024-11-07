@@ -12,6 +12,7 @@ FILES=(
     .fonts
     .clang-format
     obsidian-vault
+    binaries
     programs
     modules
     .config/nvim
