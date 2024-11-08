@@ -18,5 +18,7 @@
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
 [submodule "obsidian-vault"]
+    branch = "master"
+    update = merge
 	path = obsidian-vault
 	url = git@github.com:kjwsl/obsidian-vault
