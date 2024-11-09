@@ -58,10 +58,6 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit light marlonrichert/zsh-autocomplete
 
-zinit snippet OMZ::plugins/git/git.plugin.zsh
-zinit load 'zsh-users/zsh-history-substring-search'
-# zinit ice wait atload'history_substring_search_config'
-
 zinit light MichaelAquilina/zsh-you-should-use
 
 zinit light larkery/zsh-histdb

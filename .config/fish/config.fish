@@ -1,10 +1,20 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
-    alias ls="ls -a --color"
-    alias ll="ls -al --color"
-    alias vim="nvim"
-    alias v="nvim"
-    alias v.="nvim ."
+
+    if not type -q bass
+        omf install bass
+    end
+
+    if [ -f $HOME/.aliasrc ]
+        source $HOME/.aliasrc
+    end
+
+    if [ -d $HOME/modules ]
+        for file in $HOME/modules/*.sh
+            bass source $file
+        end
+    end
+
     alias fish_reload="source $HOME/.config/fish/config.fish"
 
     export EDITOR="nvim"

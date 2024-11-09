@@ -6,8 +6,5 @@ if  command -v zoxide > /dev/null; then
         unalias zi &> /dev/null
         cur_shell=$(basename $SHELL)
         eval "$(zoxide init $cur_shell)"
-    elif [[ $SHELL == *fish* ]]; then
-        zoxide init fish | source
     fi
-
 fi
