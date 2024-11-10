@@ -15,6 +15,7 @@ FILES=(
     binaries
     programs
     modules
+    .config/fish
     .config/nvim
     .config/wezterm
     .config/sops
