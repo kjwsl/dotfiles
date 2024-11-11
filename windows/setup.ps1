@@ -3,7 +3,7 @@ $dotfilesDirectory = Split-Path -Parent $scriptDirectory
 
 $symlinkFiles = ".config"
 
-$ProgramgsToGet = "brave", "obsidian", "powershell-core", "neovim", "flow-launcher", "files", "obs-studio", "wezterm", "oh-my-posh", "mingw", "nerd-fonts-agave", "nerd-fonts-CascadiaCode", "ripgrep", "lazygit"
+$ProgramgsToGet = "brave", "obsidian", "powershell-core", "neovim", "flow-launcher", "files", "wezterm", "oh-my-posh", "mingw", "nerd-fonts-agave", "nerd-fonts-CascadiaCode", "ripgrep", "lazygit"
 
 function Create-Symlink {
     param(
@@ -62,14 +62,12 @@ function Install-Programs
 
 function Setup-Env
 {
-    [System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "$HOME/.config", "Machine")
+    [System.Environment]::SetEnvironmentVariable("XDG_CONFIG_HOME", "$HOME\.config", "User")
 }
 
 # Make PowerShell Profile
 # New-Item $PROFILE -Force
 # Invoke-WebRequest $ProfileItem.Path -OutFile $HOME/Desktop/$ProfileItem.Name | Copy-Item -Destination $ProfileItem.Dest -Force
-
-Install-Programs
 
 Setup-Env
 
@@ -78,6 +76,9 @@ Create-Symlink -src "windows/Files/.wslconfig" -dest "$HOME/.wslconfig" -Type Ha
 Create-Symlink -src "windows/Files/Microsoft.PowerShell_profile.ps1" -dest $PROFILE -Force
 Create-Symlink -src "notes" -dest "$HOME/notes" -Force
 Create-Symlink -src ".gitconfig" -dest "$HOME/.gitconfig" -Force
+
+Install-Programs
+
 
 Write-Output "Done!"
 
