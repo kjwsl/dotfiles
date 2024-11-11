@@ -3,11 +3,6 @@
     update = merge
 	path = .config/nvim
 	url = git@github.com:kjwsl/nvim-config
-[submodule "notes"]
-    branch = "master"
-    update = merge
-	path = notes
-	url = git@github.com:kjwsl/notes
 [submodule "oh-my-bash"]
 	path = submodules/oh-my-bash
 	url = https://github.com/ohmybash/oh-my-bash
