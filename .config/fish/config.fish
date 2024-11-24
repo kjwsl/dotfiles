@@ -9,6 +9,10 @@ if status is-interactive
         source $HOME/.aliasrc
     end
 
+    if [ -f $HOME/.envrc ]
+        source $HOME/.envrc
+    end
+
     if [ -d $HOME/modules ]
         for file in $HOME/modules/*.sh
             bass source $file
