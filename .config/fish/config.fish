@@ -6,11 +6,11 @@ if status is-interactive
     end
 
     if [ -f $HOME/.aliasrc ]
-        source $HOME/.aliasrc
+        bass source $HOME/.aliasrc
     end
 
     if [ -f $HOME/.envrc ]
-        source $HOME/.envrc
+        bass source $HOME/.envrc
     end
 
     if [ -d $HOME/modules ]
