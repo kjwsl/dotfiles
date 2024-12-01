@@ -7,5 +7,5 @@
 " Map \b to toggle the breakpoint on the current line
 :map \b <Action>(ToggleLineBreakpoint)
 
-:nnoremap gh <Action>(ShowHoverInfo)
-:nnoremap ca <Action>(QuickImplementations)
+:map gh <Action>(ShowHoverInfo)
+:map ca <Action>(QuickImplementations)
