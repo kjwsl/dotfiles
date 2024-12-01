@@ -14,3 +14,4 @@ function Open-NvimCurrentDir {
 
 Set-Alias -Name v -Value $nvimPath
 Set-Alias -Name v. -Value Open-NvimCurrentDir
+Set-Alias -Name g -Value git
