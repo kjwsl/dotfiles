@@ -60,6 +60,9 @@ end
 -- Ligature
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
+-- FPS
+config.max_fps = 144
+
 -- Window
 config.window_padding = {
 	left = "3px",
