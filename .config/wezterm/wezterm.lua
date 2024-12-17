@@ -55,7 +55,7 @@ config.font = wezterm.font_with_fallback({
 if current_os == "OSX" or current_os == "Darwin" then
 	config.font_size = 20
 else
-	config.font_size = 16
+	config.font_size = 14
 end
 -- Ligature
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
