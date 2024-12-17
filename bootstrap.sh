@@ -11,6 +11,7 @@ FILES=(
     .zshenv
     .fonts
     .clang-format
+    .oh-my-bash
     obsidian-vault
     binaries
     programs
