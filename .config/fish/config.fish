@@ -26,8 +26,15 @@ if status is-interactive
     export PATH="$HOME/.local/bin:$PATH"
     export PKG_CONFIG_PATH="$HOME/.luarocks/share/lua/5.1:$HOME/.nix-profile/bin:$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH"
 
-    if type -q fastfetch
-        fastfetch
+    set glibc_version (ldd --version | head -n 1 | awk '{print $NF}')
+    if test $glibc_version -lt 2.33
+        if type -q neofetch
+            neofetch
+        end
+    else
+        if type -q fastfetch
+            fastfetch
+        end
     end
 
     if type -q zoxide
