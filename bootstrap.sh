@@ -1,33 +1,34 @@
 #!/bin/bash
 
 FILES=(
-    .bashrc
-    .bash_profile
     .aliasrc
-    .envrc
-    .gitconfig
-    .p10k.zsh
-    .zshrc
-    .zshenv
-    .fonts
+    .bash_profile
+    .bashrc
     .clang-format
-    obsidian-vault
-    binaries
-    programs
-    modules
+    .config/alacritty
     .config/fish
+    .config/fontconfig
+    .config/kitty
+    .config/nix
     .config/nvim
-    .config/wezterm
+    .config/omf
+    .config/sops
     .config/sops
     .config/tmux
-    .config/zsh
+    .config/wezterm
     .config/wslu
-    .config/omf
-    .config/nix
-    .config/kitty
-    .config/alacritty
-    .config/fontconfig
-    .config/sops
+    .config/zsh
+    .envrc
+    .fonts
+    .gitconfig
+    .p10k.zsh
+    .profile
+    .zshenv
+    .zshrc
+    binaries
+    modules
+    obsidian-vault
+    programs
 )
 
 for file in ${FILES[@]}; do
