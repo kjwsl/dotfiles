@@ -5,18 +5,12 @@ FILES=(
     .bash_profile
     .bashrc
     .clang-format
-    .oh-my-bash
-    obsidian-vault
-    binaries
-    programs
-    modules
     .config/fish
     .config/fontconfig
     .config/kitty
     .config/nix
     .config/nvim
     .config/omf
-    .config/sops
     .config/sops
     .config/tmux
     .config/wezterm
@@ -25,6 +19,7 @@ FILES=(
     .envrc
     .fonts
     .gitconfig
+    .oh-my-bash
     .p10k.zsh
     .profile
     .zshenv
