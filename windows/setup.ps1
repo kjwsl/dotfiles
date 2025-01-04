@@ -3,7 +3,7 @@ $dotfilesDirectory = Split-Path -Parent $scriptDirectory
 
 $symlinkFiles = ".config"
 
-$ProgramgsToGet = "brave", "obsidian", "powershell-core", "neovim", "flow-launcher", "files", "wezterm", "oh-my-posh", "mingw", "nerd-fonts-agave", "nerd-fonts-CascadiaCode", "ripgrep", "lazygit"
+$ProgramgsToGet = "brave", "obsidian", "powershell-core", "neovim", "flow-launcher", "wezterm", "oh-my-posh", "mingw", "nerd-fonts-agave", "nerd-fonts-CascadiaCode", "ripgrep", "lazygit", "python", "zoxide"
 
 function Create-Symlink {
     param(
