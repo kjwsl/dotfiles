@@ -1,7 +1,7 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
 
-    if not type -q fisher 
+    if not type -q fisher
         curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
     end
 
@@ -30,13 +30,22 @@ if status is-interactive
     export PATH="$HOME/.local/bin:$PATH"
     export PKG_CONFIG_PATH="$HOME/.luarocks/share/lua/5.1:$HOME/.nix-profile/bin:$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH"
 
-    if uname -o | grep -q GNU/Linux && test $glibc_version -lt 2.33
-        if type -q neofetch
-            neofetch
+    if uname -o | grep -q "GNU/Linux"
+        set glibc_version (ldd --version | head -n 1 | awk '{print $NF}' | cut -d'.' -f1)
+        if test $glibc_version -lt 2.33
+            if type -q neofetch
+                neofetch
+            end
+        else
+            if type -q fastfetch
+                fastfetch
+            end
         end
     else
         if type -q fastfetch
             fastfetch
+        else if type -q neofetch
+            neofetch
         end
     end
 
