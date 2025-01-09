@@ -1,8 +1,13 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
 
+    if not type -q fisher 
+        curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+    end
+
+    fisher install oh-my-fish/theme-bobthefish
     if not type -q bass
-        omf install bass
+        fisher install edc/bass
     end
 
     if [ -f $HOME/.aliasrc ]
