@@ -6,9 +6,6 @@
 [submodule "oh-my-bash"]
 	path = submodules/oh-my-bash
 	url = https://github.com/ohmybash/oh-my-bash
-[submodule "oh-my-fish"]
-	path = submodules/oh-my-fish
-	url = https://github.com/oh-my-fish/oh-my-fish
 [submodule "tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
