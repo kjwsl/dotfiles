@@ -5,7 +5,6 @@ if status is-interactive
         curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
     end
 
-    fisher install oh-my-fish/theme-bobthefish
     if not type -q bass
         fisher install edc/bass
     end
