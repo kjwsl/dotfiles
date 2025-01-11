@@ -22,6 +22,7 @@ FILES=(
     .oh-my-bash
     .p10k.zsh
     .profile
+    .vim
     .zshenv
     .zshrc
     binaries
