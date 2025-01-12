@@ -32,3 +32,6 @@ nnoremap <leader>fr :History<cr>
 
 " nerdtree
 nnoremap <leader>tt :NERDTreeToggle<cr>
+
+" coc
+let g:coc_disable_startup_warning = 1
