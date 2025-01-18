@@ -23,12 +23,6 @@ if status is-interactive
         end
     end
 
-    set -Ux PYENV_ROOT $HOME/.pyenv
-    set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
-
-    pyenv init - fish | source
-
-
     alias fish_reload="source $HOME/.config/fish/config.fish"
 
     export EDITOR="nvim"
