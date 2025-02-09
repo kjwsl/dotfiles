@@ -2,6 +2,8 @@
 	name = Ray
 	email = kjwsl@fatherslab.com
 [alias]
+    sm = submodule
+    spl = submodule foreach git pull
 	sinit = submodule init
     sdeinit = submodule deinit
 	supdate = submodule update --remote --rebase
@@ -43,3 +45,5 @@
 	ui = auto
 [pull]
 	rebase = false
+[core]
+	autocrlf = input
