@@ -15,6 +15,9 @@ Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-vinegar'
+Plug 'liuchengxu/vim-which-key'
+
 call plug#end() 
 
 " Catppuccin 
@@ -35,3 +38,7 @@ nnoremap <leader>tt :NERDTreeToggle<cr>
 
 " coc
 let g:coc_disable_startup_warning = 1
+
+
+" whichkey
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>

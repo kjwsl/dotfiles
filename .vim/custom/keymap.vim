@@ -26,3 +26,5 @@ nnoremap <leader>sl <C-w>v<C-w>l
 
 vnoremap K :move -2<cr>gv
 vnoremap J :move +1<cr>gv
+
+inoremap zx <Esc>
