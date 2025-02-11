@@ -7,6 +7,7 @@ FILES=(
     .clang-format
     .config/fish
     .config/fontconfig
+    .config/ghostty
     .config/kitty
     .config/nix
     .config/nvim
@@ -30,6 +31,10 @@ FILES=(
     obsidian-vault
     programs
 )
+
+if [[ ! -d "$HOME/.config" ]]; then
+    mkdir -p "$HOME/.config"
+fi
 
 for file in ${FILES[@]}; do
     if [ -e $HOME/$file ]; then
