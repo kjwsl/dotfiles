@@ -36,7 +36,7 @@ end
 local current_os = get_os_name()
 
 -- Default shell
-local default_shell = current_os ~= "Windows" and os.getenv("SHELL") or "Ubuntu2204.exe"
+local default_shell = current_os ~= "Windows" and os.getenv("SHELL") or "pwsh.exe"
 config.default_prog = { default_shell }
 
 -- Colorscheme
@@ -55,7 +55,7 @@ config.font = wezterm.font_with_fallback({
 if current_os == "OSX" or current_os == "Darwin" then
 	config.font_size = 18
 else
-	config.font_size = 14
+	config.font_size = 13
 end
 -- Ligature
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
