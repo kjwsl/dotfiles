@@ -44,8 +44,8 @@ config.color_scheme = "Catppuccin Mocha"
 
 -- Font
 config.font = wezterm.font_with_fallback({
-	"CaskaydiaCove Nerd Font",
 	"JetBrainsMono Nerd Font",
+	"CaskaydiaCove Nerd Font",
 	"MesloLGS NF",
 	"Noto Sans Mono CJK KR",
 	"Menlo",
@@ -53,7 +53,7 @@ config.font = wezterm.font_with_fallback({
 	"Courier New",
 })
 if current_os == "OSX" or current_os == "Darwin" then
-	config.font_size = 20
+	config.font_size = 18
 else
 	config.font_size = 14
 end
@@ -136,34 +136,11 @@ end
 
 -- # Neovim-related
 
--- Increase font size in Zen Mode
-wezterm.on("user-var-changed", function(window, pane, name, value)
-	local overrides = window:get_config_overrides() or {}
-	if name == "ZEN_MODE" then
-		local incremental = value:find("+")
-		local number_value = tonumber(value)
-		if incremental ~= nil then
-			while number_value > 0 do
-				window:perform_action(wezterm.action.IncreaseFontSize, pane)
-				number_value = number_value - 1
-			end
-			overrides.enable_tab_bar = false
-		elseif number_value < 0 then
-			window:perform_action(wezterm.action.ResetFontSize, pane)
-			overrides.font_size = nil
-			overrides.enable_tab_bar = true
-		else
-			overrides.font_size = number_value
-			overrides.enable_tab_bar = false
-		end
-	end
-	window:set_config_overrides(overrides)
-end)
 
-local smart_splits = require("modules.smart-splits")
-for _, key in ipairs(smart_splits.get_keys(wezterm)) do
-	config.keys[#config.keys + 1] = key
-end
+-- local smart_splits = require("modules.smart-splits")
+-- for _, key in ipairs(smart_splits.get_keys(wezterm)) do
+-- 	config.keys[#config.keys + 1] = key
+-- end
 
 -- and finally, return the configuration to wezterm
 return config
