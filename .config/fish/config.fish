@@ -9,8 +9,8 @@ if status is-interactive
         fisher install edc/bass
     end
 
-    if [ -f $HOME/.aliasrc ]
-        bass source $HOME/.aliasrc
+    if test -f $HOME/.config/fish/alias.fish
+        source $HOME/.config/fish/alias.fish
     end
 
     if [ -f $HOME/.envrc ]
