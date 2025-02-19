@@ -4,5 +4,5 @@ alias v.='nvim .'
 alias g='git'
 
 function vf
-    nvim (fzf --preview 'bat --style=numbers --color=always {}')
+    nvim (fzf -m --preview 'bat --style=numbers --color=always {}')
 end
