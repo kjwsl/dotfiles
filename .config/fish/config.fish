@@ -31,7 +31,8 @@ if status is-interactive
     fish_add_path "$HOME/.rustup/toolchains/stable-aarch64-apple-darwin/bin/"
     fish_add_path "$HOME/.cargo/bin/"
     export PKG_CONFIG_PATH="$HOME/.luarocks/share/lua/5.1:$HOME/.nix-profile/bin:$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH"
-    export TERM=xterm-256color
+    # export TERM=xterm-256color
+    export TERM=screen-256color
     export COLORTERM=truecolor
 
     if type -q pyenv 
