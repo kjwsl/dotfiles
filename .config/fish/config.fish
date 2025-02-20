@@ -68,3 +68,5 @@ if status is-interactive
     alias zo="z (dirname (fzf))"
 end
 
+
+thefuck --alias | source
