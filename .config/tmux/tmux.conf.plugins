@@ -1,28 +1,32 @@
-set -g @plugin 'catppuccin/tmux#v2.1.2'
 set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-cpu'
+set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 set -g @plugin 'tmux-plugins/tmux-battery'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-cpu'
+set -g @plugin 'tmux-plugins/tmux-logging'
+set -g @plugin 'tmux-plugins/tmux-open'
+set -g @plugin 'tmux-plugins/tmux-pain-control'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-yank'
-set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @plugin 'tmux-plugins/tmux-open'
-set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 
 set-option -g status-position top
 
-set -g @catppuccin_flavor "mocha"
-set -g @catppuccin_window_status_style "rounded"
+set -g @plugin 'fabioluciano/tmux-tokyo-night'
 
-# Load catppuccin
-run ~/.config/tmux/plugins/tmux/catppuccin.tmux
+### Tokyo Night Theme configuration
+set -g @theme_variation 'moon'
+set -g @theme_left_separator ''
+set -g @theme_right_separator ''
+set -g @theme_plugins 'datetime,weather,playerctl,yay'
 
-# Make the status line pretty and add some modules
-set -g status-right-length 100
-set -g status-left-length 100
-set -g status-left ""
-set -g status-right "#{E:@catppuccin_status_application}"
-set -agF status-right "#{E:@catppuccin_status_cpu}"
-set -ag status-right "#{E:@catppuccin_status_session}"
-set -ag status-right "#{E:@catppuccin_status_uptime}"
-set -agF status-right "#{E:@catppuccin_status_battery}"
+run '~/.tmux/plugins/tpm/tpm'
+
+### Enable transparency
+set -g @theme_transparent_status_bar 'true'
+### Enable transparency
+set -g @theme_left_separator ''
+set -g @theme_right_separator ''
+set -g @theme_transparent_status_bar 'true'
+set -g @theme_transparent_left_separator_inverse ''
+set -g @theme_transparent_right_separator_inverse ''
