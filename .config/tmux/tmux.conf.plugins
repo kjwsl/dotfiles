@@ -20,7 +20,7 @@ set -g @theme_left_separator ''
 set -g @theme_right_separator ''
 set -g @theme_plugins 'datetime,weather,playerctl,yay'
 
-run '~/.tmux/plugins/tpm/tpm'
+run '~/.config/tmux/plugins/tpm/tpm'
 
 ### Enable transparency
 set -g @theme_transparent_status_bar 'true'
