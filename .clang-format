@@ -5,5 +5,5 @@ UseTab: Never
 AlignAfterOpenBracket: Align
 AlignArrayOfStructures: Right
 AlignConsecutiveAssignments: AcrossEmptyLines
-ReflowComments: True
 RequiresClausePosition: WithPreceding
+BreakBeforeBraces: Attach 
