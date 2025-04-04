@@ -18,6 +18,7 @@
     cm = commit
     cmm = commit -m
     pl = pull
+    plr = pull --rebase
     ps = push
     m = merge
     rb = rebase
