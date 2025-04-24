@@ -8,7 +8,8 @@ function vf
 end
 
 function zf
-    z (find . -type d -print | fzf)
+    set dir (find . -type d -print | fzf) || return
+    z $dir
 end
 
 
