@@ -1,0 +1,39 @@
+---
+- name: Check if Homebrew is installed
+  stat:
+    path: /opt/homebrew/bin/brew
+  register: brew_installed
+
+- name: Download Homebrew installer
+  get_url:
+    url: https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+    dest: /tmp/homebrew_installer.sh
+    mode: '0755'
+  when: not brew_installed.stat.exists
+
+- name: Install Homebrew
+  shell: |
+    echo "{{ ansible_become_pass }}" | /bin/bash /tmp/homebrew_installer.sh
+  args:
+    creates: /opt/homebrew/bin/brew
+  become: false
+  environment:
+    NONINTERACTIVE: 1
+  when: not brew_installed.stat.exists
+
+- name: Clean up Homebrew installer
+  file:
+    path: /tmp/homebrew_installer.sh
+    state: absent
+  when: not brew_installed.stat.exists
+
+- name: Install Homebrew packages
+  homebrew:
+    name: "{{ homebrew_packages }}"
+    state: present
+    update_homebrew: yes
+
+- name: Install Homebrew fonts
+  homebrew_cask:
+    name: "{{ fonts }}"
+    state: present

@@ -1,0 +1,77 @@
+---
+# macOS specific packages
+packages:
+  - htop
+  - tree
+  - ripgrep
+  - fd
+  - bat
+  - eza
+  - fzf
+  - jq
+  - yq
+  - shellcheck
+  - shfmt
+  - neovim
+  - tmux
+  - python3
+  - python3-pip
+  - node
+  - yarn
+  - rust
+  - go
+
+# Homebrew packages
+homebrew_packages:
+  - chezmoi
+  - git
+  - curl
+  - wget
+  - vim
+  - tmux
+  - fish
+  - python@3.11
+  - htop
+  - tree
+  - ripgrep
+  - fd
+  - bat
+  - eza
+  - fzf
+  - jq
+  - yq
+  - shellcheck
+  - shfmt
+  - neovim
+  - node
+  - yarn
+  - rust
+  - go
+  - coreutils
+  - findutils
+  - gnu-sed
+  - gnu-tar
+  - gawk
+  - grep
+
+# Fonts
+fonts:
+  - font-fira-code
+  - font-fira-mono
+  - font-fira-sans
+  - font-hack
+  - font-hack-nerd-font
+  - font-powerline-symbols
+  - font-jetbrains-mono
+  - font-source-code-pro
+
+# Shell configuration
+shell_config:
+  default_shell: /opt/homebrew/bin/fish
+  fisher_install: true
+  omf_install: false
+  fish_plugins:
+    - jorgebucaran/fisher
+    - PatrickF1/fzf.fish
+    - jethrokuan/z
+    - IlanCosman/tide@v5 

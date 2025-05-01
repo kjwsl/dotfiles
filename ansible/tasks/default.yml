@@ -1,0 +1,20 @@
+---
+- name: Install system packages
+  package:
+    name: "{{ packages }}"
+    state: present
+
+- name: Install development tools
+  package:
+    name: "{{ dev_tools }}"
+    state: present
+
+- name: Install fonts
+  package:
+    name: "{{ fonts }}"
+    state: present
+
+- name: Update package cache
+  package:
+    update_cache: yes
+  when: ansible_os_family == "Debian" 

@@ -1,0 +1,106 @@
+---
+- name: Manage dotfiles and system configuration
+  hosts: darwin
+  connection: local
+  become: false
+  gather_facts: true
+
+  vars_files:
+    - ../group_vars/darwin.yml
+
+  pre_tasks:
+    - name: Ensure Python is available
+      raw: which python3
+      changed_when: false
+      become: false
+
+    - name: Add Fish shell to /etc/shells
+      lineinfile:
+        path: /etc/shells
+        line: "{{ shell_config.default_shell }}"
+        state: present
+      become: true
+      when: shell_config.default_shell is defined
+
+  tasks:
+    - name: Include OS-specific tasks
+      include_tasks: "{{ item }}"
+      with_first_found:
+        - "../tasks/{{ ansible_os_family | lower }}.yml"
+        - "../tasks/default.yml"
+
+    - name: Install common packages
+      package:
+        name: "{{ common_packages }}"
+        state: present
+      when: ansible_os_family != "Darwin"
+
+    - name: Install development tools
+      package:
+        name: "{{ dev_tools }}"
+        state: present
+      when: ansible_os_family != "Darwin"
+
+    - name: Install fonts
+      package:
+        name: "{{ fonts }}"
+        state: present
+      when: ansible_os_family != "Darwin"
+
+    - name: Set default shell to fish
+      user:
+        name: "{{ ansible_env.USER }}"
+        shell: "{{ shell_config.default_shell }}"
+      become: true
+      when: shell_config.default_shell is defined
+
+    - name: Install Fisher package manager
+      shell: "{{ shell_config.default_shell }} -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source'"
+      args:
+        creates: "{{ ansible_env.HOME }}/.config/fish/functions/fisher.fish"
+      when: shell_config.fisher_install | bool
+
+    - name: Install Oh My Fish
+      shell: "{{ shell_config.default_shell }} -c 'curl -L https://get.oh-my.fish | fish'"
+      args:
+        creates: "{{ ansible_env.HOME }}/.local/share/omf"
+      when: shell_config.omf_install | bool
+
+    - name: Backup existing prompt files
+      shell: |
+        mkdir -p "{{ ansible_env.HOME }}/.config/fish/backup"
+        for file in fish_mode_prompt.fish fish_prompt.fish; do
+          if [ -f "{{ ansible_env.HOME }}/.config/fish/functions/$file" ]; then
+            mv "{{ ansible_env.HOME }}/.config/fish/functions/$file" "{{ ansible_env.HOME }}/.config/fish/backup/"
+          fi
+        done
+      when: "'IlanCosman/tide@v5' in shell_config.fish_plugins"
+
+    - name: Install Fish plugins
+      shell: "{{ shell_config.default_shell }} -c 'fisher install {{ item }}'"
+      with_items: "{{ shell_config.fish_plugins }}"
+      when: shell_config.fisher_install | bool
+
+    - name: Ensure chezmoi is installed
+      package:
+        name: chezmoi
+        state: present
+
+    - name: Ensure backup directory exists
+      file:
+        path: "{{ ansible_env.HOME }}/.dotfiles-backup"
+        state: directory
+        mode: '0755'
+
+    - name: Clone dotfiles repository
+      git:
+        repo: "{{ dotfiles_repo }}"
+        dest: "{{ ansible_env.HOME }}/.local/share/chezmoi"
+        version: master
+        force: yes
+      when: dotfiles_repo is defined
+
+    - name: Apply dotfiles
+      command: chezmoi apply
+      args:
+        chdir: "{{ ansible_env.HOME }}/.local/share/chezmoi" 
