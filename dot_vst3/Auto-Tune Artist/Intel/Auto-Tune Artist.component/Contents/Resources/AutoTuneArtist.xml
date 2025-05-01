@@ -1,0 +1,802 @@
+<?xml version='1.0' encoding='US-ASCII' standalone='yes'?>
+<PageTables vers='1.0.0.0'>
+	<PageTableLayouts>
+		<Plugin manID='Jptr' prodID='ATLv' plugID='ZSa2'>
+			<Desc>Auto-Tune Artist Stereo AudioSuite</Desc>
+			<Layout>ALL AAX</Layout>
+		</Plugin><!--manID='Jptr' prodID='ATLv' plugID='ZSa2'-->
+		<Plugin manID='Jptr' prodID='ATLv' plugID='ZTa2'>
+			<Desc>Auto-Tune Artist Stereo Native</Desc>
+			<Layout>ALL AAX</Layout>
+		</Plugin><!--manID='Jptr' prodID='ATLv' plugID='ZTa2'-->
+		<Plugin manID='Jptr' prodID='ATLv' plugID='ZTaX'>
+			<Desc>Auto-Tune Artist Mono-to-Stereo Native</Desc>
+			<Layout>ALL AAX</Layout>
+		</Plugin><!--manID='Jptr' prodID='ATLv' plugID='ZTaX'-->
+		<Plugin manID='Jptr' prodID='ATLv' plugID='ZTam'>
+			<Desc>Auto-Tune Artist Stereo AudioSuite</Desc>
+			<Layout>ALL AAX</Layout>
+		</Plugin><!--manID='Jptr' prodID='ATLv' plugID='ZTam'-->
+		<Plugin manID='Jptr' prodID='ATLv' plugID='ZTat'>
+			<Desc>Auto-Tune Artist Mono Native</Desc>
+			<Layout>ALL AAX</Layout>
+		</Plugin><!--manID='Jptr' prodID='ATLv' plugID='ZTat'-->
+		<PTLayout name='ALL AAX'>
+			<PageTable type='Av48' pgsz='96'>
+				<Page num='1'>
+					<Cell row='1' col='1' knobID="Retune Speed" inOutButtonID="" selectButtonID="Retune Speed"/>
+					<Cell row='2' col='1' knobID="Formant Correction" inOutButtonID="Formant Correction" selectButtonID=""/>
+					<Cell row='3' col='1' knobID="Vibrato Shape" inOutButtonID="Vibrato Shape" selectButtonID=""/>
+					<Cell row='4' col='1' knobID="" inOutButtonID="" selectButtonID=""/>
+					<Cell row='1' col='2' knobID="Flex-Tune" inOutButtonID="" selectButtonID="Flex-Tune"/>
+					<Cell row='2' col='2' knobID="Throat Length" inOutButtonID="" selectButtonID="Throat Length"/>
+					<Cell row='3' col='2' knobID="Vibrato Rate" inOutButtonID="" selectButtonID="Vibrato Rate"/>
+					<Cell row='4' col='2' knobID="" inOutButtonID="" selectButtonID=""/>
+					<Cell row='1' col='3' knobID="Natural Vibrato" inOutButtonID="" selectButtonID="Natural Vibrato"/>
+					<Cell row='2' col='3' knobID="Transpose" inOutButtonID="" selectButtonID="Transpose"/>
+					<Cell row='3' col='3' knobID="V.Onset Delay" inOutButtonID="" selectButtonID="V.Onset Delay"/>
+					<Cell row='4' col='3' knobID="" inOutButtonID="" selectButtonID=""/>
+					<Cell row='1' col='4' knobID="Humanize" inOutButtonID="" selectButtonID="Humanize"/>
+					<Cell row='2' col='4' knobID="Detune" inOutButtonID="" selectButtonID="Detune"/>
+					<Cell row='3' col='4' knobID="V.Onset Rate" inOutButtonID="" selectButtonID="V.Onset Rate"/>
+					<Cell row='4' col='4' knobID="" inOutButtonID="" selectButtonID=""/>
+					<Cell row='1' col='5' knobID="Input Type" inOutButtonID="Input Type" selectButtonID=""/>
+					<Cell row='2' col='5' knobID="Target Notes via MIDI" inOutButtonID="Target Notes via MIDI" selectButtonID=""/>
+					<Cell row='3' col='5' knobID="Vibrato Variation" inOutButtonID="" selectButtonID="Vibrato Variation"/>
+					<Cell row='4' col='5' knobID="" inOutButtonID="" selectButtonID=""/>
+					<Cell row='1' col='6' knobID="Key" inOutButtonID="Key" selectButtonID=""/>
+					<Cell row='2' col='6' knobID="Learn Scale from MIDI" inOutButtonID="Learn Scale from MIDI" selectButtonID=""/>
+					<Cell row='3' col='6' knobID="Vibrato Pitch" inOutButtonID="" selectButtonID="Vibrato Pitch"/>
+					<Cell row='4' col='6' knobID="" inOutButtonID="" selectButtonID=""/>
+					<Cell row='1' col='7' knobID="Scale" inOutButtonID="Scale" selectButtonID=""/>
+					<Cell row='2' col='7' knobID="MIDI Octaves" inOutButtonID="MIDI Octaves" selectButtonID=""/>
+					<Cell row='3' col='7' knobID="Vibrato Amplitude" inOutButtonID="" selectButtonID="Vibrato Amplitude"/>
+					<Cell row='4' col='7' knobID="" inOutButtonID="" selectButtonID=""/>
+					<Cell row='1' col='8' knobID="Master Bypass" inOutButtonID="Master Bypass" selectButtonID=""/>
+					<Cell row='2' col='8' knobID="Ignore Vibrato" inOutButtonID="Ignore Vibrato" selectButtonID=""/>
+					<Cell row='3' col='8' knobID="Vibrato Formant" inOutButtonID="" selectButtonID="Vibrato Formant"/>
+					<Cell row='4' col='8' knobID="" inOutButtonID="" selectButtonID=""/>
+				</Page><!--num='1'-->
+			</PageTable><!--type='Av48' pgsz='96'-->
+			<PageTable type='Av81' pgsz='24'>
+				<Page num='1'>
+					<Cell row='1' col='1' knobID="Retune Speed" inOutButtonID="" selectButtonID="Retune Speed"/>
+					<Cell row='2' col='1' knobID="Flex-Tune" inOutButtonID="" selectButtonID="Flex-Tune"/>
+					<Cell row='3' col='1' knobID="Natural Vibrato" inOutButtonID="" selectButtonID="Natural Vibrato"/>
+					<Cell row='4' col='1' knobID="Humanize" inOutButtonID="" selectButtonID="Humanize"/>
+					<Cell row='5' col='1' knobID="Input Type" inOutButtonID="Input Type" selectButtonID=""/>
+					<Cell row='6' col='1' knobID="Key" inOutButtonID="Key" selectButtonID=""/>
+					<Cell row='7' col='1' knobID="Scale" inOutButtonID="Scale" selectButtonID=""/>
+					<Cell row='8' col='1' knobID="Master Bypass" inOutButtonID="Master Bypass" selectButtonID=""/>
+				</Page><!--num='1'-->
+				<Page num='2'>
+					<Cell row='1' col='1' knobID="Formant Correction" inOutButtonID="Formant Correction" selectButtonID=""/>
+					<Cell row='2' col='1' knobID="Throat Length" inOutButtonID="" selectButtonID="Throat Length"/>
+					<Cell row='3' col='1' knobID="Transpose" inOutButtonID="" selectButtonID="Transpose"/>
+					<Cell row='4' col='1' knobID="Detune" inOutButtonID="" selectButtonID="Detune"/>
+					<Cell row='5' col='1' knobID="Target Notes via MIDI" inOutButtonID="Target Notes via MIDI" selectButtonID=""/>
+					<Cell row='6' col='1' knobID="Learn Scale from MIDI" inOutButtonID="Learn Scale from MIDI" selectButtonID=""/>
+					<Cell row='7' col='1' knobID="MIDI Octaves" inOutButtonID="MIDI Octaves" selectButtonID=""/>
+					<Cell row='8' col='1' knobID="Ignore Vibrato" inOutButtonID="Ignore Vibrato" selectButtonID=""/>
+				</Page><!--num='2'-->
+				<Page num='3'>
+					<Cell row='1' col='1' knobID="Vibrato Shape" inOutButtonID="Vibrato Shape" selectButtonID=""/>
+					<Cell row='2' col='1' knobID="Vibrato Rate" inOutButtonID="" selectButtonID="Vibrato Rate"/>
+					<Cell row='3' col='1' knobID="V.Onset Delay" inOutButtonID="" selectButtonID="V.Onset Delay"/>
+					<Cell row='4' col='1' knobID="V.Onset Rate" inOutButtonID="" selectButtonID="V.Onset Rate"/>
+					<Cell row='5' col='1' knobID="Vibrato Variation" inOutButtonID="" selectButtonID="Vibrato Variation"/>
+					<Cell row='6' col='1' knobID="Vibrato Pitch" inOutButtonID="" selectButtonID="Vibrato Pitch"/>
+					<Cell row='7' col='1' knobID="Vibrato Amplitude" inOutButtonID="" selectButtonID="Vibrato Amplitude"/>
+					<Cell row='8' col='1' knobID="Vibrato Formant" inOutButtonID="" selectButtonID="Vibrato Formant"/>
+				</Page><!--num='3'-->
+			</PageTable><!--type='Av81' pgsz='24'-->
+			<PageTable type='BkCS' pgsz='12'>
+				<Page num='1'>
+					<ID>Retune Speed</ID>
+					<ID>Flex-Tune</ID>
+					<ID>Natural Vibrato</ID>
+					<ID>Humanize</ID>
+					<ID>Key</ID>
+					<ID>Scale</ID>
+					<ID>Retune Speed</ID>
+					<ID>Flex-Tune</ID>
+					<ID>Natural Vibrato</ID>
+					<ID>Humanize</ID>
+					<ID>Key</ID>
+					<ID>Scale</ID>
+				</Page><!--num='1'-->
+				<Page num='2'>
+					<ID>Input Type</ID>
+					<ID>Formant Correction</ID>
+					<ID>Throat Length</ID>
+					<ID>Transpose</ID>
+					<ID>Detune</ID>
+					<ID>Master Bypass</ID>
+					<ID>Input Type</ID>
+					<ID>Formant Correction</ID>
+					<ID>Throat Length</ID>
+					<ID>Transpose</ID>
+					<ID>Detune</ID>
+					<ID>Master Bypass</ID>
+				</Page><!--num='2'-->
+				<Page num='3'>
+					<ID>Target Notes via MIDI</ID>
+					<ID>Learn Scale from MIDI</ID>
+					<ID>MIDI Octaves</ID>
+					<ID>Ignore Vibrato</ID>
+					<ID>Vibrato Shape</ID>
+					<ID>Vibrato Rate</ID>
+					<ID>Target Notes via MIDI</ID>
+					<ID>Learn Scale from MIDI</ID>
+					<ID>MIDI Octaves</ID>
+					<ID>Ignore Vibrato</ID>
+					<ID>Vibrato Shape</ID>
+					<ID>Vibrato Rate</ID>
+				</Page><!--num='3'-->
+				<Page num='4'>
+					<ID>V.Onset Delay</ID>
+					<ID>V.Onset Rate</ID>
+					<ID>Vibrato Variation</ID>
+					<ID>Vibrato Pitch</ID>
+					<ID>Vibrato Amplitude</ID>
+					<ID>Vibrato Formant</ID>
+					<ID>V.Onset Delay</ID>
+					<ID>V.Onset Rate</ID>
+					<ID>Vibrato Variation</ID>
+					<ID>Vibrato Pitch</ID>
+					<ID>Vibrato Amplitude</ID>
+					<ID>Vibrato Formant</ID>
+				</Page><!--num='4'-->
+			</PageTable><!--type='BkCS' pgsz='12'-->
+			<PageTable type='BkSF' pgsz='16'>
+				<Page num='1'>
+					<ID>Retune Speed</ID>
+					<ID>Flex-Tune</ID>
+					<ID>Natural Vibrato</ID>
+					<ID>Humanize</ID>
+					<ID>Input Type</ID>
+					<ID>Key</ID>
+					<ID>Scale</ID>
+					<ID>Master Bypass</ID>
+					<ID>Retune Speed</ID>
+					<ID>Flex-Tune</ID>
+					<ID>Natural Vibrato</ID>
+					<ID>Humanize</ID>
+					<ID>Input Type</ID>
+					<ID>Key</ID>
+					<ID>Scale</ID>
+					<ID>Master Bypass</ID>
+				</Page><!--num='1'-->
+				<Page num='2'>
+					<ID>Formant Correction</ID>
+					<ID>Throat Length</ID>
+					<ID>Transpose</ID>
+					<ID>Detune</ID>
+					<ID>Target Notes via MIDI</ID>
+					<ID>Learn Scale from MIDI</ID>
+					<ID>MIDI Octaves</ID>
+					<ID>Ignore Vibrato</ID>
+					<ID>Formant Correction</ID>
+					<ID>Throat Length</ID>
+					<ID>Transpose</ID>
+					<ID>Detune</ID>
+					<ID>Target Notes via MIDI</ID>
+					<ID>Learn Scale from MIDI</ID>
+					<ID>MIDI Octaves</ID>
+					<ID>Ignore Vibrato</ID>
+				</Page><!--num='2'-->
+				<Page num='3'>
+					<ID>Vibrato Shape</ID>
+					<ID>Vibrato Rate</ID>
+					<ID>V.Onset Delay</ID>
+					<ID>V.Onset Rate</ID>
+					<ID>Vibrato Variation</ID>
+					<ID>Vibrato Pitch</ID>
+					<ID>Vibrato Amplitude</ID>
+					<ID>Vibrato Formant</ID>
+					<ID>Vibrato Shape</ID>
+					<ID>Vibrato Rate</ID>
+					<ID>V.Onset Delay</ID>
+					<ID>V.Onset Rate</ID>
+					<ID>Vibrato Variation</ID>
+					<ID>Vibrato Pitch</ID>
+					<ID>Vibrato Amplitude</ID>
+					<ID>Vibrato Formant</ID>
+				</Page><!--num='3'-->
+			</PageTable><!--type='BkSF' pgsz='16'-->
+			<PageTable type='FrTL' pgsz='24'>
+				<Page num='1'>
+					<ID>Retune Speed</ID>
+					<ID>Flex-Tune</ID>
+					<ID>Natural Vibrato</ID>
+					<ID>Humanize</ID>
+					<ID>Input Type</ID>
+					<ID>Key</ID>
+					<ID>Scale</ID>
+					<ID>Master Bypass</ID>
+					<ID>Formant Correction</ID>
+					<ID>Throat Length</ID>
+					<ID>Transpose</ID>
+					<ID>Detune</ID>
+					<ID>Target Notes via MIDI</ID>
+					<ID>Learn Scale from MIDI</ID>
+					<ID>MIDI Octaves</ID>
+					<ID>Ignore Vibrato</ID>
+					<ID>Vibrato Shape</ID>
+					<ID>Vibrato Rate</ID>
+					<ID>V.Onset Delay</ID>
+					<ID>V.Onset Rate</ID>
+					<ID>Vibrato Variation</ID>
+					<ID>Vibrato Pitch</ID>
+					<ID>Vibrato Amplitude</ID>
+					<ID>Vibrato Formant</ID>
+				</Page><!--num='1'-->
+			</PageTable><!--type='FrTL' pgsz='24'-->
+			<PageTable type='HgTL' pgsz='8'>
+				<Page num='1'>
+					<ID>Retune Speed</ID>
+					<ID>Flex-Tune</ID>
+					<ID>Natural Vibrato</ID>
+					<ID>Humanize</ID>
+					<ID>Input Type</ID>
+					<ID>Key</ID>
+					<ID>Scale</ID>
+					<ID>Master Bypass</ID>
+				</Page><!--num='1'-->
+				<Page num='2'>
+					<ID>Formant Correction</ID>
+					<ID>Throat Length</ID>
+					<ID>Transpose</ID>
+					<ID>Detune</ID>
+					<ID>Target Notes via MIDI</ID>
+					<ID>Learn Scale from MIDI</ID>
+					<ID>MIDI Octaves</ID>
+					<ID>Ignore Vibrato</ID>
+				</Page><!--num='2'-->
+				<Page num='3'>
+					<ID>Vibrato Shape</ID>
+					<ID>Vibrato Rate</ID>
+					<ID>V.Onset Delay</ID>
+					<ID>V.Onset Rate</ID>
+					<ID>Vibrato Variation</ID>
+					<ID>Vibrato Pitch</ID>
+					<ID>Vibrato Amplitude</ID>
+					<ID>Vibrato Formant</ID>
+				</Page><!--num='3'-->
+			</PageTable><!--type='HgTL' pgsz='8'-->
+			<PageTable type='MkTL' pgsz='8'>
+				<Page num='1'>
+					<ID>Retune Speed</ID>
+					<ID>Flex-Tune</ID>
+					<ID>Natural Vibrato</ID>
+					<ID>Humanize</ID>
+					<ID>Retune Speed</ID>
+					<ID>Flex-Tune</ID>
+					<ID>Natural Vibrato</ID>
+					<ID>Humanize</ID>
+				</Page><!--num='1'-->
+				<Page num='2'>
+					<ID>Input Type</ID>
+					<ID>Key</ID>
+					<ID>Scale</ID>
+					<ID>Master Bypass</ID>
+					<ID>Input Type</ID>
+					<ID>Key</ID>
+					<ID>Scale</ID>
+					<ID>Master Bypass</ID>
+				</Page><!--num='2'-->
+				<Page num='3'>
+					<ID>Formant Correction</ID>
+					<ID>Throat Length</ID>
+					<ID>Transpose</ID>
+					<ID>Detune</ID>
+					<ID>Formant Correction</ID>
+					<ID>Throat Length</ID>
+					<ID>Transpose</ID>
+					<ID>Detune</ID>
+				</Page><!--num='3'-->
+				<Page num='4'>
+					<ID>Target Notes via MIDI</ID>
+					<ID>Learn Scale from MIDI</ID>
+					<ID>MIDI Octaves</ID>
+					<ID>Ignore Vibrato</ID>
+					<ID>Target Notes via MIDI</ID>
+					<ID>Learn Scale from MIDI</ID>
+					<ID>MIDI Octaves</ID>
+					<ID>Ignore Vibrato</ID>
+				</Page><!--num='4'-->
+				<Page num='5'>
+					<ID>Vibrato Shape</ID>
+					<ID>Vibrato Rate</ID>
+					<ID>V.Onset Delay</ID>
+					<ID>V.Onset Rate</ID>
+					<ID>Vibrato Shape</ID>
+					<ID>Vibrato Rate</ID>
+					<ID>V.Onset Delay</ID>
+					<ID>V.Onset Rate</ID>
+				</Page><!--num='5'-->
+				<Page num='6'>
+					<ID>Vibrato Variation</ID>
+					<ID>Vibrato Pitch</ID>
+					<ID>Vibrato Amplitude</ID>
+					<ID>Vibrato Formant</ID>
+					<ID>Vibrato Variation</ID>
+					<ID>Vibrato Pitch</ID>
+					<ID>Vibrato Amplitude</ID>
+					<ID>Vibrato Formant</ID>
+				</Page><!--num='6'-->
+			</PageTable><!--type='MkTL' pgsz='8'-->
+			<PageTable type='PcTL' pgsz='16'>
+				<Page num='1'>
+					<ID>Retune Speed</ID>
+					<ID>Flex-Tune</ID>
+					<ID>Natural Vibrato</ID>
+					<ID>Humanize</ID>
+					<ID>Input Type</ID>
+					<ID>Key</ID>
+					<ID>Scale</ID>
+					<ID>Master Bypass</ID>
+					<ID>Retune Speed</ID>
+					<ID>Flex-Tune</ID>
+					<ID>Natural Vibrato</ID>
+					<ID>Humanize</ID>
+					<ID>Input Type</ID>
+					<ID>Key</ID>
+					<ID>Scale</ID>
+					<ID>Master Bypass</ID>
+				</Page><!--num='1'-->
+				<Page num='2'>
+					<ID>Formant Correction</ID>
+					<ID>Throat Length</ID>
+					<ID>Transpose</ID>
+					<ID>Detune</ID>
+					<ID>Target Notes via MIDI</ID>
+					<ID>Learn Scale from MIDI</ID>
+					<ID>MIDI Octaves</ID>
+					<ID>Ignore Vibrato</ID>
+					<ID>Formant Correction</ID>
+					<ID>Throat Length</ID>
+					<ID>Transpose</ID>
+					<ID>Detune</ID>
+					<ID>Target Notes via MIDI</ID>
+					<ID>Learn Scale from MIDI</ID>
+					<ID>MIDI Octaves</ID>
+					<ID>Ignore Vibrato</ID>
+				</Page><!--num='2'-->
+				<Page num='3'>
+					<ID>Vibrato Shape</ID>
+					<ID>Vibrato Rate</ID>
+					<ID>V.Onset Delay</ID>
+					<ID>V.Onset Rate</ID>
+					<ID>Vibrato Variation</ID>
+					<ID>Vibrato Pitch</ID>
+					<ID>Vibrato Amplitude</ID>
+					<ID>Vibrato Formant</ID>
+					<ID>Vibrato Shape</ID>
+					<ID>Vibrato Rate</ID>
+					<ID>V.Onset Delay</ID>
+					<ID>V.Onset Rate</ID>
+					<ID>Vibrato Variation</ID>
+					<ID>Vibrato Pitch</ID>
+					<ID>Vibrato Amplitude</ID>
+					<ID>Vibrato Formant</ID>
+				</Page><!--num='3'-->
+			</PageTable><!--type='PcTL' pgsz='16'-->
+			<PageTable type='PgTL' pgsz='1'>
+				<Page num='1'>
+					<ID>Master Bypass</ID>
+				</Page><!--num='1'-->
+				<Page num='2'>
+					<ID>Input Type</ID>
+				</Page><!--num='2'-->
+				<Page num='3'>
+					<ID>Key</ID>
+				</Page><!--num='3'-->
+				<Page num='4'>
+					<ID>Scale</ID>
+				</Page><!--num='4'-->
+				<Page num='5'>
+					<ID>Retune Speed</ID>
+				</Page><!--num='5'-->
+				<Page num='6'>
+					<ID>Humanize</ID>
+				</Page><!--num='6'-->
+				<Page num='7'>
+					<ID>Natural Vibrato</ID>
+				</Page><!--num='7'-->
+				<Page num='8'>
+					<ID>Flex-Tune</ID>
+				</Page><!--num='8'-->
+				<Page num='9'>
+					<ID>Formant Correction</ID>
+				</Page><!--num='9'-->
+				<Page num='10'>
+					<ID>Throat Length</ID>
+				</Page><!--num='10'-->
+				<Page num='11'>
+					<ID>Transpose</ID>
+				</Page><!--num='11'-->
+				<Page num='12'>
+					<ID>Detune</ID>
+				</Page><!--num='12'-->
+				<Page num='13'>
+					<ID>Target Notes via MIDI</ID>
+				</Page><!--num='13'-->
+				<Page num='14'>
+					<ID>MIDI Octaves</ID>
+				</Page><!--num='14'-->
+				<Page num='15'>
+					<ID>Ignore Vibrato</ID>
+				</Page><!--num='15'-->
+				<Page num='16'>
+					<ID>Vibrato Shape</ID>
+				</Page><!--num='16'-->
+				<Page num='17'>
+					<ID>Vibrato Rate</ID>
+				</Page><!--num='17'-->
+				<Page num='18'>
+					<ID>V.Onset Delay</ID>
+				</Page><!--num='18'-->
+				<Page num='19'>
+					<ID>V.Onset Rate</ID>
+				</Page><!--num='19'-->
+				<Page num='20'>
+					<ID>Vibrato Variation</ID>
+				</Page><!--num='20'-->
+				<Page num='21'>
+					<ID>Vibrato Pitch</ID>
+				</Page><!--num='21'-->
+				<Page num='22'>
+					<ID>Vibrato Amplitude</ID>
+				</Page><!--num='22'-->
+				<Page num='23'>
+					<ID>Vibrato Formant</ID>
+				</Page><!--num='23'-->
+				<Page num='24'>
+					<ID>Learn Scale from MIDI</ID>
+				</Page><!--num='24'-->
+			</PageTable><!--type='PgTL' pgsz='1'-->
+		</PTLayout><!--name='ALL AAX'-->
+	</PageTableLayouts>
+	<ControlNamesVariations>
+		<Ctrl ID='Detune'>
+			<name typ='PgTL' sz='1'>D</name>
+			<name typ='PgTL' sz='2'>De</name>
+			<name typ='PgTL' sz='3'>Det</name>
+			<name typ='PgTL' sz='4'>Detu</name>
+			<name typ='PgTL' sz='5'>Detun</name>
+		</Ctrl><!--ID='Detune'-->
+		<Ctrl ID='Flex-Tune'>
+			<name typ='PgTL' sz='1'>F</name>
+			<name typ='PgTL' sz='2'>Fl</name>
+			<name typ='PgTL' sz='3'>Fle</name>
+			<name typ='PgTL' sz='4'>Flex</name>
+			<name typ='PgTL' sz='5'>Flex-</name>
+			<name typ='PgTL' sz='6'>FlexTu</name>
+			<name typ='PgTL' sz='7'>Flex-Tu</name>
+			<name typ='PgTL' sz='8'>FlexTune</name>
+		</Ctrl><!--ID='Flex-Tune'-->
+		<Ctrl ID='Formant Correction'>
+			<name typ='PgTL' sz='1'>F</name>
+			<name typ='PgTL' sz='2'>Fo</name>
+			<name typ='PgTL' sz='3'>For</name>
+			<name typ='PgTL' sz='4'>Frmt</name>
+			<name typ='PgTL' sz='5'>Formt</name>
+			<name typ='PgTL' sz='6'>Formnt</name>
+			<name typ='PgTL' sz='7'>Formant</name>
+			<name typ='PgTL' sz='8'>Formant </name>
+			<name typ='PgTL' sz='9'>Formant C</name>
+			<name typ='PgTL' sz='10'>Formant Co</name>
+			<name typ='PgTL' sz='11'>Formant Cor</name>
+		</Ctrl><!--ID='Formant Correction'-->
+		<Ctrl ID='Humanize'>
+			<name typ='PgTL' sz='1'>H</name>
+			<name typ='PgTL' sz='2'>Hu</name>
+			<name typ='PgTL' sz='3'>Hum</name>
+			<name typ='PgTL' sz='4'>Huma</name>
+			<name typ='PgTL' sz='5'>Human</name>
+			<name typ='PgTL' sz='6'>Humani</name>
+			<name typ='PgTL' sz='7'>Humaniz</name>
+		</Ctrl><!--ID='Humanize'-->
+		<Ctrl ID='Ignore Vibrato'>
+			<name typ='PgTL' sz='1'>I</name>
+			<name typ='PgTL' sz='2'>Ig</name>
+			<name typ='PgTL' sz='3'>Ign</name>
+			<name typ='PgTL' sz='4'>IgnV</name>
+			<name typ='PgTL' sz='5'>Ignor</name>
+			<name typ='PgTL' sz='6'>IgnVib</name>
+			<name typ='PgTL' sz='7'>Ignore </name>
+			<name typ='PgTL' sz='8'>IgnorVib</name>
+			<name typ='PgTL' sz='9'>Ignore Vi</name>
+			<name typ='PgTL' sz='10'>Ignore Vib</name>
+			<name typ='PgTL' sz='11'>Ignore Vibr</name>
+			<name typ='PgTL' sz='12'>Ignore Vibra</name>
+			<name typ='PgTL' sz='13'>Ignore Vibrat</name>
+		</Ctrl><!--ID='Ignore Vibrato'-->
+		<Ctrl ID='Input Type'>
+			<name typ='PgTL' sz='1'>I</name>
+			<name typ='PgTL' sz='2'>In</name>
+			<name typ='PgTL' sz='3'>Inp</name>
+			<name typ='PgTL' sz='4'>Inpt</name>
+			<name typ='PgTL' sz='5'>Input</name>
+			<name typ='PgTL' sz='6'>InType</name>
+			<name typ='PgTL' sz='7'>Input T</name>
+			<name typ='PgTL' sz='8'>InputTyp</name>
+			<name typ='PgTL' sz='9'>Input Typ</name>
+		</Ctrl><!--ID='Input Type'-->
+		<Ctrl ID='Key'>
+			<name typ='PgTL' sz='1'>K</name>
+			<name typ='PgTL' sz='2'>Ke</name>
+		</Ctrl><!--ID='Key'-->
+		<Ctrl ID='Learn Scale from MIDI'>
+			<name typ='PgTL' sz='1'>L</name>
+			<name typ='PgTL' sz='2'>Le</name>
+			<name typ='PgTL' sz='3'>Lea</name>
+			<name typ='PgTL' sz='4'>LnSc</name>
+			<name typ='PgTL' sz='5'>Learn</name>
+			<name typ='PgTL' sz='6'>LrnScl</name>
+			<name typ='PgTL' sz='7'>Learn S</name>
+			<name typ='PgTL' sz='8'>LrnScale</name>
+			<name typ='PgTL' sz='9'>Learn Sca</name>
+			<name typ='PgTL' sz='10'>Learn Scal</name>
+			<name typ='PgTL' sz='11'>Learn Scale</name>
+			<name typ='PgTL' sz='12'>Learn Scale </name>
+			<name typ='PgTL' sz='13'>Learn Scale f</name>
+			<name typ='PgTL' sz='14'>Learn Scale fr</name>
+			<name typ='PgTL' sz='15'>Learn Scale fro</name>
+			<name typ='PgTL' sz='16'>Learn Scale from</name>
+			<name typ='PgTL' sz='17'>Learn Scale from </name>
+			<name typ='PgTL' sz='18'>Learn Scale from M</name>
+			<name typ='PgTL' sz='19'>Learn Scale from MI</name>
+			<name typ='PgTL' sz='20'>Learn Scale from MID</name>
+		</Ctrl><!--ID='Learn Scale from MIDI'-->
+		<Ctrl ID='MIDI Octaves'>
+			<name typ='PgTL' sz='1'>M</name>
+			<name typ='PgTL' sz='2'>MI</name>
+			<name typ='PgTL' sz='3'>MID</name>
+			<name typ='PgTL' sz='4'>MOct</name>
+			<name typ='PgTL' sz='5'>MIDI </name>
+			<name typ='PgTL' sz='6'>MIDIOc</name>
+			<name typ='PgTL' sz='7'>MIDI Oc</name>
+			<name typ='PgTL' sz='8'>MIDIOcta</name>
+			<name typ='PgTL' sz='9'>MIDI Octa</name>
+			<name typ='PgTL' sz='10'>MIDI Octav</name>
+			<name typ='PgTL' sz='11'>MIDI Octave</name>
+		</Ctrl><!--ID='MIDI Octaves'-->
+		<Ctrl ID='Master Bypass'>
+			<name typ='PgTL' sz='1'>M</name>
+			<name typ='PgTL' sz='2'>Ma</name>
+			<name typ='PgTL' sz='3'>Mas</name>
+			<name typ='PgTL' sz='4'>Bypa</name>
+			<name typ='PgTL' sz='5'>Maste</name>
+			<name typ='PgTL' sz='6'>Bypass</name>
+			<name typ='PgTL' sz='7'>Master </name>
+			<name typ='PgTL' sz='8'>M Bypass</name>
+			<name typ='PgTL' sz='9'>Master By</name>
+			<name typ='PgTL' sz='10'>Master Byp</name>
+			<name typ='PgTL' sz='11'>Master Bypa</name>
+			<name typ='PgTL' sz='12'>Master Bypas</name>
+		</Ctrl><!--ID='Master Bypass'-->
+		<Ctrl ID='Natural Vibrato'>
+			<name typ='PgTL' sz='1'>N</name>
+			<name typ='PgTL' sz='2'>Na</name>
+			<name typ='PgTL' sz='3'>Nat</name>
+			<name typ='PgTL' sz='4'>NatV</name>
+			<name typ='PgTL' sz='5'>Natur</name>
+			<name typ='PgTL' sz='6'>NatVib</name>
+			<name typ='PgTL' sz='7'>Natural</name>
+			<name typ='PgTL' sz='8'>NaturalV</name>
+			<name typ='PgTL' sz='9'>Natural V</name>
+			<name typ='PgTL' sz='10'>Natural Vi</name>
+			<name typ='PgTL' sz='11'>Natural Vib</name>
+			<name typ='PgTL' sz='12'>Natural vibr</name>
+			<name typ='PgTL' sz='13'>Natural vibra</name>
+			<name typ='PgTL' sz='14'>Natural vibrat</name>
+		</Ctrl><!--ID='Natural Vibrato'-->
+		<Ctrl ID='Retune Speed'>
+			<name typ='PgTL' sz='1'>R</name>
+			<name typ='PgTL' sz='2'>Re</name>
+			<name typ='PgTL' sz='3'>Ret</name>
+			<name typ='PgTL' sz='4'>Retu</name>
+			<name typ='PgTL' sz='5'>Retun</name>
+			<name typ='PgTL' sz='6'>Retune</name>
+			<name typ='PgTL' sz='7'>Retune </name>
+			<name typ='PgTL' sz='8'>Retune S</name>
+			<name typ='PgTL' sz='9'>Retune Sp</name>
+			<name typ='PgTL' sz='10'>Retune Spe</name>
+			<name typ='PgTL' sz='11'>Retune Spee</name>
+		</Ctrl><!--ID='Retune Speed'-->
+		<Ctrl ID='Scale'>
+			<name typ='PgTL' sz='1'>S</name>
+			<name typ='PgTL' sz='2'>Sc</name>
+			<name typ='PgTL' sz='3'>Sca</name>
+			<name typ='PgTL' sz='4'>Scal</name>
+		</Ctrl><!--ID='Scale'-->
+		<Ctrl ID='Target Notes via MIDI'>
+			<name typ='PgTL' sz='1'>T</name>
+			<name typ='PgTL' sz='2'>Ta</name>
+			<name typ='PgTL' sz='3'>Tar</name>
+			<name typ='PgTL' sz='4'>MIDI</name>
+			<name typ='PgTL' sz='5'>Targe</name>
+			<name typ='PgTL' sz='6'>NtMIDI</name>
+			<name typ='PgTL' sz='7'>Target </name>
+			<name typ='PgTL' sz='8'>NoteMIDI</name>
+			<name typ='PgTL' sz='9'>Target no</name>
+			<name typ='PgTL' sz='10'>Target not</name>
+			<name typ='PgTL' sz='11'>Target note</name>
+			<name typ='PgTL' sz='12'>Target Notes</name>
+			<name typ='PgTL' sz='13'>Target Notes </name>
+			<name typ='PgTL' sz='14'>Target Notes v</name>
+			<name typ='PgTL' sz='15'>Target Notes vi</name>
+			<name typ='PgTL' sz='16'>Target Notes via</name>
+			<name typ='PgTL' sz='17'>Target Notes via </name>
+			<name typ='PgTL' sz='18'>Target Notes via M</name>
+			<name typ='PgTL' sz='19'>Target Notes via MI</name>
+			<name typ='PgTL' sz='20'>Target Notes via MID</name>
+		</Ctrl><!--ID='Target Notes via MIDI'-->
+		<Ctrl ID='Throat Length'>
+			<name typ='PgTL' sz='1'>T</name>
+			<name typ='PgTL' sz='2'>Th</name>
+			<name typ='PgTL' sz='3'>Thr</name>
+			<name typ='PgTL' sz='4'>Thrt</name>
+			<name typ='PgTL' sz='5'>Throa</name>
+			<name typ='PgTL' sz='6'>Throat</name>
+			<name typ='PgTL' sz='7'>Throat </name>
+			<name typ='PgTL' sz='8'>Throat L</name>
+			<name typ='PgTL' sz='9'>Throat Le</name>
+			<name typ='PgTL' sz='10'>Throat Len</name>
+			<name typ='PgTL' sz='11'>Throat Leng</name>
+			<name typ='PgTL' sz='12'>Throat Lengt</name>
+		</Ctrl><!--ID='Throat Length'-->
+		<Ctrl ID='Transpose'>
+			<name typ='PgTL' sz='1'>T</name>
+			<name typ='PgTL' sz='2'>Tr</name>
+			<name typ='PgTL' sz='3'>Tra</name>
+			<name typ='PgTL' sz='4'>Tran</name>
+			<name typ='PgTL' sz='5'>Trans</name>
+			<name typ='PgTL' sz='6'>Transp</name>
+			<name typ='PgTL' sz='7'>Transpo</name>
+			<name typ='PgTL' sz='8'>Transpos</name>
+		</Ctrl><!--ID='Transpose'-->
+		<Ctrl ID='V.Onset Delay'>
+			<name typ='PgTL' sz='1'>V</name>
+			<name typ='PgTL' sz='2'>V.</name>
+			<name typ='PgTL' sz='3'>V.O</name>
+			<name typ='PgTL' sz='4'>VDel</name>
+			<name typ='PgTL' sz='5'>V.Ons</name>
+			<name typ='PgTL' sz='6'>VOnDel</name>
+			<name typ='PgTL' sz='7'>V.Onset</name>
+			<name typ='PgTL' sz='8'>VOnsDela</name>
+			<name typ='PgTL' sz='9'>V.Onset D</name>
+			<name typ='PgTL' sz='10'>V.Onset De</name>
+			<name typ='PgTL' sz='11'>V.Onset Del</name>
+			<name typ='PgTL' sz='12'>V.Onset Dela</name>
+		</Ctrl><!--ID='V.Onset Delay'-->
+		<Ctrl ID='V.Onset Rate'>
+			<name typ='PgTL' sz='1'>V</name>
+			<name typ='PgTL' sz='2'>V.</name>
+			<name typ='PgTL' sz='3'>V.O</name>
+			<name typ='PgTL' sz='4'>VOnR</name>
+			<name typ='PgTL' sz='5'>V.Ons</name>
+			<name typ='PgTL' sz='6'>VOnRat</name>
+			<name typ='PgTL' sz='7'>V.Onset</name>
+			<name typ='PgTL' sz='8'>VOnsRate</name>
+			<name typ='PgTL' sz='9'>V.Onset R</name>
+			<name typ='PgTL' sz='10'>V.Onset Ra</name>
+			<name typ='PgTL' sz='11'>V.Onset Rat</name>
+		</Ctrl><!--ID='V.Onset Rate'-->
+		<Ctrl ID='Vibrato Amplitude'>
+			<name typ='PgTL' sz='1'>V</name>
+			<name typ='PgTL' sz='2'>Vi</name>
+			<name typ='PgTL' sz='3'>Vib</name>
+			<name typ='PgTL' sz='4'>VAmp</name>
+			<name typ='PgTL' sz='5'>Vibra</name>
+			<name typ='PgTL' sz='6'>VibAmp</name>
+			<name typ='PgTL' sz='7'>VibAmpl</name>
+			<name typ='PgTL' sz='8'>Vib Ampl</name>
+			<name typ='PgTL' sz='9'>Vibrato A</name>
+			<name typ='PgTL' sz='10'>Vibrato Am</name>
+			<name typ='PgTL' sz='11'>Vibrato Amp</name>
+			<name typ='PgTL' sz='12'>Vibrato Ampl</name>
+			<name typ='PgTL' sz='13'>Vibrato Ampli</name>
+			<name typ='PgTL' sz='14'>Vibrato Amplit</name>
+			<name typ='PgTL' sz='15'>Vibrato Amplitu</name>
+			<name typ='PgTL' sz='16'>Vibrato Amplitud</name>
+		</Ctrl><!--ID='Vibrato Amplitude'-->
+		<Ctrl ID='Vibrato Formant'>
+			<name typ='PgTL' sz='1'>V</name>
+			<name typ='PgTL' sz='2'>Vi</name>
+			<name typ='PgTL' sz='3'>Vib</name>
+			<name typ='PgTL' sz='4'>VFor</name>
+			<name typ='PgTL' sz='5'>Vibra</name>
+			<name typ='PgTL' sz='6'>VibFor</name>
+			<name typ='PgTL' sz='7'>Vibrato</name>
+			<name typ='PgTL' sz='8'>VibFrmnt</name>
+			<name typ='PgTL' sz='9'>Vibrato F</name>
+			<name typ='PgTL' sz='10'>Vibrato Fo</name>
+			<name typ='PgTL' sz='11'>Vibrato For</name>
+			<name typ='PgTL' sz='12'>Vibrato Form</name>
+			<name typ='PgTL' sz='13'>Vibrato Forma</name>
+			<name typ='PgTL' sz='14'>Vibrato Forman</name>
+		</Ctrl><!--ID='Vibrato Formant'-->
+		<Ctrl ID='Vibrato Pitch'>
+			<name typ='PgTL' sz='1'>V</name>
+			<name typ='PgTL' sz='2'>Vi</name>
+			<name typ='PgTL' sz='3'>Vib</name>
+			<name typ='PgTL' sz='4'>VPit</name>
+			<name typ='PgTL' sz='5'>VibPi</name>
+			<name typ='PgTL' sz='6'>VPitch</name>
+			<name typ='PgTL' sz='7'>VibPtch</name>
+			<name typ='PgTL' sz='8'>VibPitch</name>
+			<name typ='PgTL' sz='9'>Vibrato P</name>
+			<name typ='PgTL' sz='10'>Vibrato Pi</name>
+			<name typ='PgTL' sz='11'>Vibrato Pit</name>
+			<name typ='PgTL' sz='12'>Vibrato Pitc</name>
+		</Ctrl><!--ID='Vibrato Pitch'-->
+		<Ctrl ID='Vibrato Rate'>
+			<name typ='PgTL' sz='1'>V</name>
+			<name typ='PgTL' sz='2'>Vi</name>
+			<name typ='PgTL' sz='3'>Vib</name>
+			<name typ='PgTL' sz='4'>VRat</name>
+			<name typ='PgTL' sz='5'>Vibra</name>
+			<name typ='PgTL' sz='6'>V Rate</name>
+			<name typ='PgTL' sz='7'>Vibrato</name>
+			<name typ='PgTL' sz='8'>Vib Rate</name>
+			<name typ='PgTL' sz='9'>Vibrato R</name>
+			<name typ='PgTL' sz='10'>Vibrato Ra</name>
+			<name typ='PgTL' sz='11'>Vibrato Rat</name>
+		</Ctrl><!--ID='Vibrato Rate'-->
+		<Ctrl ID='Vibrato Shape'>
+			<name typ='PgTL' sz='1'>V</name>
+			<name typ='PgTL' sz='2'>Vi</name>
+			<name typ='PgTL' sz='3'>Vib</name>
+			<name typ='PgTL' sz='4'>VSha</name>
+			<name typ='PgTL' sz='5'>VibSh</name>
+			<name typ='PgTL' sz='6'>VShape</name>
+			<name typ='PgTL' sz='7'>Vibrato</name>
+			<name typ='PgTL' sz='8'>VibShape</name>
+			<name typ='PgTL' sz='9'>Vibrato S</name>
+			<name typ='PgTL' sz='10'>Vibrato Sh</name>
+			<name typ='PgTL' sz='11'>Vibrato Sha</name>
+			<name typ='PgTL' sz='12'>Vibrato Shap</name>
+		</Ctrl><!--ID='Vibrato Shape'-->
+		<Ctrl ID='Vibrato Variation'>
+			<name typ='PgTL' sz='1'>V</name>
+			<name typ='PgTL' sz='2'>Vi</name>
+			<name typ='PgTL' sz='3'>Vib</name>
+			<name typ='PgTL' sz='4'>VVar</name>
+			<name typ='PgTL' sz='5'>VibVa</name>
+			<name typ='PgTL' sz='6'>VibVar</name>
+			<name typ='PgTL' sz='7'>VibrVar</name>
+			<name typ='PgTL' sz='8'>VibrVari</name>
+			<name typ='PgTL' sz='9'>Vibrato V</name>
+			<name typ='PgTL' sz='10'>Vibrato Va</name>
+			<name typ='PgTL' sz='11'>Vibrato Var</name>
+			<name typ='PgTL' sz='12'>Vibrato Vari</name>
+			<name typ='PgTL' sz='13'>Vibrato Varia</name>
+			<name typ='PgTL' sz='14'>Vibrato Variat</name>
+			<name typ='PgTL' sz='15'>Vibrato Variati</name>
+			<name typ='PgTL' sz='16'>Vibrato Variatio</name>
+		</Ctrl><!--ID='Vibrato Variation'-->
+	</ControlNamesVariations>
+	<Editor vers='1.3.7.1'>
+		<PluginList>
+			<TDM>
+			</TDM>
+			<RTAS>
+			</RTAS>
+		</PluginList>
+		<DiscCtrls>
+			<CtrlID>Formant Correction</CtrlID>
+			<CtrlID>Ignore Vibrato</CtrlID>
+			<CtrlID>Input Type</CtrlID>
+			<CtrlID>Key</CtrlID>
+			<CtrlID>Learn Scale from MIDI</CtrlID>
+			<CtrlID>MIDI Octaves</CtrlID>
+			<CtrlID>Master Bypass</CtrlID>
+			<CtrlID>Scale</CtrlID>
+			<CtrlID>Target Notes via MIDI</CtrlID>
+			<CtrlID>Vibrato Shape</CtrlID>
+		</DiscCtrls>
+	</Editor><!--vers='1.3.7.1'-->
+</PageTables><!--vers='1.0.0.0'-->
