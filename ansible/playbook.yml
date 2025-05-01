@@ -51,6 +51,49 @@
         chdir: "{{ playbook_dir }}"
       become: false
 
+    - name: Create backup directory
+      file:
+        path: "{{ ansible_env.HOME }}/.dotfiles-backup"
+        state: directory
+        mode: '0755'
+      become: false
+
+    - name: Backup existing files and directories
+      shell: |
+        if [ -e "{{ ansible_env.HOME }}/{{ item.dest }}" ]; then
+          mv "{{ ansible_env.HOME }}/{{ item.dest }}" "{{ ansible_env.HOME }}/.dotfiles-backup/{{ item.dest | basename }}_$(date +%Y%m%d_%H%M%S)"
+        fi
+      args:
+        warn: false
+      loop:
+        - { dest: ".zshrc" }
+        - { dest: ".zshenv" }
+        - { dest: ".p10k.zsh" }
+        - { dest: ".profile" }
+        - { dest: ".oh-my-bash" }
+        - { dest: ".envrc" }
+        - { dest: ".aliasrc" }
+        - { dest: ".bash_eww" }
+        - { dest: ".bash_local" }
+        - { dest: ".bashrc" }
+        - { dest: ".clang-format" }
+        - { dest: ".gitconfig" }
+        - { dest: ".gitignore" }
+        - { dest: ".vim" }
+        - { dest: ".fonts" }
+        - { dest: ".config/fish" }
+        - { dest: ".config/fontconfig" }
+        - { dest: ".config/ghostty" }
+        - { dest: ".config/kitty" }
+        - { dest: ".config/nix" }
+        - { dest: ".config/nvim" }
+        - { dest: ".config/sops" }
+        - { dest: ".config/tmux" }
+        - { dest: ".config/wezterm" }
+        - { dest: ".config/wslu" }
+        - { dest: ".config/zsh" }
+      become: false
+
     - name: Create symbolic links for dotfiles
       file:
         src: "{{ playbook_dir }}/../{{ item.src }}"
@@ -58,13 +101,24 @@
         state: link
         force: yes
       loop:
+        - { src: ".zshrc", dest: ".zshrc" }
+        - { src: ".zshenv", dest: ".zshenv" }
+        - { src: ".p10k.zsh", dest: ".p10k.zsh" }
+        - { src: ".profile", dest: ".profile" }
+        - { src: ".oh-my-bash", dest: ".oh-my-bash" }
+        - { src: ".envrc", dest: ".envrc" }
+        - { src: ".aliasrc", dest: ".aliasrc" }
+        - { src: ".bash_eww", dest: ".bash_eww" }
+        - { src: ".bash_local", dest: ".bash_local" }
+        - { src: ".bashrc", dest: ".bashrc" }
+        - { src: ".clang-format", dest: ".clang-format" }
+        - { src: ".gitconfig", dest: ".gitconfig" }
+        - { src: ".gitignore", dest: ".gitignore" }
+        - { src: ".vim", dest: ".vim" }
+        - { src: ".fonts", dest: ".fonts" }
         - { src: "fish/config.fish", dest: ".config/fish/config.fish" }
         - { src: "fish/functions", dest: ".config/fish/functions" }
         - { src: "fish/conf.d", dest: ".config/fish/conf.d" }
-        - { src: "git/gitconfig", dest: ".gitconfig" }
-        - { src: "git/gitignore", dest: ".gitignore" }
-        - { src: "vim/vimrc", dest: ".vimrc" }
-        - { src: "tmux/tmux.conf", dest: ".tmux.conf" }
       become: false
 
     - name: Install Fisher package manager
