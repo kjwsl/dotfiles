@@ -45,6 +45,19 @@ get_script_dir() {
     echo "$DIR"
 }
 
+# Function to clone the repository if needed
+setup_repository() {
+    local repo_url="https://github.com/kjwsl/dotfiles.git"
+    local target_dir="$HOME/.dotfiles"
+    
+    if [ ! -d "$target_dir" ]; then
+        echo "Cloning repository..."
+        git clone "$repo_url" "$target_dir"
+    fi
+    
+    echo "$target_dir"
+}
+
 # Function to verify installation
 verify_installation() {
     echo "Verifying installation..."
@@ -135,16 +148,16 @@ install_ansible() {
 
 # Function to install required Ansible collections
 install_ansible_collections() {
-    local script_dir=$(get_script_dir)
+    local dotfiles_dir="$1"
     echo "Installing required Ansible collections..."
-    ansible-galaxy collection install -r "$script_dir/ansible/requirements.yml"
+    ansible-galaxy collection install -r "$dotfiles_dir/ansible/requirements.yml"
 }
 
 # Function to run the Ansible playbook
 run_ansible_playbook() {
-    local script_dir=$(get_script_dir)
+    local dotfiles_dir="$1"
     echo "Running Ansible playbook..."
-    ansible-playbook -i "$script_dir/ansible/inventory.yml" "$script_dir/ansible/playbook.yml"
+    ansible-playbook -i "$dotfiles_dir/ansible/inventory.yml" "$dotfiles_dir/ansible/playbook.yml"
 }
 
 # Function to install platform-specific prerequisites
@@ -175,6 +188,9 @@ install_prerequisites() {
 main() {
     echo "Starting installation process..."
     
+    # Setup repository
+    local dotfiles_dir=$(setup_repository)
+    
     # Install platform-specific prerequisites
     install_prerequisites
     
@@ -185,10 +201,10 @@ main() {
     install_ansible
     
     # Install required Ansible collections
-    install_ansible_collections
+    install_ansible_collections "$dotfiles_dir"
     
     # Run the Ansible playbook
-    run_ansible_playbook
+    run_ansible_playbook "$dotfiles_dir"
     
     # Verify installation
     if ! verify_installation; then
