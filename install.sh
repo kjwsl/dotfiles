@@ -223,26 +223,28 @@ install_nix() {
 # Function to set up Home Manager
 setup_home_manager() {
     local os=$(detect_os)
-    local username=$(whoami)
     
-    if ! command_exists home-manager; then
-        log "info" "Installing Home Manager..."
-        nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-        nix-channel --update
-        
-        case "$os" in
-            darwin)
-                nix-shell '<home-manager>' -A install
-                ;;
-            *)
-                nix-shell '<home-manager>' -A install
-                ;;
-        esac
+    log "info" "Applying Home Manager configuration..."
+    
+    # Create flake.lock if it doesn't exist
+    if [ ! -f "flake.lock" ]; then
+        log "info" "Creating flake.lock file..."
+        nix flake lock
     fi
     
-    # Apply Home Manager configuration
-    log "info" "Applying Home Manager configuration..."
-    home-manager switch --flake .
+    # Apply the home-manager configuration using the flake
+    nix run --no-write-lock-file home-manager/master -- switch --flake .#ray
+    
+    if [ $? -ne 0 ]; then
+        log "error" "Failed to apply Home Manager configuration"
+        log "info" "Trying alternate method..."
+        nix run nixpkgs#home-manager -- switch --flake .#ray
+        
+        if [ $? -ne 0 ]; then
+            log "error" "Home Manager configuration failed"
+            exit 1
+        fi
+    fi
 }
 
 # Function to verify installation
@@ -267,10 +269,9 @@ verify_installation() {
         return 1
     fi
     
-    # Check Home Manager
-    if ! command_exists home-manager; then
-        log "error" "Home Manager installation failed"
-        return 1
+    # Check home-manager configuration
+    if [ ! -d "$HOME/.config/home-manager" ]; then
+        log "warning" "Home Manager configuration directory not found"
     fi
 
     # Check Nix daemon (macOS specific)
@@ -293,6 +294,9 @@ main() {
     local dotfiles_dir=$(get_dotfiles_dir)
     log "info" "Using dotfiles directory: $dotfiles_dir"
     
+    # Move to the dotfiles directory
+    cd "$dotfiles_dir"
+    
     # Install Nix with flakes support
     install_nix
     
@@ -308,7 +312,7 @@ main() {
     log "success" "Installation complete!"
     log "info" "Next steps:"
     log "info" "1. Run 'nix develop' to enter the development shell"
-    log "info" "2. Run 'home-manager switch --flake .' to apply the configuration"
+    log "info" "2. Run 'nix run nixpkgs#home-manager -- switch --flake .#ray' to apply any configuration changes"
     log "info" "3. Restart your shell to apply the changes"
 }
 
