@@ -33,6 +33,18 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
+# Function to get the script directory
+get_script_dir() {
+    SOURCE="${BASH_SOURCE[0]}"
+    while [ -h "$SOURCE" ]; do
+        DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+        SOURCE="$(readlink "$SOURCE")"
+        [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+    done
+    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+    echo "$DIR"
+}
+
 # Function to verify installation
 verify_installation() {
     echo "Verifying installation..."
@@ -123,14 +135,16 @@ install_ansible() {
 
 # Function to install required Ansible collections
 install_ansible_collections() {
+    local script_dir=$(get_script_dir)
     echo "Installing required Ansible collections..."
-    ansible-galaxy collection install -r ansible/requirements.yml
+    ansible-galaxy collection install -r "$script_dir/ansible/requirements.yml"
 }
 
 # Function to run the Ansible playbook
 run_ansible_playbook() {
+    local script_dir=$(get_script_dir)
     echo "Running Ansible playbook..."
-    ansible-playbook -i ansible/inventory.yml ansible/playbook.yml
+    ansible-playbook -i "$script_dir/ansible/inventory.yml" "$script_dir/ansible/playbook.yml"
 }
 
 # Function to install platform-specific prerequisites
