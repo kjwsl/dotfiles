@@ -20,8 +20,8 @@
       homeDirectory = builtins.getEnv "HOME";
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
-      
-      homeConfig = home-manager.lib.homeManagerConfiguration {
+    in {
+      homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
           ./modules/home-manager/home.nix
@@ -33,15 +33,30 @@
           }
         ];
       };
-    in {
-      # Expose the home-manager configuration
-      homeConfigurations.${username} = homeConfig;
-      
-      # Explicitly expose the activation package
-      packages.${system} = {
-        homeConfigurations.${username}.activationPackage = homeConfig.activationPackage;
+
+      # Darwin-specific configuration
+      darwinConfigurations.${username} = nix-darwin.lib.darwinSystem {
+        inherit system;
+        modules = [
+          ./modules/nix/default.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.${username} = {
+                imports = [ ./modules/home-manager/home.nix ];
+                home = {
+                  inherit username homeDirectory;
+                  stateVersion = "23.11";
+                };
+              };
+            };
+          }
+        ];
       };
 
+      # Development shell
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = with pkgs; [
           # Development tools
@@ -108,28 +123,6 @@
           export CARGO_HOME="$HOME/.cargo"
           export PATH="$CARGO_HOME/bin:$PATH"
         '';
-      };
-
-      # Darwin-specific configuration
-      darwinConfigurations.${username} = nix-darwin.lib.darwinSystem {
-        inherit system;
-        modules = [
-          ./modules/nix/default.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.${username} = {
-                imports = [ ./modules/home-manager/home.nix ];
-                home = {
-                  inherit username homeDirectory;
-                  stateVersion = "23.11";
-                };
-              };
-            };
-          }
-        ];
       };
     };
 } 
