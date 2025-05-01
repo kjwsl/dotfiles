@@ -63,8 +63,6 @@
         if [ -e "{{ ansible_env.HOME }}/{{ item.dest }}" ]; then
           mv "{{ ansible_env.HOME }}/{{ item.dest }}" "{{ ansible_env.HOME }}/.dotfiles-backup/{{ item.dest | basename }}_$(date +%Y%m%d_%H%M%S)"
         fi
-      args:
-        warn: false
       loop:
         - { dest: ".zshrc" }
         - { dest: ".zshenv" }
