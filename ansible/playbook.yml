@@ -1,52 +1,38 @@
 ---
 - name: Manage system dependencies and dotfiles
   hosts: localhost
-  become: true
+  connection: local
+  gather_facts: true
+  become: false
+
   tasks:
-    - name: Set OS-specific variables
-      set_fact:
-        package_manager: "{{ 'brew' if ansible_os_family == 'Darwin' else 'apt' if ansible_os_family == 'Debian' else 'dnf' if ansible_os_family == 'RedHat' else 'pacman' if ansible_os_family == 'Archlinux' else 'choco' if ansible_os_family == 'Windows' else 'unknown' }}"
-        system_packages: "{{ 
-          {
-            'Darwin': ['git', 'curl', 'wget', 'zsh', 'fish', 'neovim', 'tmux', 'clang', 'fontconfig', 'direnv', 'sops', 'wezterm', 'kitty'],
-            'Debian': ['git', 'curl', 'wget', 'zsh', 'fish', 'neovim', 'tmux', 'clang', 'fontconfig', 'direnv', 'sops', 'wezterm', 'kitty'],
-            'RedHat': ['git', 'curl', 'wget', 'zsh', 'fish', 'neovim', 'tmux', 'clang', 'fontconfig', 'direnv', 'sops', 'wezterm', 'kitty'],
-            'Archlinux': ['git', 'curl', 'wget', 'zsh', 'fish', 'neovim', 'tmux', 'clang', 'fontconfig', 'direnv', 'sops', 'wezterm', 'kitty'],
-            'Windows': ['git', 'curl', 'wget', 'zsh', 'fish', 'neovim', 'tmux', 'clang', 'fontconfig', 'direnv', 'sops', 'wezterm', 'kitty']
-          }[ansible_os_family] 
-        }}"
+    - name: Gather facts without sudo
+      setup:
+      become: false
 
-    - name: Install system packages (macOS)
+    - name: Install system packages
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - git
+        - curl
+        - wget
+        - python3
+        - python3-pip
+      when: ansible_os_family != "Darwin"
+
+    - name: Install Homebrew packages (macOS)
       homebrew:
-        name: "{{ system_packages }}"
+        name: "{{ item }}"
         state: present
+      loop:
+        - git
+        - curl
+        - wget
+        - python
+        - fish
       when: ansible_os_family == "Darwin"
-
-    - name: Install system packages (Debian/Ubuntu)
-      apt:
-        name: "{{ system_packages }}"
-        state: present
-        update_cache: yes
-      when: ansible_os_family == "Debian"
-
-    - name: Install system packages (RedHat/Fedora)
-      dnf:
-        name: "{{ system_packages }}"
-        state: present
-      when: ansible_os_family == "RedHat"
-
-    - name: Install system packages (Arch Linux)
-      pacman:
-        name: "{{ system_packages }}"
-        state: present
-        update_cache: yes
-      when: ansible_os_family == "Archlinux"
-
-    - name: Install system packages (Windows)
-      win_chocolatey:
-        name: "{{ system_packages }}"
-        state: present
-      when: ansible_os_family == "Windows"
 
     - name: Install Python packages
       pip:
@@ -54,128 +40,43 @@
         state: present
       loop:
         - ansible
-        - pip
-        - virtualenv
-        - black
-        - flake8
-        - mypy
+        - ansible-core
+      become: false
 
-    - name: Create backup directory
-      file:
-        path: "{{ ansible_env.HOME }}/.dotfiles-backup"
-        state: directory
-        mode: '0755'
-      when: ansible_os_family != "Windows"
-
-    - name: Create backup directory (Windows)
-      win_file:
-        path: "{{ ansible_env.USERPROFILE }}/.dotfiles-backup"
-        state: directory
-      when: ansible_os_family == "Windows"
-
-    - name: Create config directories
-      file:
-        path: "{{ ansible_env.HOME }}/.config/{{ item }}"
-        state: directory
-        mode: '0755'
-      loop:
-        - fish
-        - fontconfig
-        - ghostty
-        - kitty
-        - nix
-        - nvim
-        - sops
-        - tmux
-        - wezterm
-        - wslu
-        - zsh
-      when: ansible_os_family != "Windows"
-
-    - name: Create config directories (Windows)
-      win_file:
-        path: "{{ ansible_env.APPDATA }}/{{ item }}"
-        state: directory
-      loop:
-        - fish
-        - fontconfig
-        - ghostty
-        - kitty
-        - nix
-        - nvim
-        - sops
-        - tmux
-        - wezterm
-        - wslu
-        - zsh
-      when: ansible_os_family == "Windows"
-
-    - name: Create symbolic links for dotfiles (Unix)
-      file:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-        state: link
-        force: yes
-      loop:
-        - { src: "~/.dotfiles/.zshrc", dest: "~/.zshrc" }
-        - { src: "~/.dotfiles/.zshenv", dest: "~/.zshenv" }
-        - { src: "~/.dotfiles/.gitconfig", dest: "~/.gitconfig" }
-        - { src: "~/.dotfiles/.p10k.zsh", dest: "~/.p10k.zsh" }
-        - { src: "~/.dotfiles/.profile", dest: "~/.profile" }
-        - { src: "~/.dotfiles/.aliasrc", dest: "~/.aliasrc" }
-        - { src: "~/.dotfiles/.bashrc", dest: "~/.bashrc" }
-        - { src: "~/.dotfiles/.bash_local", dest: "~/.bash_local" }
-        - { src: "~/.dotfiles/.clang-format", dest: "~/.clang-format" }
-        - { src: "~/.dotfiles/.envrc", dest: "~/.envrc" }
-        - { src: "~/.dotfiles/.vim", dest: "~/.vim" }
-        - { src: "~/.dotfiles/.fonts", dest: "~/.fonts" }
-        - { src: "~/.dotfiles/.oh-my-bash", dest: "~/.oh-my-bash" }
-      when: ansible_os_family != "Windows"
-
-    - name: Create symbolic links for dotfiles (Windows)
-      win_file:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-        state: link
-        force: yes
-      loop:
-        - { src: "~/.dotfiles/.zshrc", dest: "~/.zshrc" }
-        - { src: "~/.dotfiles/.zshenv", dest: "~/.zshenv" }
-        - { src: "~/.dotfiles/.gitconfig", dest: "~/.gitconfig" }
-        - { src: "~/.dotfiles/.p10k.zsh", dest: "~/.p10k.zsh" }
-        - { src: "~/.dotfiles/.profile", dest: "~/.profile" }
-        - { src: "~/.dotfiles/.aliasrc", dest: "~/.aliasrc" }
-        - { src: "~/.dotfiles/.bashrc", dest: "~/.bashrc" }
-        - { src: "~/.dotfiles/.bash_local", dest: "~/.bash_local" }
-        - { src: "~/.dotfiles/.clang-format", dest: "~/.clang-format" }
-        - { src: "~/.dotfiles/.envrc", dest: "~/.envrc" }
-        - { src: "~/.dotfiles/.vim", dest: "~/.vim" }
-        - { src: "~/.dotfiles/.fonts", dest: "~/.fonts" }
-        - { src: "~/.dotfiles/.oh-my-bash", dest: "~/.oh-my-bash" }
-      when: ansible_os_family == "Windows"
-
-    - name: Install Oh My Zsh (Unix)
-      shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    - name: Install Ansible collections
+      ansible.builtin.command: ansible-galaxy collection install -r requirements.yml
       args:
-        creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
-      when: ansible_os_family != "Windows"
+        chdir: "{{ playbook_dir }}"
+      become: false
 
-    - name: Install Powerlevel10k (Unix)
-      git:
-        repo: https://github.com/romkatv/powerlevel10k.git
-        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/themes/powerlevel10k"
+    - name: Create symbolic links for dotfiles
+      file:
+        src: "{{ playbook_dir }}/../{{ item.src }}"
+        dest: "{{ ansible_env.HOME }}/{{ item.dest }}"
+        state: link
         force: yes
+      loop:
+        - { src: "fish/config.fish", dest: ".config/fish/config.fish" }
+        - { src: "fish/functions", dest: ".config/fish/functions" }
+        - { src: "fish/conf.d", dest: ".config/fish/conf.d" }
+        - { src: "git/gitconfig", dest: ".gitconfig" }
+        - { src: "git/gitignore", dest: ".gitignore" }
+        - { src: "vim/vimrc", dest: ".vimrc" }
+        - { src: "tmux/tmux.conf", dest: ".tmux.conf" }
+      become: false
+
+    - name: Install Fisher package manager
+      shell: "fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source'"
+      args:
+        creates: "{{ ansible_env.HOME }}/.config/fish/functions/fisher.fish"
+      become: false
       when: ansible_os_family != "Windows"
 
-    - name: Install Fisher and plugins (Unix)
+    - name: Install Fisher plugins
       shell: "fish -c 'fisher install {{ item }}'"
       loop:
         - jorgebucaran/fisher
-        - lilyball/nix-env.fish
-        - kidonng/zoxide.fish
-        - edc/bass
-        - oh-my-fish/theme-bobthefish
-        - catppuccin/fish
-      args:
-        creates: "{{ ansible_env.HOME }}/.config/fish/functions/fisher.fish"
+        - jorgebucaran/nvm.fish
+        - franciscolourenco/done
+      become: false
       when: ansible_os_family != "Windows" 
