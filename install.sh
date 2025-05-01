@@ -73,7 +73,7 @@ verify_installation() {
     fi
     
     # Check Ansible collections
-    if [ ! -f "$HOME/.ansible/collections/ansible_collections/community/general/__init__.py" ]; then
+    if ! ansible-galaxy collection list | grep -q "community.general"; then
         echo "❌ Ansible collections installation failed"
         return 1
     fi
