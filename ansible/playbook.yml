@@ -32,9 +32,10 @@
         - wget
         - python
         - fish
+        - ansible
       when: ansible_os_family == "Darwin"
 
-    - name: Install Python packages
+    - name: Install Python packages (non-macOS)
       pip:
         name: "{{ item }}"
         state: present
@@ -42,6 +43,7 @@
         - ansible
         - ansible-core
       become: false
+      when: ansible_os_family != "Darwin"
 
     - name: Install Ansible collections
       ansible.builtin.command: ansible-galaxy collection install -r requirements.yml
