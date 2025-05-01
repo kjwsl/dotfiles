@@ -21,18 +21,21 @@
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./modules/home-manager/home.nix
-          {
-            home = {
-              inherit username homeDirectory;
-              stateVersion = "23.11";
-            };
-          }
-        ];
-      };
+      packages.${system}.default = home-manager.defaultPackage.${system};
+      
+      legacyPackages.${system}.homeConfigurations."${username}" = 
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./modules/home-manager/home.nix
+            {
+              home = {
+                inherit username homeDirectory;
+                stateVersion = "23.11";
+              };
+            }
+          ];
+        };
 
       # Darwin-specific configuration
       darwinConfigurations.${username} = nix-darwin.lib.darwinSystem {
