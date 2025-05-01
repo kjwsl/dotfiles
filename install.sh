@@ -33,28 +33,26 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Function to get the script directory
-get_script_dir() {
-    SOURCE="${BASH_SOURCE[0]}"
-    while [ -h "$SOURCE" ]; do
-        DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-        SOURCE="$(readlink "$SOURCE")"
-        [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
-    done
-    DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-    echo "$DIR"
-}
-
-# Function to clone the repository if needed
-setup_repository() {
+# Function to get the dotfiles directory
+get_dotfiles_dir() {
     local repo_url="https://github.com/kjwsl/dotfiles.git"
     local target_dir="$HOME/.dotfiles"
     
-    if [ ! -d "$target_dir" ]; then
-        echo "Cloning repository..."
-        git clone "$repo_url" "$target_dir"
+    # Check if we're in a git repository
+    if [ -d ".git" ] && [ -f "ansible/requirements.yml" ]; then
+        echo "$(pwd)"
+        return
     fi
     
+    # Check if dotfiles directory exists
+    if [ -d "$target_dir" ] && [ -f "$target_dir/ansible/requirements.yml" ]; then
+        echo "$target_dir"
+        return
+    fi
+    
+    # Clone the repository
+    echo "Cloning repository..."
+    git clone "$repo_url" "$target_dir"
     echo "$target_dir"
 }
 
@@ -149,15 +147,35 @@ install_ansible() {
 # Function to install required Ansible collections
 install_ansible_collections() {
     local dotfiles_dir="$1"
+    local requirements_file="$dotfiles_dir/ansible/requirements.yml"
+    
+    if [ ! -f "$requirements_file" ]; then
+        echo "Error: Could not find requirements file at $requirements_file"
+        exit 1
+    fi
+    
     echo "Installing required Ansible collections..."
-    ansible-galaxy collection install -r "$dotfiles_dir/ansible/requirements.yml"
+    ansible-galaxy collection install -r "$requirements_file"
 }
 
 # Function to run the Ansible playbook
 run_ansible_playbook() {
     local dotfiles_dir="$1"
+    local inventory_file="$dotfiles_dir/ansible/inventory.yml"
+    local playbook_file="$dotfiles_dir/ansible/playbook.yml"
+    
+    if [ ! -f "$inventory_file" ]; then
+        echo "Error: Could not find inventory file at $inventory_file"
+        exit 1
+    fi
+    
+    if [ ! -f "$playbook_file" ]; then
+        echo "Error: Could not find playbook file at $playbook_file"
+        exit 1
+    fi
+    
     echo "Running Ansible playbook..."
-    ansible-playbook -i "$dotfiles_dir/ansible/inventory.yml" "$dotfiles_dir/ansible/playbook.yml"
+    ansible-playbook -i "$inventory_file" "$playbook_file"
 }
 
 # Function to install platform-specific prerequisites
@@ -188,8 +206,9 @@ install_prerequisites() {
 main() {
     echo "Starting installation process..."
     
-    # Setup repository
-    local dotfiles_dir=$(setup_repository)
+    # Get the dotfiles directory
+    local dotfiles_dir=$(get_dotfiles_dir)
+    echo "Using dotfiles directory: $dotfiles_dir"
     
     # Install platform-specific prerequisites
     install_prerequisites
