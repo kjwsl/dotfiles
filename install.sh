@@ -133,10 +133,10 @@ install_ansible() {
             darwin)
                 # Create and use a virtual environment for Ansible
                 python3 -m venv "$HOME/.ansible-venv"
-                source "$HOME/.ansible-venv/bin/activate"
-                pip install ansible
-                deactivate
+                # Activate the virtual environment and install Ansible
+                . "$HOME/.ansible-venv/bin/activate" && pip install ansible
                 # Create a wrapper script to use the virtual environment
+                mkdir -p "$HOME/.local/bin"
                 cat > "$HOME/.local/bin/ansible" << 'EOF'
 #!/bin/bash
 source "$HOME/.ansible-venv/bin/activate"
@@ -144,6 +144,12 @@ ansible "$@"
 deactivate
 EOF
                 chmod +x "$HOME/.local/bin/ansible"
+                # Add .local/bin to PATH if not already there
+                if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+                    echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
+                    echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.zshrc"
+                    export PATH="$HOME/.local/bin:$PATH"
+                fi
                 ;;
             debian|redhat|arch)
                 pip3 install --user ansible
