@@ -1,0 +1,7 @@
+[".config/nvim"]
+type = "git-repo"
+url = "https://github.com/kjwsl/nvim-config.git"
+refreshPeriod = "168h"  # optional, e.g., refresh every week
+
+[".config/nvim".pull]
+args = ["--rebase"]
