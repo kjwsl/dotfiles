@@ -111,6 +111,12 @@ install_nix() {
         log "info" "Enabling flakes in Nix configuration..."
         echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf
     fi
+
+    # Create flake.lock
+    if [ -f "flake.nix" ] && [ ! -f "flake.lock" ]; then
+        log "info" "Creating flake.lock file..."
+        nix flake lock
+    fi
 }
 
 # Function to install development tools and environments
@@ -211,6 +217,12 @@ verify_installation() {
     # Check flake support
     if ! nix flake --help >/dev/null 2>&1; then
         log "error" "Nix flakes not enabled"
+        return 1
+    fi
+    
+    # Check flake.lock
+    if [ ! -f "flake.lock" ]; then
+        log "error" "flake.lock file not found"
         return 1
     fi
     
