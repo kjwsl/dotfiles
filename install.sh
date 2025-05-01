@@ -79,10 +79,26 @@ get_dotfiles_dir() {
 check_nix_installation() {
     local os=$(detect_os)
     
-    # Check if nix command exists
-    if ! command_exists nix; then
+    # Check if nix command exists in PATH or in standard locations
+    if ! command_exists nix && [ ! -f "/nix/var/nix/profiles/default/bin/nix" ]; then
         log "info" "Nix is not installed"
         return 1
+    fi
+    
+    # If nix command exists in PATH, we're good
+    if command_exists nix; then
+        log "success" "Nix command found in PATH"
+        return 0
+    fi
+    
+    # If nix exists in standard location but not in PATH, add it to PATH
+    if [ -f "/nix/var/nix/profiles/default/bin/nix" ]; then
+        log "info" "Nix found in standard location, adding to PATH"
+        export PATH="/nix/var/nix/profiles/default/bin:$PATH"
+        if command_exists nix; then
+            log "success" "Nix command now available in PATH"
+            return 0
+        fi
     fi
     
     # macOS specific checks
@@ -98,7 +114,7 @@ check_nix_installation() {
             log "warning" "Nix daemon is not running"
             # Try to start the daemon
             log "info" "Attempting to start Nix daemon..."
-            sudo launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist
+            sudo launchctl bootstrap system /Library/LaunchDaemons/org.nixos.nix-daemon.plist
             sleep 2
             if ! launchctl list | grep -q "org.nixos.nix-daemon"; then
                 log "error" "Failed to start Nix daemon"
@@ -151,7 +167,7 @@ install_nix() {
     if [ "$os" = "darwin" ] && [ -d "/nix" ] && ! launchctl list | grep -q "org.nixos.nix-daemon"; then
         log "info" "Nix appears to be installed but daemon isn't running"
         log "info" "Attempting to start Nix daemon..."
-        sudo launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist
+        sudo launchctl bootstrap system /Library/LaunchDaemons/org.nixos.nix-daemon.plist
         sleep 2
         if check_nix_installation; then
             log "success" "Successfully started Nix daemon"
