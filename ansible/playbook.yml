@@ -79,6 +79,7 @@
       args:
         chdir: "{{ playbook_dir }}"
       become: false
+      register: ansible_collections_result
 
     - name: Create backup directory
       file:
@@ -101,6 +102,7 @@
         dest: "{{ ansible_env.HOME }}/{{ item }}"
         state: link
         force: yes
+        follow: false
       loop: "{{ dotfiles }}"
       become: false
 
@@ -118,4 +120,9 @@
         - jorgebucaran/nvm.fish
         - franciscolourenco/done
       become: false
-      when: ansible_os_family != "Windows" 
+      when: ansible_os_family != "Windows"
+
+    - name: Verify Ansible collections installation
+      debug:
+        msg: "Ansible collections installed successfully"
+      when: ansible_collections_result.rc == 0 
