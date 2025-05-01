@@ -75,37 +75,77 @@ get_dotfiles_dir() {
     echo "$target_dir"
 }
 
+# Function to check if Nix is properly installed and configured
+check_nix_installation() {
+    local os=$(detect_os)
+    
+    # Check if nix command exists
+    if ! command_exists nix; then
+        log "info" "Nix is not installed"
+        return 1
+    fi
+    
+    # Check if nix-daemon is running (macOS specific)
+    if [ "$os" = "darwin" ]; then
+        if ! launchctl list | grep -q "org.nixos.nix-daemon"; then
+            log "warning" "Nix daemon is not running"
+            return 1
+        fi
+    fi
+    
+    # Check if flakes are enabled
+    if ! nix flake --help >/dev/null 2>&1; then
+        log "warning" "Nix flakes are not enabled"
+        return 1
+    fi
+    
+    # Check if nix.conf has the right settings
+    if [ -f /etc/nix/nix.conf ]; then
+        if ! grep -q "experimental-features = nix-command flakes" /etc/nix/nix.conf; then
+            log "warning" "Nix configuration needs updating"
+            return 1
+        fi
+    fi
+    
+    log "success" "Nix is properly installed and configured"
+    return 0
+}
+
 # Function to install Nix with flakes support
 install_nix() {
     local os=$(detect_os)
     
-    if ! command_exists nix; then
-        log "info" "Installing Nix package manager with flakes support..."
-        case "$os" in
-            darwin)
-                # Use the official Nix installer for macOS
-                log "info" "Installing Nix using the official installer..."
-                sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
-                # Source Nix environment
-                if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-                    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-                fi
-                ;;
-            debian|ubuntu)
-                sh <(curl -L https://nixos.org/nix/install) --daemon
-                ;;
-            redhat|fedora)
-                sh <(curl -L https://nixos.org/nix/install) --daemon
-                ;;
-            arch)
-                sudo pacman -S --noconfirm nix
-                ;;
-            *)
-                log "error" "Could not install Nix. Please install it manually."
-                exit 1
-                ;;
-        esac
+    # Check if Nix is already properly installed
+    if check_nix_installation; then
+        log "info" "Nix is already installed and configured"
+        return 0
     fi
+    
+    log "info" "Installing Nix package manager with flakes support..."
+    case "$os" in
+        darwin)
+            # Use the official Nix installer for macOS
+            log "info" "Installing Nix using the official installer..."
+            sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
+            # Source Nix environment
+            if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+                . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+            fi
+            ;;
+        debian|ubuntu)
+            sh <(curl -L https://nixos.org/nix/install) --daemon
+            ;;
+        redhat|fedora)
+            sh <(curl -L https://nixos.org/nix/install) --daemon
+            ;;
+        arch)
+            sudo pacman -S --noconfirm nix
+            ;;
+        *)
+            log "error" "Could not install Nix. Please install it manually."
+            exit 1
+            ;;
+    esac
 
     # Enable flakes
     if [ ! -f /etc/nix/nix.conf ] || ! grep -q "experimental-features" /etc/nix/nix.conf; then
@@ -117,6 +157,12 @@ install_nix() {
     if [ -f "flake.nix" ] && [ ! -f "flake.lock" ]; then
         log "info" "Creating flake.lock file..."
         nix flake lock
+    fi
+    
+    # Verify installation
+    if ! check_nix_installation; then
+        log "error" "Nix installation failed verification"
+        exit 1
     fi
 }
 
