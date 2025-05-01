@@ -85,11 +85,37 @@ check_nix_installation() {
         return 1
     fi
     
-    # Check if nix-daemon is running (macOS specific)
+    # macOS specific checks
     if [ "$os" = "darwin" ]; then
+        # Check if Nix store exists
+        if [ ! -d "/nix" ]; then
+            log "warning" "Nix store directory not found"
+            return 1
+        fi
+        
+        # Check if Nix daemon is running
         if ! launchctl list | grep -q "org.nixos.nix-daemon"; then
             log "warning" "Nix daemon is not running"
+            # Try to start the daemon
+            log "info" "Attempting to start Nix daemon..."
+            sudo launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist
+            sleep 2
+            if ! launchctl list | grep -q "org.nixos.nix-daemon"; then
+                log "error" "Failed to start Nix daemon"
+                return 1
+            fi
+        fi
+        
+        # Check if Nix profiles exist
+        if [ ! -d "/nix/var/nix/profiles" ]; then
+            log "warning" "Nix profiles not found"
             return 1
+        fi
+        
+        # Source Nix environment if not already sourced
+        if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ] && [ -z "$NIX_PATH" ]; then
+            log "info" "Sourcing Nix environment..."
+            . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
         fi
     fi
     
@@ -119,6 +145,18 @@ install_nix() {
     if check_nix_installation; then
         log "info" "Nix is already installed and configured"
         return 0
+    fi
+    
+    # If we're on macOS and Nix store exists but daemon isn't running
+    if [ "$os" = "darwin" ] && [ -d "/nix" ] && ! launchctl list | grep -q "org.nixos.nix-daemon"; then
+        log "info" "Nix appears to be installed but daemon isn't running"
+        log "info" "Attempting to start Nix daemon..."
+        sudo launchctl load /Library/LaunchDaemons/org.nixos.nix-daemon.plist
+        sleep 2
+        if check_nix_installation; then
+            log "success" "Successfully started Nix daemon"
+            return 0
+        fi
     fi
     
     log "info" "Installing Nix package manager with flakes support..."
