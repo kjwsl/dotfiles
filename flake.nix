@@ -1,5 +1,5 @@
 {
-  description = "A hybrid Nix and Ansible configuration for system and development environments";
+  description = "A Nix-based development environment configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -37,27 +37,23 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             # Development tools
-            ansible
-            python3
-            python3Packages.pip
             git
             neovim
             tmux
             htop
-
-            # Modern replacements
-            eza
-            zoxide
-            fzf
             ripgrep
             fd
+            fzf
             bat
+            eza
+            zoxide
             delta
             bottom
             dust
             procs
 
             # Language tools
+            python3
             nodejs
             go
             rustc
@@ -67,6 +63,25 @@
             cmake
             pkg-config
 
+            # Language-specific tools
+            python3Packages.pip
+            python3Packages.virtualenv
+            python3Packages.pip-tools
+            python3Packages.black
+            python3Packages.flake8
+            python3Packages.mypy
+            python3Packages.pytest
+            yarn
+            typescript
+            eslint
+            prettier
+            go-tools
+            rust-analyzer
+            cargo-edit
+            cargo-watch
+            cargo-audit
+            cargo-outdated
+
             # Version managers
             nixpkgs-fmt
             rnix-lsp
@@ -75,28 +90,15 @@
           shellHook = ''
             # Set up development environment
             export PYTHONPATH="${pkgs.python3Packages.pip}/lib/python3.11/site-packages:$PYTHONPATH"
-            export PATH="$HOME/.dev/pyenv/bin:$HOME/.dev/nvm:$HOME/.dev/go/bin:$PATH"
             
-            # Initialize version managers if they exist
-            if [ -d "$HOME/.dev/pyenv" ]; then
-              export PYENV_ROOT="$HOME/.dev/pyenv"
-              eval "$(pyenv init --path)"
-            fi
-            
-            if [ -d "$HOME/.dev/nvm" ]; then
-              export NVM_DIR="$HOME/.dev/nvm"
-              [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            fi
-            
-            if [ -d "$HOME/.dev/go" ]; then
-              export GOPATH="$HOME/.dev/go"
-              export PATH="$GOPATH/bin:$PATH"
-            fi
+            # Set up Go environment
+            export GOPATH="$HOME/.go"
+            export PATH="$GOPATH/bin:$PATH"
             
             # Set up Rust environment
-            if [ -d "$HOME/.cargo" ]; then
-              source "$HOME/.cargo/env"
-            fi
+            export RUSTUP_HOME="$HOME/.rustup"
+            export CARGO_HOME="$HOME/.cargo"
+            export PATH="$CARGO_HOME/bin:$PATH"
           '';
         };
 

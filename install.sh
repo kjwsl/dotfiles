@@ -120,89 +120,29 @@ install_nix() {
     fi
 }
 
-# Function to install development tools and environments
-install_dev_tools() {
+# Function to set up Home Manager
+setup_home_manager() {
     local os=$(detect_os)
+    local username=$(whoami)
     
-    # Install Python
-    if ! command_exists python3; then
-        log "info" "Installing Python..."
+    if ! command_exists home-manager; then
+        log "info" "Installing Home Manager..."
+        nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+        nix-channel --update
+        
         case "$os" in
             darwin)
-                if command_exists brew; then
-                    brew install python
-                else
-                    log "error" "Please install Homebrew first: https://brew.sh/"
-                    exit 1
-                fi
+                nix-shell '<home-manager>' -A install
                 ;;
-            debian)
-                sudo apt-get update
-                sudo apt-get install -y python3 python3-pip
-                ;;
-            redhat)
-                sudo dnf install -y python3 python3-pip
-                ;;
-            arch)
-                sudo pacman -S --noconfirm python python-pip
-                ;;
-            windows)
-                if command_exists choco; then
-                    choco install python -y
-                else
-                    log "error" "Please install Chocolatey first: https://chocolatey.org/install"
-                    exit 1
-                fi
+            *)
+                nix-shell '<home-manager>' -A install
                 ;;
         esac
     fi
     
-    # Install Ansible
-    if ! command_exists ansible; then
-        log "info" "Installing Ansible..."
-        case "$os" in
-            darwin)
-                if command_exists brew; then
-                    brew install ansible
-                else
-                    pip3 install --user ansible
-                fi
-                ;;
-            debian|redhat|arch)
-                pip3 install --user ansible
-                ;;
-            windows)
-                if command_exists choco; then
-                    choco install ansible -y
-                else
-                    pip3 install --user ansible
-                fi
-                ;;
-        esac
-    fi
-    
-    # Install Ansible collections
-    local dotfiles_dir=$(get_dotfiles_dir)
-    local requirements_file="$dotfiles_dir/ansible/requirements.yml"
-    
-    if [ -f "$requirements_file" ]; then
-        log "info" "Installing Ansible collections..."
-        ansible-galaxy collection install -r "$requirements_file"
-    fi
-}
-
-# Function to run Ansible playbook for development environments
-setup_dev_environments() {
-    local dotfiles_dir=$(get_dotfiles_dir)
-    local inventory_file="$dotfiles_dir/ansible/inventory.yml"
-    local playbook_file="$dotfiles_dir/ansible/playbook.yml"
-    
-    if [ -f "$inventory_file" ] && [ -f "$playbook_file" ]; then
-        log "info" "Setting up development environments..."
-        ansible-playbook -i "$inventory_file" "$playbook_file"
-    else
-        log "warning" "Ansible configuration files not found. Skipping development environment setup."
-    fi
+    # Apply Home Manager configuration
+    log "info" "Applying Home Manager configuration..."
+    home-manager switch --flake .
 }
 
 # Function to verify installation
@@ -227,9 +167,9 @@ verify_installation() {
         return 1
     fi
     
-    # Check Python and Ansible
-    if ! command_exists python3 || ! command_exists ansible; then
-        log "error" "Development tools installation failed"
+    # Check Home Manager
+    if ! command_exists home-manager; then
+        log "error" "Home Manager installation failed"
         return 1
     fi
 
@@ -256,9 +196,8 @@ main() {
     # Install Nix with flakes support
     install_nix
     
-    # Install development tools and environments
-    install_dev_tools
-    setup_dev_environments
+    # Set up Home Manager
+    setup_home_manager
     
     # Verify installation
     if ! verify_installation; then
@@ -271,7 +210,6 @@ main() {
     log "info" "1. Run 'nix develop' to enter the development shell"
     log "info" "2. Run 'home-manager switch --flake .' to apply the configuration"
     log "info" "3. Restart your shell to apply the changes"
-    log "info" "4. Check your development environments in ~/.dev"
 }
 
 # Run the main function
