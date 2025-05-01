@@ -34,6 +34,12 @@
           ];
         };
 
+        # Define activationPackage for home-manager
+        packages.${system} = {
+          homeConfigurations.${username}.activationPackage = 
+            self.homeConfigurations.${username}.activationPackage;
+        };
+
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             # Development tools
