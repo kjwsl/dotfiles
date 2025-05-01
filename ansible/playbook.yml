@@ -106,22 +106,6 @@
       loop: "{{ dotfiles }}"
       become: false
 
-    - name: Install Fisher package manager
-      shell: "fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source'"
-      args:
-        creates: "{{ ansible_env.HOME }}/.config/fish/functions/fisher.fish"
-      become: false
-      when: ansible_os_family != "Windows"
-
-    - name: Install Fisher plugins
-      shell: "fish -c 'fisher install {{ item }}'"
-      loop:
-        - jorgebucaran/fisher
-        - jorgebucaran/nvm.fish
-        - franciscolourenco/done
-      become: false
-      when: ansible_os_family != "Windows"
-
     - name: Verify Ansible collections installation
       debug:
         msg: "Ansible collections installed successfully"
