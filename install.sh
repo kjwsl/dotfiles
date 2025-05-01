@@ -83,11 +83,12 @@ install_nix() {
         log "info" "Installing Nix package manager with flakes support..."
         case "$os" in
             darwin)
-                if command_exists brew; then
-                    brew install nix
-                else
-                    log "error" "Please install Homebrew first: https://brew.sh/"
-                    exit 1
+                # Use the official Nix installer for macOS
+                log "info" "Installing Nix using the official installer..."
+                sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
+                # Source Nix environment
+                if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+                    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
                 fi
                 ;;
             debian|ubuntu)
@@ -230,6 +231,14 @@ verify_installation() {
     if ! command_exists python3 || ! command_exists ansible; then
         log "error" "Development tools installation failed"
         return 1
+    fi
+
+    # Check Nix daemon (macOS specific)
+    if [ "$(detect_os)" = "darwin" ]; then
+        if ! launchctl list | grep -q "org.nixos.nix-daemon"; then
+            log "error" "Nix daemon not running"
+            return 1
+        fi
     fi
     
     log "success" "Installation verified successfully"
