@@ -1,8 +1,0 @@
-#!/usr/bin/bash
-
-alias v='nvim'
-alias v.='nvim .'
-
-alias g='git'
-
-alias vf='nvim $(fzf --preview=bat)'

@@ -1,9 +1,0 @@
-BasedOnStyle: WebKit
-IndentWidth: 4
-TabWidth: 4
-UseTab: Never
-AlignAfterOpenBracket: Align
-AlignArrayOfStructures: Right
-AlignConsecutiveAssignments: AcrossEmptyLines
-RequiresClausePosition: WithPreceding
-BreakBeforeBraces: Attach 
