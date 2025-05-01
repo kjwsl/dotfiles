@@ -33,6 +33,11 @@
       - ".config/wezterm"
       - ".config/wslu"
       - ".config/zsh"
+    dev_dir: "{{ ansible_env.HOME }}/.dev"
+    python_version: "3.11"
+    node_version: "20"
+    go_version: "1.21"
+    rust_version: "stable"
 
   tasks:
     - name: Gather facts without sudo
@@ -109,4 +114,118 @@
     - name: Verify Ansible collections installation
       debug:
         msg: "Ansible collections installed successfully"
-      when: ansible_collections_result.rc == 0 
+      when: ansible_collections_result.rc == 0
+
+    - name: Create development directory
+      ansible.builtin.file:
+        path: "{{ dev_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Install Python development environment
+      block:
+        - name: Install pyenv
+          ansible.builtin.git:
+            repo: https://github.com/pyenv/pyenv.git
+            dest: "{{ dev_dir }}/pyenv"
+            version: master
+
+        - name: Install Python version
+          ansible.builtin.shell: |
+            export PYENV_ROOT="{{ dev_dir }}/pyenv"
+            export PATH="$PYENV_ROOT/bin:$PATH"
+            eval "$(pyenv init --path)"
+            pyenv install {{ python_version }}
+            pyenv global {{ python_version }}
+          args:
+            creates: "{{ dev_dir }}/pyenv/versions/{{ python_version }}"
+
+        - name: Install Python packages
+          ansible.builtin.pip:
+            name:
+              - pip
+              - virtualenv
+              - pip-tools
+              - black
+              - flake8
+              - mypy
+              - pytest
+            state: present
+            executable: "{{ dev_dir }}/pyenv/versions/{{ python_version }}/bin/pip"
+
+    - name: Install Node.js development environment
+      block:
+        - name: Install nvm
+          ansible.builtin.git:
+            repo: https://github.com/nvm-sh/nvm.git
+            dest: "{{ dev_dir }}/nvm"
+            version: master
+
+        - name: Install Node.js version
+          ansible.builtin.shell: |
+            export NVM_DIR="{{ dev_dir }}/nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            nvm install {{ node_version }}
+            nvm use {{ node_version }}
+          args:
+            creates: "{{ dev_dir }}/nvm/versions/node/v{{ node_version }}"
+
+        - name: Install global Node.js packages
+          ansible.builtin.npm:
+            name:
+              - yarn
+              - typescript
+              - eslint
+              - prettier
+            global: yes
+            state: present
+
+    - name: Install Go development environment
+      block:
+        - name: Install Go version
+          community.general.golang_install:
+            version: "{{ go_version }}"
+            install_dir: "{{ dev_dir }}/go"
+            state: present
+
+        - name: Set up Go environment
+          ansible.builtin.lineinfile:
+            path: "{{ ansible_env.HOME }}/.zshrc"
+            line: |
+              export GOPATH="{{ dev_dir }}/go"
+              export PATH="$GOPATH/bin:$PATH"
+            create: yes
+
+    - name: Install Rust development environment
+      block:
+        - name: Install Rust
+          ansible.builtin.shell: |
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain {{ rust_version }}
+          args:
+            creates: "{{ ansible_env.HOME }}/.cargo/bin/rustc"
+
+        - name: Install Rust tools
+          ansible.builtin.shell: |
+            source "{{ ansible_env.HOME }}/.cargo/env"
+            cargo install cargo-edit cargo-watch cargo-audit cargo-outdated
+          args:
+            creates: "{{ ansible_env.HOME }}/.cargo/bin/cargo-edit"
+
+    - name: Install Docker
+      block:
+        - name: Install Docker
+          community.general.package:
+            name: docker
+            state: present
+
+        - name: Start Docker service
+          ansible.builtin.service:
+            name: docker
+            state: started
+            enabled: yes
+
+        - name: Add user to docker group
+          ansible.builtin.user:
+            name: "{{ ansible_env.USER }}"
+            groups: docker
+            append: yes 
