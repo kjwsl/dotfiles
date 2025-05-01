@@ -130,7 +130,22 @@ install_ansible() {
     if ! command_exists ansible; then
         echo "Installing Ansible..."
         case "$os" in
-            darwin|debian|redhat|arch)
+            darwin)
+                # Create and use a virtual environment for Ansible
+                python3 -m venv "$HOME/.ansible-venv"
+                source "$HOME/.ansible-venv/bin/activate"
+                pip install ansible
+                deactivate
+                # Create a wrapper script to use the virtual environment
+                cat > "$HOME/.local/bin/ansible" << 'EOF'
+#!/bin/bash
+source "$HOME/.ansible-venv/bin/activate"
+ansible "$@"
+deactivate
+EOF
+                chmod +x "$HOME/.local/bin/ansible"
+                ;;
+            debian|redhat|arch)
                 pip3 install --user ansible
                 ;;
             windows)
