@@ -5,6 +5,35 @@
   gather_facts: true
   become: false
 
+  vars:
+    dotfiles:
+      - ".zshrc"
+      - ".zshenv"
+      - ".p10k.zsh"
+      - ".profile"
+      - ".oh-my-bash"
+      - ".envrc"
+      - ".aliasrc"
+      - ".bash_eww"
+      - ".bash_local"
+      - ".bashrc"
+      - ".clang-format"
+      - ".gitconfig"
+      - ".gitignore"
+      - ".vim"
+      - ".fonts"
+      - ".config/fish"
+      - ".config/fontconfig"
+      - ".config/ghostty"
+      - ".config/kitty"
+      - ".config/nix"
+      - ".config/nvim"
+      - ".config/sops"
+      - ".config/tmux"
+      - ".config/wezterm"
+      - ".config/wslu"
+      - ".config/zsh"
+
   tasks:
     - name: Gather facts without sudo
       setup:
@@ -60,63 +89,19 @@
 
     - name: Backup existing files and directories
       shell: |
-        if [ -e "{{ ansible_env.HOME }}/{{ item.dest }}" ]; then
-          mv "{{ ansible_env.HOME }}/{{ item.dest }}" "{{ ansible_env.HOME }}/.dotfiles-backup/{{ item.dest | basename }}_$(date +%Y%m%d_%H%M%S)"
+        if [ -e "{{ ansible_env.HOME }}/{{ item }}" ]; then
+          mv "{{ ansible_env.HOME }}/{{ item }}" "{{ ansible_env.HOME }}/.dotfiles-backup/{{ item | basename }}_$(date +%Y%m%d_%H%M%S)"
         fi
-      loop:
-        - { dest: ".zshrc" }
-        - { dest: ".zshenv" }
-        - { dest: ".p10k.zsh" }
-        - { dest: ".profile" }
-        - { dest: ".oh-my-bash" }
-        - { dest: ".envrc" }
-        - { dest: ".aliasrc" }
-        - { dest: ".bash_eww" }
-        - { dest: ".bash_local" }
-        - { dest: ".bashrc" }
-        - { dest: ".clang-format" }
-        - { dest: ".gitconfig" }
-        - { dest: ".gitignore" }
-        - { dest: ".vim" }
-        - { dest: ".fonts" }
-        - { dest: ".config/fish" }
-        - { dest: ".config/fontconfig" }
-        - { dest: ".config/ghostty" }
-        - { dest: ".config/kitty" }
-        - { dest: ".config/nix" }
-        - { dest: ".config/nvim" }
-        - { dest: ".config/sops" }
-        - { dest: ".config/tmux" }
-        - { dest: ".config/wezterm" }
-        - { dest: ".config/wslu" }
-        - { dest: ".config/zsh" }
+      loop: "{{ dotfiles }}"
       become: false
 
     - name: Create symbolic links for dotfiles
       file:
-        src: "{{ playbook_dir }}/../{{ item.src }}"
-        dest: "{{ ansible_env.HOME }}/{{ item.dest }}"
+        src: "{{ playbook_dir }}/../{{ item }}"
+        dest: "{{ ansible_env.HOME }}/{{ item }}"
         state: link
         force: yes
-      loop:
-        - { src: ".zshrc", dest: ".zshrc" }
-        - { src: ".zshenv", dest: ".zshenv" }
-        - { src: ".p10k.zsh", dest: ".p10k.zsh" }
-        - { src: ".profile", dest: ".profile" }
-        - { src: ".oh-my-bash", dest: ".oh-my-bash" }
-        - { src: ".envrc", dest: ".envrc" }
-        - { src: ".aliasrc", dest: ".aliasrc" }
-        - { src: ".bash_eww", dest: ".bash_eww" }
-        - { src: ".bash_local", dest: ".bash_local" }
-        - { src: ".bashrc", dest: ".bashrc" }
-        - { src: ".clang-format", dest: ".clang-format" }
-        - { src: ".gitconfig", dest: ".gitconfig" }
-        - { src: ".gitignore", dest: ".gitignore" }
-        - { src: ".vim", dest: ".vim" }
-        - { src: ".fonts", dest: ".fonts" }
-        - { src: ".config/fish/config.fish", dest: ".config/fish/config.fish" }
-        - { src: ".config/fish/functions", dest: ".config/fish/functions" }
-        - { src: ".config/fish/conf.d", dest: ".config/fish/conf.d" }
+      loop: "{{ dotfiles }}"
       become: false
 
     - name: Install Fisher package manager
