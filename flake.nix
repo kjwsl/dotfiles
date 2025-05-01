@@ -20,8 +20,8 @@
       homeDirectory = builtins.getEnv "HOME";
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
+      
+      homeConfig = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
           ./modules/home-manager/home.nix
@@ -32,6 +32,14 @@
             };
           }
         ];
+      };
+    in {
+      # Expose the home-manager configuration
+      homeConfigurations.${username} = homeConfig;
+      
+      # Explicitly expose the activation package
+      packages.${system} = {
+        homeConfigurations.${username}.activationPackage = homeConfig.activationPackage;
       };
 
       devShells.${system}.default = pkgs.mkShell {
