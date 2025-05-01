@@ -51,8 +51,8 @@ get_dotfiles_dir() {
     fi
     
     # Clone the repository
-    echo "Cloning repository..."
-    git clone "$repo_url" "$target_dir"
+    echo "Cloning repository..." >&2
+    git clone "$repo_url" "$target_dir" >&2
     echo "$target_dir"
 }
 
