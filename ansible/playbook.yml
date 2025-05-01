@@ -114,9 +114,9 @@
         - { src: ".gitignore", dest: ".gitignore" }
         - { src: ".vim", dest: ".vim" }
         - { src: ".fonts", dest: ".fonts" }
-        - { src: "fish/config.fish", dest: ".config/fish/config.fish" }
-        - { src: "fish/functions", dest: ".config/fish/functions" }
-        - { src: "fish/conf.d", dest: ".config/fish/conf.d" }
+        - { src: ".config/fish/config.fish", dest: ".config/fish/config.fish" }
+        - { src: ".config/fish/functions", dest: ".config/fish/functions" }
+        - { src: ".config/fish/conf.d", dest: ".config/fish/conf.d" }
       become: false
 
     - name: Install Fisher package manager
