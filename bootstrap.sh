@@ -51,12 +51,12 @@ backup_and_link() {
     local source_path="$HOME/$1"
     local backup_path="$BACKUP_DIR_WITH_TS/$1"
     local backup_dir=$(dirname "$backup_path")
-    
+
     # Only backup if the file/directory exists and is not a symlink pointing to our dotfiles
     if [ -e "$source_path" ] && [ ! -L "$source_path" -o "$(readlink "$source_path")" != "$PWD/$1" ]; then
         info "Backing up $source_path to $backup_path..."
         mkdir -p "$backup_dir"
-        mv "$source_path" "$backup_dir/" 2>/dev/null || warn "Warning: Could not move $source_path to backup." 
+        mv "$source_path" "$backup_dir/" 2>/dev/null || warn "Warning: Could not move $source_path to backup."
     elif [ -L "$source_path" ] && [ "$(readlink "$source_path")" = "$PWD/$1" ]; then
         warn "Already linked correctly: $source_path."
         return 0
@@ -64,7 +64,7 @@ backup_and_link() {
 
     # Create the parent directory if it doesn't exist
     mkdir -p "$(dirname "$source_path")"
-    
+
     # Create the symbolic link
     echo "Creating symlink for $1"
     ln -sf "$PWD/$1" "$source_path" || echo "Warning: Could not create symlink for $1."
@@ -78,50 +78,53 @@ decrypt() {
             error "Failed to decrypt $FILE."
             return 1
         }
-        rm "$FILE"
     else
         error "File $FILE does not exist."
         return 1
     fi
 }
 
-if [[ ! -d "$HOME/.config" ]]; then
-    mkdir -p "$HOME/.config"
-fi
-
-failures=0
-for file in "${FILES[@]}"; do
-    if [[ "$file" == "modules" || "$file" == "binaries" ]]; then
-        # Skip these directories for now
-        continue
+main() {
+    if [[ ! -d "$HOME/.config" ]]; then
+        info "$HOME/.config does not exist. Creating it..."
+        mkdir -p "$HOME/.config"
     fi
 
-    if [[ "$file" == *".enc"* ]]; then
-        # Skip encrypted files for now
-        continue
-    fi
-
-    backup_and_link "$file" || {
-        error "Failed to backup and link $file."
-        failures=$((failures + 1))
-        continue
-    }
-done
-if [ $failures -gt 0 ]; then
-    warn "There were $failures failures during the backup and link process."
-else 
-    success "All files backed up and linked successfully."
-fi
-
-
-for file in "${DECRYPT_FILES[@]}"; do
-    decrypt "$file" || {
-        if [ ! -f ~/.config/sops/age/keys.txt ]; then
-            error "Please install age and create ~/.config/sops/age/keys.txt."
-            exit 1
-        else
-            error "Failed to decrypt $file."
+    info "Backing up and linking files..."
+    failures=0
+    for file in "${FILES[@]}"; do
+        if [[ "$file" == "modules" || "$file" == "binaries" ]]; then
+            # Skip these directories for now
+            continue
         fi
-    }
-done
 
+        if [[ "$file" == *".enc"* ]]; then
+            # Skip encrypted files for now
+            continue
+        fi
+
+        backup_and_link "$file" || {
+            error "Failed to backup and link $file."
+            failures=$((failures + 1))
+            continue
+        }
+    done
+    if [ $failures -gt 0 ]; then
+        warn "There were $failures failures during the backup and link process."
+    else
+        success "All files backed up and linked successfully."
+    fi
+
+    for file in "${DECRYPT_FILES[@]}"; do
+        decrypt "$file" || {
+            if [ ! -f ~/.config/sops/age/keys.txt ]; then
+                error "Please install age and create ~/.config/sops/age/keys.txt."
+                exit 1
+            else
+                error "Failed to decrypt $file."
+            fi
+        }
+    done
+}
+
+main "$@"
