@@ -9,7 +9,6 @@ rpmbuild
 .fonts/CascadiaCode/.uuid
 .fonts/.uuid
 .config/dconf/user
-.config/gh/
 .config/nvim/lazy-lock.json
 .config/mimeapps.list
 .config/tmux/plugins/*

@@ -1,0 +1,22 @@
+github.com:
+    users:
+        kjwsl:
+            oauth_token: ENC[AES256_GCM,data:s36awBe99lc/tqLLugdzCy8c88hPrvyBR0Qhjm5DWYPgTXL0r83h0Q==,iv:ZJ3WFynezffpxuSD/l75y9tFz5mG/ph5pX2QvBkorIo=,tag:m5qXS6XZMHrSV1H65ygZgw==,type:str]
+    git_protocol: ENC[AES256_GCM,data:WrYP,iv:FbfcybTS1+8TgKAhYpqP9ozgApXqFN9tMobCj8UkAnQ=,tag:ZKG0kBiXykqHyMyPRJL81Q==,type:str]
+    oauth_token: ENC[AES256_GCM,data:qIQ+eFeV9UvF24h+UJuMhQuc1XVTRNLwhGNL91y7hCngwwpo39ySlQ==,iv:QEyKAkA1ZBhvNwS7Mlk7O2BdaLvFLy2lU29uHNmi8bc=,tag:P/Um02EelCxvuGkWzZKvBg==,type:str]
+    user: ENC[AES256_GCM,data:oc/hGdc=,iv:fBNs8tvzvQSy9ra1ghfiXay5aLpzftZ66wz7I0ZARkA=,tag:OGGuiB4z4qWphRLKs5X93g==,type:str]
+sops:
+    age:
+        - recipient: age1c7zrgvmm9mtvtk3gd8zqneq28k4hmheewn68zp6ddedqz52tmsnsznhltc
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBZeC9ERUhCNkxQOU15Wmlq
+            S05FamhZRnJYQjJsMGZWOUJOcHVKZE5iVGhRCkVlQ0dKSWpMUnc1cTlLSlZ2Qm1m
+            Z3NMT3UxVzRKWmhrVGc2eG5ZZ1grcFUKLS0tIGNTN1lHakVFMDFKVkRnWG02djlC
+            OUMwcFVlRmtTS282M3FxOThLODNDUXMK2Bb9AxsYwPIOIVWGpsNCLWcHN+JIJaha
+            UNVbTHKNXq2LGkDXJuRFVYK7VSTbN8kGT5Wj8/IhhAgpkBw2XmciFw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-05-03T14:47:25Z"
+    mac: ENC[AES256_GCM,data:wEnGZOj6J/Pw4flmB8jiabJFTRCUmLkxsgVbXeK+tzPtOG7KVpS7C7F94qThKiu/4+dkbqnh2oC7uKMSXo4tyIx6aXEFyHjoTjpz/ey0nlP6S78c6FJBm/Ew4DQEV5TSVgdxS0f6OfD/tQn3AUzZjv38cFPEjxd6Dlt42W46XU8=,iv:UaB4SMy6MLQXXOsZk58c/R2LKB/lQJsDFgeVdQviTJU=,tag:I4iBQORAMEPL5AJMtbl2xw==,type:str]
+    unencrypted_suffix: _unencrypted
+    version: 3.10.2
