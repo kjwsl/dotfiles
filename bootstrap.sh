@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source scripts/tools.sh
+
 BACKUP_DIR="$HOME/.dotfiles-backup"
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
 BACKUP_DIR_WITH_TS="$BACKUP_DIR/$TIMESTAMP"
@@ -11,6 +13,7 @@ FILES=(
     .clang-format
     .config/fish
     .config/fontconfig
+    .config/gh
     .config/ghostty
     .config/kitty
     .config/nix
@@ -36,6 +39,11 @@ FILES=(
     programs
 )
 
+DECRYPT_FILES=(
+    ~/.config/gh/hosts.enc.yml
+    ~/.config/gh/config.enc.yml
+)
+
 # Create the timestamp-based backup directory
 mkdir -p "$BACKUP_DIR_WITH_TS"
 
@@ -46,12 +54,12 @@ backup_and_link() {
     
     # Only backup if the file/directory exists and is not a symlink pointing to our dotfiles
     if [ -e "$source_path" ] && [ ! -L "$source_path" -o "$(readlink "$source_path")" != "$PWD/$1" ]; then
-        echo "Backing up $source_path to $backup_path"
+        info "Backing up $source_path to $backup_path..."
         mkdir -p "$backup_dir"
-        mv "$source_path" "$backup_dir/" 2>/dev/null || echo "Warning: Could not move $source_path to backup"
+        mv "$source_path" "$backup_dir/" 2>/dev/null || warn "Warning: Could not move $source_path to backup." 
     elif [ -L "$source_path" ] && [ "$(readlink "$source_path")" = "$PWD/$1" ]; then
-        echo "Already linked correctly: $source_path"
-        return
+        warn "Already linked correctly: $source_path."
+        return 0
     fi
 
     # Create the parent directory if it doesn't exist
@@ -59,15 +67,61 @@ backup_and_link() {
     
     # Create the symbolic link
     echo "Creating symlink for $1"
-    ln -sf "$PWD/$1" "$source_path"
+    ln -sf "$PWD/$1" "$source_path" || echo "Warning: Could not create symlink for $1."
+}
+
+decrypt() {
+    FILE="$1"
+    if [ -f "$FILE" ]; then
+        info "Decrypting $FILE..."
+        sops -d "$FILE" > "${FILE/.enc/}" || {
+            error "Failed to decrypt $FILE."
+            return 1
+        }
+        rm "$FILE"
+    else
+        error "File $FILE does not exist."
+        return 1
+    fi
 }
 
 if [[ ! -d "$HOME/.config" ]]; then
     mkdir -p "$HOME/.config"
 fi
 
+failures=0
 for file in "${FILES[@]}"; do
-    backup_and_link "$file"
+    if [[ "$file" == "modules" || "$file" == "binaries" ]]; then
+        # Skip these directories for now
+        continue
+    fi
+
+    if [[ "$file" == *".enc"* ]]; then
+        # Skip encrypted files for now
+        continue
+    fi
+
+    backup_and_link "$file" || {
+        error "Failed to backup and link $file."
+        failures=$((failures + 1))
+        continue
+    }
+done
+if [ $failures -gt 0 ]; then
+    warn "There were $failures failures during the backup and link process."
+else 
+    success "All files backed up and linked successfully."
+fi
+
+
+for file in "${DECRYPT_FILES[@]}"; do
+    decrypt "$file" || {
+        if [ ! -f ~/.config/sops/age/keys.txt ]; then
+            error "Please install age and create ~/.config/sops/age/keys.txt."
+            exit 1
+        else
+            error "Failed to decrypt $file."
+        fi
+    }
 done
 
-echo "Dotfiles setup complete! Backup created at $BACKUP_DIR_WITH_TS"
