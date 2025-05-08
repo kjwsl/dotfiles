@@ -15,6 +15,7 @@ FILES=(
     .config/fontconfig
     .config/gh
     .config/ghostty
+    .config/hypr
     .config/kitty
     .config/nix
     .config/nvim
