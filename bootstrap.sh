@@ -23,7 +23,6 @@ FILES=(
     .config/sops
     .config/tmux
     .config/wezterm
-    .config/wslu
     .config/zsh
     .envrc
     .fonts
@@ -41,8 +40,6 @@ FILES=(
 )
 
 DECRYPT_FILES=(
-    ~/.config/gh/hosts.enc.yml
-    ~/.config/gh/config.enc.yml
 )
 
 # Create the timestamp-based backup directory
