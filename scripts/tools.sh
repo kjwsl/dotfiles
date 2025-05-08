@@ -20,3 +20,11 @@ success() {
 error() {
     echo -e "${RED}[ERROR]${NC} $1 ❌"
 }
+
+safe_cd() {
+    TARGET="$1"
+    cd $TARGET || {
+        error "Failed to change directory into $TARGET"
+        exit 1
+    }
+}

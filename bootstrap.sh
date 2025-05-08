@@ -15,6 +15,8 @@ FILES=(
     .config/fontconfig
     .config/gh
     .config/ghostty
+    .config/gtk-3.0
+    .config/gtk-4.0
     .config/hypr
     .config/kitty
     .config/nix
@@ -35,8 +37,6 @@ FILES=(
     .zshrc
     binaries
     modules
-    obsidian-vault
-    programs
 )
 
 DECRYPT_FILES=(
