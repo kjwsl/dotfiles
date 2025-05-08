@@ -66,4 +66,9 @@ if status is-interactive
     end
 
     alias zo="z (dirname (fzf))"
+
+    if type -q eza
+        alias ls="eza --icons --group-directories-first"
+        alias ll="eza --icons --group-directories-first -l"
+    end
 end
