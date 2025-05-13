@@ -1,0 +1,60 @@
+{
+  "Name": "DecentSampler",
+  "Version": "1.12.14",
+  "Factory Info": {
+    "Vendor": "Decidedly",
+    "URL": "http://decided.ly",
+    "E-Mail": "dave@decentsamples.com",
+    "Flags": {
+      "Unicode": true,
+      "Classes Discardable": false,
+      "Component Non Discardable": false,
+    },
+  },
+  "Classes": [
+    {
+      "CID": "ABCDEF019182FAEB446C647944736D70",
+      "Category": "Audio Module Class",
+      "Name": "DecentSampler",
+      "Vendor": "Decidedly",
+      "Version": "1.12.14",
+      "SDKVersion": "VST 3.7.8",
+      "Sub Categories": [
+        "Instrument",
+        "Synth",
+      ],
+      "Class Flags": 2,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+    {
+      "CID": "ABCDEF011234ABCD446C647944736D70",
+      "Category": "Component Controller Class",
+      "Name": "DecentSampler",
+      "Vendor": "Decidedly",
+      "Version": "1.12.14",
+      "SDKVersion": "VST 3.7.8",
+      "Sub Categories": [
+        "Instrument",
+        "Synth",
+      ],
+      "Class Flags": 2,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+    {
+      "CID": "ABCDEF01C0DEF00D446C647944736D70",
+      "Category": "Plugin Compatibility Class",
+      "Name": "DecentSampler",
+      "Vendor": "Decidedly",
+      "Version": "1.12.14",
+      "SDKVersion": "VST 3.7.8",
+      "Class Flags": 0,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+  ],
+}

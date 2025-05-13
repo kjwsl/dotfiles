@@ -1,0 +1,58 @@
+{
+  "Name": "ZL Equalizer",
+  "Version": "0.1.13",
+  "Factory Info": {
+    "Vendor": "ZL",
+    "URL": "",
+    "E-Mail": "",
+    "Flags": {
+      "Unicode": true,
+      "Classes Discardable": false,
+      "Component Non Discardable": false,
+    },
+  },
+  "Classes": [
+    {
+      "CID": "ABCDEF019182FAEB5A6C697545717561",
+      "Category": "Audio Module Class",
+      "Name": "ZL Equalizer",
+      "Vendor": "ZL",
+      "Version": "0.1.13",
+      "SDKVersion": "VST 3.7.8",
+      "Sub Categories": [
+        "Fx",
+      ],
+      "Class Flags": 0,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+    {
+      "CID": "ABCDEF011234ABCD5A6C697545717561",
+      "Category": "Component Controller Class",
+      "Name": "ZL Equalizer",
+      "Vendor": "ZL",
+      "Version": "0.1.13",
+      "SDKVersion": "VST 3.7.8",
+      "Sub Categories": [
+        "Fx",
+      ],
+      "Class Flags": 0,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+    {
+      "CID": "ABCDEF01C0DEF00D5A6C697545717561",
+      "Category": "Plugin Compatibility Class",
+      "Name": "ZL Equalizer",
+      "Vendor": "ZL",
+      "Version": "0.1.13",
+      "SDKVersion": "VST 3.7.8",
+      "Class Flags": 0,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+  ],
+}
