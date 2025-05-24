@@ -8,6 +8,10 @@
     whitespace = error
     preloadindex = true
 
+[diff]
+    renames = copies
+    interHunkContext = 10 # Number of lines of context between diff hunks
+
 [alias]
     sm = submodule
     spl = submodule foreach git pull
