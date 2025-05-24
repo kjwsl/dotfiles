@@ -13,8 +13,8 @@ FILES=(
     .clang-format
     .config/fish
     .config/fontconfig
-    .config/gh
     .config/ghostty
+    .config/git/config
     .config/gtk-3.0
     .config/gtk-4.0
     .config/hypr
@@ -28,7 +28,6 @@ FILES=(
     .config/zsh
     .envrc
     .fonts
-    .gitconfig
     .oh-my-bash
     .p10k.zsh
     .profile

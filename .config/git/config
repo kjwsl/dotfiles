@@ -1,6 +1,13 @@
 [user]
 	name = Ray
 	email = kjwsl@fatherslab.com
+
+[core]
+    compression = 9
+    autocrlf = input
+    whitespace = error
+    preloadindex = true
+
 [alias]
     sm = submodule
     spl = submodule foreach git pull
@@ -50,7 +57,7 @@
 	autocrlf = input
 [credential "https://github.com"]
 	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !/usr/bin/gh auth git-credential
