@@ -12,6 +12,14 @@
     renames = copies
     interHunkContext = 10 # Number of lines of context between diff hunks
 
+[pull]
+    default = current # Default to pulling changes into the current branch
+    rebase = true # Rebase by default when pulling changes
+
+[rebase]
+    autoStash = true # Automatically stash changes before rebasing
+    missingCommitsCheck = warn # Warn if there are missing commits during rebase
+
 [alias]
     sm = submodule
     spl = submodule foreach git pull
@@ -36,7 +44,7 @@
     t = tag
     df = diff
     dfh = diff HEAD
-    lg = log
+    lg = log --all --graph --decorate
     rs = reset
     rsh = reset --hard
 	build = "!a() {\nlocal _scope _attention _message\nwhile [ $# -ne 0 ]; do\ncase $1 in\n  -s | --scope )\n    if [ -z $2 ]; then\n      echo \"Missing scope!\"\n      return 1\n    fi\n    _scope=\"$2\"\n    shift 2\n    ;;\n  -a | --attention )\n    _attention=\"!\"\n    shift 1\n    ;;\n  * )\n    _message=\"${_message} $1\"\n    shift 1\n    ;;\nesac\ndone\ngit commit -m \"build${_scope:+(${_scope})}${_attention}:${_message}\"\n}; a"
