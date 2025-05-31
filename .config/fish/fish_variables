@@ -56,4 +56,4 @@ SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
 SETUVAR fish_prompt_pwd_dir_length:2
-SETUVAR fish_user_paths:/home/ray/\x2epyenv/bin\x1e/home/ray/\x2elocal/bin
+SETUVAR fish_user_paths:/home/ray/\x2ecargo/bin\x1e/home/ray/\x2epyenv/bin\x1e/home/ray/\x2elocal/bin

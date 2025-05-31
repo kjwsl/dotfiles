@@ -12,3 +12,15 @@ scrolloff = 30
 [preview]
 wrap = "yes"
 tab_size = 4
+
+[opener]
+view = [
+    { run = 'feh "$@"', desc = 'View Image with feh', for = "unix" }
+]
+
+[open]
+prepend_rules = [
+    { name = "*.png", use = "view" },
+    { name = "*.jpg", use = "view" },
+    { name = "*.jpeg", use = "view" },
+]
