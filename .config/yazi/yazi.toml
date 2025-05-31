@@ -1,0 +1,14 @@
+[manager]
+# ratio = [1, 4, 3] # 1/8 width for parent, 4/8 width for current, 3/8 width for preview
+sort_by = "natural"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = false
+sort_translit = true
+show_hidden = true
+show_symlink = true
+scrolloff = 30
+
+[preview]
+wrap = "yes"
+tab_size = 4

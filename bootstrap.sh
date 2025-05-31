@@ -8,7 +8,6 @@ BACKUP_DIR_WITH_TS="$BACKUP_DIR/$TIMESTAMP"
 
 FILES=(
     .aliasrc
-    .bash_profile
     .bashrc
     .clang-format
     .config/fish
@@ -25,6 +24,7 @@ FILES=(
     .config/sops
     .config/tmux
     .config/wezterm
+    .config/yazi
     .config/zsh
     .envrc
     .fonts
@@ -45,26 +45,33 @@ DECRYPT_FILES=(
 mkdir -p "$BACKUP_DIR_WITH_TS"
 
 backup_and_link() {
-    local source_path="$HOME/$1"
+    local dest_path="$HOME/$1"
     local backup_path="$BACKUP_DIR_WITH_TS/$1"
     local backup_dir=$(dirname "$backup_path")
+    local source_path="$PWD/$1"
+
+    # Ensure the source file or directory exists
+    if [[ ! -d "$source_path" && ! -f "$source_path" ]]; then
+        warn "Source $source_path does not exist. Skipping."
+        return 0
+    fi
 
     # Only backup if the file/directory exists and is not a symlink pointing to our dotfiles
-    if [ -e "$source_path" ] && [ ! -L "$source_path" -o "$(readlink "$source_path")" != "$PWD/$1" ]; then
-        info "Backing up $source_path to $backup_path..."
+    if [ -e "$dest_path" ] && [ ! -L "$dest_path" -o "$(readlink "$dest_path")" != "$PWD/$1" ]; then
+        info "Backing up $dest_path to $backup_path..."
         mkdir -p "$backup_dir"
-        mv "$source_path" "$backup_dir/" 2>/dev/null || warn "Warning: Could not move $source_path to backup."
-    elif [ -L "$source_path" ] && [ "$(readlink "$source_path")" = "$PWD/$1" ]; then
-        warn "Already linked correctly: $source_path."
+        mv "$dest_path" "$backup_dir/" 2>/dev/null || warn "Warning: Could not move $dest_path to backup."
+    elif [ -L "$dest_path" ] && [ "$(readlink "$dest_path")" = "$PWD/$1" ]; then
+        warn "Already linked correctly: $dest_path."
         return 0
     fi
 
     # Create the parent directory if it doesn't exist
-    mkdir -p "$(dirname "$source_path")"
+    mkdir -p "$(dirname "$dest_path")"
 
     # Create the symbolic link
-    echo "Creating symlink for $1"
-    ln -sf "$PWD/$1" "$source_path" || echo "Warning: Could not create symlink for $1."
+    info "Creating symlink for $1"
+    ln -sf "$PWD/$1" "$dest_path" || warn "Could not create symlink for $1."
 }
 
 decrypt() {
