@@ -510,13 +510,18 @@ if [[ -f "$HOME/.envrc" ]]; then
     source "$HOME/.envrc"
 fi
 
-for f in $HOME/modules/*.sh; do
-    source "$f"
-done
+if [ -d "$HOME/modules" ]; then
+    for f in "$HOME/modules/*.sh"; do
+        source "$f"
+    done
+fi
 
 if command -v zoxide > /dev/null; then
     eval "$(zoxide init bash)"
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-. "$HOME/.cargo/env"
+
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
