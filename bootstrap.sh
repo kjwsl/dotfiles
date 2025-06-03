@@ -3,6 +3,7 @@
 source scripts/tools.sh
 
 BACKUP_DIR="$HOME/.dotfiles-backup"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" # This is where other files that are supposed to be in the home directory are too
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
 BACKUP_DIR_WITH_TS="$BACKUP_DIR/$TIMESTAMP"
 
@@ -45,10 +46,11 @@ DECRYPT_FILES=(
 mkdir -p "$BACKUP_DIR_WITH_TS"
 
 backup_and_link() {
+    local source_path="$SCRIPT_DIR/$1"
     local dest_path="$HOME/$1"
     local backup_path="$BACKUP_DIR_WITH_TS/$1"
-    local backup_dir=$(dirname "$backup_path")
-    local source_path="$PWD/$1"
+    local backup_dir
+    backup_dir=$(dirname "$backup_path")
 
     # Ensure the source file or directory exists
     if [[ ! -d "$source_path" && ! -f "$source_path" ]]; then
@@ -57,11 +59,11 @@ backup_and_link() {
     fi
 
     # Only backup if the file/directory exists and is not a symlink pointing to our dotfiles
-    if [ -e "$dest_path" ] && [ ! -L "$dest_path" -o "$(readlink "$dest_path")" != "$PWD/$1" ]; then
+    if [ -e "$dest_path" ] && [ ! -L "$dest_path" ] || [ "$(readlink "$dest_path")" != "$source_path" ]; then
         info "Backing up $dest_path to $backup_path..."
         mkdir -p "$backup_dir"
         mv "$dest_path" "$backup_dir/" 2>/dev/null || warn "Warning: Could not move $dest_path to backup."
-    elif [ -L "$dest_path" ] && [ "$(readlink "$dest_path")" = "$PWD/$1" ]; then
+    elif [ -L "$dest_path" ] && [ "$(readlink "$dest_path")" = "$source_path" ]; then
         warn "Already linked correctly: $dest_path."
         return 0
     fi
@@ -71,7 +73,7 @@ backup_and_link() {
 
     # Create the symbolic link
     info "Creating symlink for $1"
-    ln -sf "$PWD/$1" "$dest_path" || warn "Could not create symlink for $1."
+    ln -sf "$source_path" "$dest_path" || warn "Could not create symlink for $1."
 }
 
 decrypt() {
