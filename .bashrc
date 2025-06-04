@@ -511,7 +511,7 @@ if [[ -f "$HOME/.envrc" ]]; then
 fi
 
 if [ -d "$HOME/modules" ]; then
-    for f in "$HOME/modules/*.sh"; do
+    for f in "$HOME/modules/"*.sh; do
         source "$f"
     done
 fi
@@ -520,8 +520,14 @@ if command -v zoxide > /dev/null; then
     eval "$(zoxide init bash)"
 fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
+[ -f ~/.fzf.bash ] && source "$HOME/.fzf.bash"
 if [ -f "$HOME/.cargo/env" ]; then
     . "$HOME/.cargo/env"
+fi
+
+# fnm
+FNM_PATH="/home/ray/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
 fi
