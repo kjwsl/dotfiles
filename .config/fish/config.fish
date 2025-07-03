@@ -1,5 +1,6 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
+    source $HOME/.config/fish/functions.fish
 
     if not type -q fisher
         curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
@@ -70,5 +71,9 @@ if status is-interactive
     if type -q eza
         alias ls="eza --icons --group-directories-first -a"
         alias ll="eza --icons --group-directories-first -la"
+    end
+
+    if test -f $HOME/.secrets
+        envsource $HOME/.secrets
     end
 end
