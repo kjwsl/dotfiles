@@ -17,7 +17,7 @@ set -g @plugin 'catppuccin/tmux#v2.1.2'
 set -g @catppuccin_flavor 'mocha' # latte, frappe, macchiato or mocha
 
 # Tmux Continuum
-set -g @continuum-boot 'on' # Start tmux automatically
+# set -g @continuum-boot 'on' # Start tmux automatically
 set -g @continuum-restore 'on' # Restore tmux sessions automatically
 
 # ~/.tmux.conf
