@@ -11,6 +11,9 @@ FILES=(
     .aliasrc
     .bashrc
     .clang-format
+    .config/REAPER
+    .config/btop
+    .config/clangd
     .config/fish
     .config/fontconfig
     .config/ghostty
