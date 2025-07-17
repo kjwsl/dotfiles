@@ -76,4 +76,8 @@ if status is-interactive
     if test -f $HOME/.secrets
         envsource $HOME/.secrets
     end
+
+    if test -f $HOME/work.fish
+        source $HOME/work.fish
+    end
 end
