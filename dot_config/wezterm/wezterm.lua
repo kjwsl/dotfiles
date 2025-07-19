@@ -121,7 +121,7 @@ for key, direction in pairs(dirs) do
 	-- -- Adjust pane size
 	-- config.keys[#config.keys + 1] = { key = key, mods = "ALT", action = act.AdjustPaneSize({ direction, 5 }) }
 	--
-	-- config.keys[#config.keys + 1] = { key = key, mods = "CTRL", action = act.ActivatePaneDirection(direction) }
+	config.keys[#config.keys + 1] = { key = key, mods = "CTRL", action = act.ActivatePaneDirection(direction) }
 
 	config.keys[#config.keys + 1] = {
 		key = key,
