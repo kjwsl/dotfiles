@@ -9,7 +9,7 @@ customCommands:
     context: "global"
     loadingText: "take theirs"
 
-  - key: "c"
+  - key: "C"
     command: "git cherry-pick {{ .SelectedLocalBranch.Name }}"
     context: "localBranches"
     prompts:
