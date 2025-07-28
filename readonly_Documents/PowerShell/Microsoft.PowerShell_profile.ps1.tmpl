@@ -1,3 +1,4 @@
+{{- if eq .chezmoi.os "windows" }}
 oh-my-posh init pwsh --config "C:\Program Files (x86)\oh-my-posh\themes\kushal.omp.json" | Invoke-Expression
 
 if (Test-path "C:\Program Files\Neovim\bin\nvim.exe")
@@ -17,3 +18,4 @@ Set-Alias -Name v. -Value Open-NvimCurrentDir
 Set-Alias -Name g -Value git
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
+{{- end }}

@@ -1,0 +1,18 @@
+customCommands:
+  - key: "O"
+    command: "git checkout --ours {{ .SelectedFile.Name }}"
+    context: "global"
+    loadingText: "take ours"
+
+  - key: "T"
+    command: "git checkout --theirs {{ .SelectedFile.Name }}"
+    context: "global"
+    loadingText: "take theirs"
+
+  - key: "c"
+    command: "git cherry-pick {{ .SelectedLocalBranch.Name }}"
+    context: "localBranches"
+    prompts:
+    - type: 'confirm'
+      title: 'Cherry-pick {{ .SelectedLocalBranch.Name }}?'
+      body: 'Are you sure you want to cherry-pick {{ .SelectedLocalBranch.Name }}?'
