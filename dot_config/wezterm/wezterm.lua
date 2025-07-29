@@ -83,6 +83,15 @@ config.win32_system_backdrop = "Acrylic"
 config.macos_window_background_blur = 10
 config.native_macos_fullscreen_mode = true
 
+-- Mouse
+config.mouse_bindings = {
+	{
+		event = { Up = { streak = 1, button = "Left"}},
+		mods = "NONE",
+		action = wezterm.action.Nop,
+	},
+}
+
 -- Keybindings
 
 -- Set a key binding to toggle the tab bar
@@ -135,7 +144,6 @@ for key, direction in pairs(dirs) do
 end
 
 -- # Neovim-related
-
 
 -- local smart_splits = require("modules.smart-splits")
 -- for _, key in ipairs(smart_splits.get_keys(wezterm)) do
