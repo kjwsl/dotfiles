@@ -1,0 +1,14 @@
+theme = "catppuccin_mocha"
+
+[editor]
+line-number = "relative"
+
+[keys.normal.z]
+x = "esc"
+
+[keys.normal.space.q]
+q = ":q"
+
+[keys.normal.space.w]
+w = ":w"
+q = ":wq"
