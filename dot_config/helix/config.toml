@@ -6,7 +6,7 @@ line-number = "relative"
 [keys.normal]
 K = "hover"
 
-[keys.normal.z]
+[keys.insert.z]
 x = "normal_mode"
 
 [keys.normal.space.f]
