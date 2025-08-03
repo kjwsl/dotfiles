@@ -3,12 +3,30 @@ theme = "catppuccin_mocha"
 [editor]
 line-number = "relative"
 
+[keys.normal]
+K = "hover"
+
 [keys.normal.z]
 x = "normal_mode"
 
-[keys.normal.space.q]
-q = ":q"
+[keys.normal.space.f]
+f = "file_picker"
+F = "file_picker_in_current_directory"
+s = "symbol_picker"
+S = "workspace_symbol_picker"
+"." = "last_picker"
+
+[keys.normal.space.s]
+h = "vsplit"
+l = "vsplit"
+j = "hsplit"
+k = "hsplit"
 
 [keys.normal.space.w]
+d = "wclose"
 w = ":w"
 q = ":wq"
+Q = ":wqa"
+
+[keys.normal.space.q]
+q = ":q"
