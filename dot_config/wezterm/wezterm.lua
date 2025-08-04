@@ -19,6 +19,17 @@ end
 
 local wezterm = require("wezterm")
 
+wezterm.on("toggle-opacity", function(window, pane)
+	local overrides = window:get_config_overrides() or {}
+	if not overrides.window_background_opacity then
+		overrides.window_background_opacity = 0.7
+	else
+		overrides.window_background_opacity = nil
+	end
+
+	window:set_config_overrides(overrides)
+end)
+
 -- This table will hold the configuration.
 local config = {}
 
@@ -86,7 +97,7 @@ config.native_macos_fullscreen_mode = true
 -- Mouse
 config.mouse_bindings = {
 	{
-		event = { Up = { streak = 1, button = "Left"}},
+		event = { Up = { streak = 1, button = "Left" } },
 		mods = "NONE",
 		action = wezterm.action.Nop,
 	},
@@ -122,6 +133,7 @@ config.keys = {
 	{ key = "PageUp", mods = "SHIFT", action = act.ScrollByPage(-0.5) },
 	{ key = "PageDown", mods = "SHIFT", action = act.ScrollByPage(0.5) },
 	{ key = "x", mods = "CTRL|SHIFT", action = act.ActivateCopyMode },
+	{ key = "B", mods = "CTRL", action = wezterm.action.EmitEvent("toggle-opacity") },
 }
 
 local dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
