@@ -98,3 +98,5 @@ ls
 z
 ls
 v config.nu
+chezmoi add ~/.config/nushell/
+chezmoi update
