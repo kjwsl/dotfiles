@@ -18,12 +18,13 @@
   "border_width": 0,
   "border_offset": 0,
   "mouse_follows_focus": true,
-  "transparency": true,
+  "transparency": false,
   "transparency_alpha": 220,
   "theme": {
     "palette": "Catppuccin",
     "name": "Mocha",
-    "unfocused_border": "Sapphire",
+    "unfocused_border": "Red",
+    "single_border": "Blue",
     "bar_accent": "Lavender"
   },
   "animation": {
