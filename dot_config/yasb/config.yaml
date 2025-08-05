@@ -246,7 +246,7 @@ widgets:
       app_list:
         - { icon: "\uf422", launch: "search" }
         - { icon: "\ueb03", launch: "cmd /c Taskmgr" }
-        - { icon: "\udb80\ude39",launch: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" }
+        - { icon: "\udb80\ude39",launch: "C:\\Users\\ray\\AppData\\Local\\BraveSoftware\\Brave-Browser\\Application\\brave.exe" }
   notifications:
     type: "yasb.notifications.NotificationsWidget"
     options:

@@ -21,7 +21,7 @@ For more information about configuration options, please visit the Wiki https://
     --crust: rgba(32, 32, 43, 0.92);
 }
 * {
-    font-size: 12px;
+    font-size: 14px;
     color: var(--text);
     font-weight: 600;
     font-family: "JetBrainsMono NFP";
@@ -332,7 +332,7 @@ For more information about configuration options, please visit the Wiki https://
 .home-menu .menu-item {
     padding: 8px 48px 9px 16px;
     font-size: 12px;
-    font-family: 'Segoe UI';
+    font-family: 'JetBrainsMono NF';
     color: var(--text);
     font-weight: 600;
 }
