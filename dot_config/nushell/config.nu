@@ -19,6 +19,7 @@
 
 # Set the default editor to use
 
+
 $env.config.buffer_editor = "nvim"
 
 source ~/.config/nushell/aliases.nu
@@ -32,3 +33,10 @@ oh-my-posh init nu --config 'agnoster'
 # oh-my-posh init nu --config 'catppuccin_mocha'
 # oh-my-posh init nu --config 'stelbent-compact.minimal'
 # oh-my-posh init nu --config 'fish'
+
+# Run fastfetch if exists
+if (which fastfetch | is-not-empty) {
+    fastfetch
+}
+
+$env.config.show_banner = false
