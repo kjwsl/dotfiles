@@ -47,7 +47,7 @@ end
 local current_os = get_os_name()
 
 -- Default shell
-local default_shell = current_os ~= "Windows" and os.getenv("SHELL") or "pwsh.exe"
+local default_shell = current_os ~= "Windows" and os.getenv("SHELL") or "nu.exe"
 config.default_prog = { default_shell }
 
 -- Colorscheme
@@ -134,6 +134,17 @@ config.keys = {
 	{ key = "PageDown", mods = "SHIFT", action = act.ScrollByPage(0.5) },
 	{ key = "x", mods = "CTRL|SHIFT", action = act.ActivateCopyMode },
 	{ key = "B", mods = "CTRL", action = wezterm.action.EmitEvent("toggle-opacity") },
+	{
+		-- Select URL to open
+		key = 'o', mods = 'CTRL', action = act.QuickSelectArgs {
+			label = "open",
+			patterns = { 'https?://\\S+'},
+			action = wezterm.action_callback(function(window, pane)
+				local url = window:get_selection_text_for_pane(pane)
+				wezterm.open_with(url)
+			end)
+		}
+	}
 }
 
 local dirs = { h = "Left", j = "Down", k = "Up", l = "Right" }
