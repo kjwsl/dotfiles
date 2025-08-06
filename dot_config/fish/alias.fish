@@ -1,3 +1,4 @@
+alias tree='tree -C'
 alias v='nvim'
 alias v.='nvim .'
 
