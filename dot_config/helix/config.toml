@@ -2,12 +2,16 @@ theme = "catppuccin_mocha"
 
 [editor]
 line-number = "relative"
+auto-format = false
 
 [keys.normal]
 K = "hover"
 
 [keys.insert.z]
 x = "normal_mode"
+
+[keys.normal.space]
+"=" = ":format"
 
 [keys.normal.space.f]
 f = "file_picker"
