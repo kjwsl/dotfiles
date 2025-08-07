@@ -136,7 +136,7 @@ config.keys = {
 	{ key = "B", mods = "CTRL", action = wezterm.action.EmitEvent("toggle-opacity") },
 	{
 		-- Select URL to open
-		key = 'o', mods = 'CTRL', action = act.QuickSelectArgs {
+		key = 'o', mods = 'CTRL|SHIFT', action = act.QuickSelectArgs {
 			label = "open",
 			patterns = { 'https?://\\S+'},
 			action = wezterm.action_callback(function(window, pane)
