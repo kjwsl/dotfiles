@@ -23,8 +23,8 @@
   "theme": {
     "palette": "Catppuccin",
     "name": "Mocha",
-    "unfocused_border": "Red",
-    "single_border": "Blue",
+    "unfocused_border": "Blue",
+    "single_border": "Red",
     "bar_accent": "Lavender"
   },
   "animation": {
