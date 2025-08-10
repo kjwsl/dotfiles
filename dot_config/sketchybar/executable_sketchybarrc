@@ -44,6 +44,8 @@ source "$ITEM_DIR/front_app"
 
 # Right
 source "$ITEM_DIR/clock"
+source "$ITEM_DIR/weather"
+source "$ITEM_DIR/battery"
 
 # Automatically apply configuration changes
 sketchybar --hotload on
