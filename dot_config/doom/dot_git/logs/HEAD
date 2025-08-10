@@ -1,0 +1,3 @@
+0000000000000000000000000000000000000000 b469e8884d482a26fcc9ad9cfbb08ad547d1d783 Ray <kjwsl@fatherslab.com> 1753027288 +0900	commit (initial): first commit
+b469e8884d482a26fcc9ad9cfbb08ad547d1d783 b469e8884d482a26fcc9ad9cfbb08ad547d1d783 Ray <kjwsl@fatherslab.com> 1753027291 +0900	checkout: moving from main to master
+b469e8884d482a26fcc9ad9cfbb08ad547d1d783 73d7cd078c784bf226fcb99314088d9a10a8894c Ray <kjwsl@fatherslab.com> 1753029053 +0900	commit: feat: Configure Doom Emacs with new theme, fonts, keybindings, and language modules
