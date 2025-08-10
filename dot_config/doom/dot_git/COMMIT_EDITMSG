@@ -1,6 +1,0 @@
-feat: Configure Doom Emacs with new theme, fonts, keybindings, and language modules
-
-- Set JetbrainsMono Nerd Font Mono and Catppuccin theme in config.el.
-- Added custom keybindings for saving and window splitting.
-- Enabled various language modules (cc, json, java, kotlin, nix, plantuml, graphviz, python, rust, zig) in init.el.
-- Added catppuccin-theme package in packages.el.
