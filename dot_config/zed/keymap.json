@@ -24,5 +24,11 @@
       "space w w": "workspace::Save",
       "space w a": "workspace::SaveAll"
     }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-t": "workspace::OpenInTerminal"
+    }
   }
 ]
