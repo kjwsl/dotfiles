@@ -2,3 +2,8 @@
 type = "git-repo"
 url = "https://github.com/kjwsl/nvim-config"
 refreshPeriod = "1h"
+
+[".oh-my-bash"]
+type = "git-repo"
+url = "https://github.com/ohmybash/oh-my-bash"
+refreshPeriod = "24h"
