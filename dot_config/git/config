@@ -7,6 +7,14 @@
     autocrlf = input
     whitespace = error
     preloadindex = true
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    dark = true
 
 [diff]
     renames = copies
@@ -45,7 +53,7 @@
     t = tag
     df = diff
     dfh = diff HEAD
-    lg = log --all --graph --decorate
+    lg = log --graph --decorate
     rs = reset
     rss = reset --soft
     rsh = reset --hard
@@ -65,16 +73,11 @@
 	git-commit-alias = 61bacd95b285a9792a05d1c818d9cee15ebe53c6
 [color]
 	ui = auto
-[pull]
-	rebase = false
 [core]
 	autocrlf = input
-	pager = diff-so-fancy | less --tabs=4 -RFX
 [credential "https://github.com"]
 	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !/home/ray/.local/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
-[interactive]
-	diffFilter = diff-so-fancy --patch
+	helper = !/home/ray/.local/bin/gh auth git-credential
