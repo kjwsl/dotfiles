@@ -47,7 +47,7 @@ end
 local current_os = get_os_name()
 
 -- Default shell
-local default_shell = current_os ~= "Windows" and os.getenv("SHELL") or "nu.exe"
+local default_shell = current_os ~= "Windows" and os.getenv("SHELL") or "pwsh.exe"
 config.default_prog = { default_shell }
 
 -- Colorscheme
