@@ -1,5 +1,5 @@
 [user]
-	name = Ray
+	name = ray
 	email = kjwsl@fatherslab.com
 
 [core]
@@ -75,9 +75,3 @@
 	ui = auto
 [core]
 	autocrlf = input
-[credential "https://github.com"]
-	helper = 
-	helper = !/home/ray/.local/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/home/ray/.local/bin/gh auth git-credential
