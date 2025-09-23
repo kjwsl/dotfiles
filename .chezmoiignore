@@ -3,3 +3,10 @@ note.md
 README.md
 LICENSE
 windows
+
+{{ if ne .chezmoi.os "windows" }}
+readonly_Documents
+komorebi.json
+komorebi.bar.json
+dot_config/whkdrc
+{{ end }}
