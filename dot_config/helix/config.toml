@@ -3,6 +3,7 @@ theme = "catppuccin_mocha"
 [editor]
 line-number = "relative"
 auto-format = false
+auto-pairs = false
 
 [keys.normal]
 K = "hover"
