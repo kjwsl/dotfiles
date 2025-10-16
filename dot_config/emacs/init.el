@@ -1,0 +1,37 @@
+;; Set up package.el to work with MELPA  -*- lexical-binding: t; -*-
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+(package-refresh-contents)
+
+;; Download Evil
+(unless (package-installed-p 'evil)
+  (package-install 'evil))
+
+;; Enable Evil
+(require 'evil)
+(evil-mode 1)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; Catppuccin Theme
+(unless (package-installed-p 'catppuccin-theme)
+  (package-install 'catppuccin-theme))
+
+(require 'catppuccin-theme)
+(setq catppuccin-flavor 'mocha)
+(load-theme 'catppuccin t)
+
+
+(set-face-attribute 'default nil :height 170)
