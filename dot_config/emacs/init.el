@@ -3,15 +3,38 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
-(package-refresh-contents)
 
-;; Download Evil
-(unless (package-installed-p 'evil)
-  (package-install 'evil))
+(unless package-archive-contents
+  (package-refresh-contents))
 
-;; Enable Evil
-(require 'evil)
-(evil-mode 1)
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+;; Load use-package and set defaults
+(require 'use-package)
+(setq use-package-always-ensure t)   ;; automatically install missing packages
+(setq use-package-always-defer t)    ;; lazy-load by default
+
+(use-package magit
+  :bind (("C-x g" . magit-status))
+  :config
+  (setq magit-display-buffer-function
+        #'magit-display-buffer-fullframe-status-v1))
+
+(use-package evil
+  :demand t
+  :init
+  (setq evil-want-C-u-scroll t)
+  :config
+  (evil-mode 1))
+
+;; --- Catppuccin theme ---
+(use-package catppuccin-theme
+  :demand t
+  :init
+  (setq catppuccin-flavor 'mocha)  ;; set flavor before loading
+  :config
+  (load-theme 'catppuccin t))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -24,14 +47,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-;; Catppuccin Theme
-(unless (package-installed-p 'catppuccin-theme)
-  (package-install 'catppuccin-theme))
-
-(require 'catppuccin-theme)
-(setq catppuccin-flavor 'mocha)
-(load-theme 'catppuccin t)
-
-
-(set-face-attribute 'default nil :height 170)
