@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 declare -r LINE_NUMBER_PANE_WIDTH=3
 declare -r LINE_NUMBER_UPDATE_DELAY=0.1
