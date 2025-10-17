@@ -1,3 +1,15 @@
+;; Enable relative line numbers
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode 1)
+
+;; Remove menu bar
+(menu-bar-mode -1)
+;; Remove tool bar
+(tool-bar-mode -1)
+
+;; Enable which key
+(which-key-mode 1)
+
 ;; Set up package.el to work with MELPA  -*- lexical-binding: t; -*-
 (require 'package)
 (add-to-list 'package-archives
@@ -26,7 +38,20 @@
   :init
   (setq evil-want-C-u-scroll t)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  (evil-set-leader '(normal visual) (kbd "SPC"))
+  (evil-define-key '(normal visual) 'global (kbd "<leader>ww") 'save-buffer)
+  (evil-define-key '(normal visual) 'global (kbd "<leader>qq") 'kill-buffer)
+  (evil-define-key '(normal visual) 'global (kbd "<leader><leader>Q") 'kill-emacs)
+  (evil-define-key '(normal visual) 'global (kbd "<leader>so") 'eval-buffer)
+  (evil-define-key 'insert 'global (kbd "zx") 'eval-buffer)
+  )
+
+  ;; (my/leader "w w" '(save-buffer :which-key "Save buffer"))
+  ;; (my/leader "q q" '(kill-buffer :which-key "Kill buffer"))
+  ;; (my/leader "SPC Q" '(kill-emacs :which-key "Kill Emacs"))
+  ;; (my/leader "s o" '(eval-buffer :which-key "Source Curent Buffer"))
+  ;; )
 
 ;; --- Catppuccin theme ---
 (use-package catppuccin-theme
@@ -35,15 +60,6 @@
   (setq catppuccin-flavor 'mocha)  ;; set flavor before loading
   :config
   (load-theme 'catppuccin t))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+
+(set-face-attribute 'default nil :height 170)
