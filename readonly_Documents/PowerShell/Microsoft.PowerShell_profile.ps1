@@ -24,3 +24,9 @@ if (Test-Path ~/work.ps1)
 {
     . ~/work.ps1
 }
+
+
+# Initialize mise
+if (Get-Command mise.exe -ErrorAction SilentlyContinue) {
+    mise activate pwsh | Out-String | Invoke-Expression
+}
