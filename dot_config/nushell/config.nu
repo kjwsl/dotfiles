@@ -28,7 +28,12 @@ source ~/.zoxide.nu
 
 source ~/.config/nushell/themes/catppuccin_mocha.nu
 
-oh-my-posh init nu --config 'agnoster'
+if (which oh-my-posh | is-not-empty) {
+    oh-my-posh init nu --config 'agnoster'
+} else if (which starship | is-not-empty) {
+    mkdir ($nu.data-dir | path join "vendor/autoload")
+    starship init nu | save -f ($nu.data-dir | path join "vendor/autoload/starship.nu")
+}
 # oh-my-posh init nu --config 'catppuccin'
 # oh-my-posh init nu --config 'catppuccin_mocha'
 # oh-my-posh init nu --config 'stelbent-compact.minimal'
