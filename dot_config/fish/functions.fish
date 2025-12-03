@@ -4,3 +4,9 @@ function envsource
         set -gx $item[1] $item[2]
     end
 end
+
+function pi
+    if type -q pacman
+        sudo pacman -S --needed --noconfirm $argv
+    end
+end
