@@ -531,3 +531,92 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
   eval "`fnm env`"
 fi
+
+
+# Functions
+
+smartdd() {
+    local source="$1"
+    local dest="$2"
+    local bs_size="4M"
+    local count_bytes=0
+    local mode=""
+
+    # 1. Input Validation
+    if [[ -z "$source" || -z "$dest" ]]; then
+        echo "Usage: smartdd <input_file_or_dev_zero> <destination_device>"
+        return 1
+    fi
+
+    if [[ ! -e "$dest" ]]; then
+        echo "Error: Destination $dest does not exist."
+        return 1
+    fi
+
+    # 2. Determine Mode & Calculate Size
+    if [[ "$source" == "/dev/zero" ]]; then
+        # --- MODE: ZERO WIPE ---
+        mode="WIPE"
+        
+        # Method A: Try lsblk (Standard Linux)
+        if command -v lsblk &> /dev/null; then
+             count_bytes=$(lsblk -b -n -o SIZE "$dest" | head -n 1)
+        fi
+
+        # Method B: Fallback for Git Bash / MSYS (if Method A failed or returned nothing)
+        # This parses /proc/partitions, gets the 1K-block count, and multiplies by 1024
+        if [[ -z "$count_bytes" ]]; then
+            local base_dest=$(basename "$dest")
+            local blocks=$(cat /proc/partitions | grep "${base_dest}$" | awk '{print $3}')
+            
+            if [[ -n "$blocks" ]]; then
+                count_bytes=$((blocks * 1024))
+            fi
+        fi
+
+    else
+        # --- MODE: FLASH IMAGE ---
+        mode="FLASH"
+        
+        if [[ ! -e "$source" ]]; then
+            echo "Error: Source file $source not found."
+            return 1
+        fi
+
+        # Get file size using stat
+        # Check if GNU stat (Linux/GitBash) or BSD stat (Mac)
+        if stat --version &> /dev/null; then
+            count_bytes=$(stat -c %s "$source") # GNU
+        else
+            count_bytes=$(stat -f %z "$source") # BSD/Mac
+        fi
+    fi
+
+    # 3. Safety Check
+    if [[ -z "$count_bytes" || "$count_bytes" -eq 0 ]]; then
+        echo "Error: Could not determine size automatically. Aborting."
+        return 1
+    fi
+
+    # Calculate MB for display (Integer math)
+    local size_mb=$((count_bytes / 1024 / 1024))
+
+    # 4. Confirmation Prompt
+    echo "---------------------------------------------------"
+    echo "Mode:      $mode"
+    echo "Source:    $source"
+    echo "Target:    $dest"
+    echo "Data Size: $count_bytes bytes (~$size_mb MB)"
+    echo "---------------------------------------------------"
+    echo "Press [Enter] to start or [Ctrl+C] to cancel..."
+    read -r
+
+    # 5. Execution
+    # iflag=count_bytes ensures we stop exactly at the limit
+    dd if="$source" of="$dest" bs="$bs_size" count="$count_bytes" iflag=count_bytes status=progress
+    
+    # 6. Final Sync
+    echo "Syncing cache..."
+    sync
+    echo "Done."
+}
