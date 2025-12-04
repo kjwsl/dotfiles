@@ -17,7 +17,10 @@ Set-Alias -Name v -Value $nvimPath
 Set-Alias -Name v. -Value Open-NvimCurrentDir
 Set-Alias -Name g -Value git
 
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
+if (Get-Command zoxide -ErrorAction SilentlyContinue) {
+    Invoke-Expression (& { (zoxide init powershell | Out-String) })
+}
 
 
 if (Test-Path ~/work.ps1)
