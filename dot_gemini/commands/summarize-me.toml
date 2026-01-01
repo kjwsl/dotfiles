@@ -1,0 +1,7 @@
+description="Summarizes my contributions to the current git repo"
+prompt = """
+1. Run `git config user.email` to find the current user.
+2. Run `git log --author="<email>" --stat -n 50` to see the last 50 contributions.
+3. Analyze the types of changes made (features vs fixes).
+4. Provide a structured summary of my impact on this project.
+"""
