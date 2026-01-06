@@ -5,11 +5,16 @@ name = "ray"
 email = "kjwsl@fatherslab.com"
 
 [ui]
+diff-formatter = "difft"
 editor = "nvim"
 diff-editor = ["nvim", "-c", "DiffviewOpen"]
 
 # Make logs readable for humans, not graph theorists
 log-format = "builtin"
+
+[diff]
+tool.difftastic.command = ["difft", "--color=always"]
+tool.delta.command = ["delta", "--paging=always"]
 
 [git]
 # Keep Git in the loop without surprises
