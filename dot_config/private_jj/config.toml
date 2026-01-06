@@ -26,3 +26,24 @@ commit_summary = '''
 "{description}"
 '''
 
+[aliases]
+# Status & inspection
+st = ["status"]
+lg = ["log", "-r", "ancestors(@, 20)"]
+df = ["diff"]
+dfh = ["diff", "-r", "@"]      # diff current commit vs working copy
+dfp = ["diff", "-r", "@-"]     # diff parent commit
+
+# Navigation
+co = ["checkout"]
+sw = ["checkout"]
+
+# Commit ergonomics
+cm = ["commit"]
+am = ["amend"]
+sp = ["split"]
+
+# Safety helpers
+undo = ["undo"]
+restore = ["restore"]
+
