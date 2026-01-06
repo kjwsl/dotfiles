@@ -11,6 +11,7 @@ diff-editor = ["nvim", "-c", "DiffviewOpen"]
 
 # Make logs readable for humans, not graph theorists
 log-format = "builtin"
+default-command = "log"
 
 [diff]
 tool.difftastic.command = ["difft", "--color=always"]
@@ -29,6 +30,19 @@ log = "ancestors(@, 50) | descendants(@, 10)"
 # Cleaner commit summaries
 commit_summary = '''
 "{description}"
+'''
+
+# This puts the diff at the bottom of your message when you run 'jj describe'
+draft_commit_description = '''
+concat(
+  description,
+  surround(
+    "\nJJ: Changes:\n",
+    "",
+    indent("JJ: ", diff.stat(72)),
+  ),
+  surround("\nJJ: Diff:\n", "", indent("JJ: ", diff.git(4)))
+)
 '''
 
 [aliases]
