@@ -1,0 +1,28 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
+[user]
+name = "ray"
+email = "kjwsl@fatherslab.com"
+
+[ui]
+editor = "nvim"
+diff-editor = ["nvim", "-c", "DiffviewOpen"]
+
+# Make logs readable for humans, not graph theorists
+log-format = "builtin"
+
+[git]
+# Keep Git in the loop without surprises
+push-branch-prefix = "jj/"
+auto-local-branch = true
+
+[revsets]
+# What jj shows by default (recent, relevant stuff)
+log = "ancestors(@, 50) | descendants(@, 10)"
+
+[templates]
+# Cleaner commit summaries
+commit_summary = '''
+"{description}"
+'''
+
