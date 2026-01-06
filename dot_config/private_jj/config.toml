@@ -42,8 +42,3 @@ sw = ["checkout"]
 cm = ["commit"]
 am = ["amend"]
 sp = ["split"]
-
-# Safety helpers
-undo = ["undo"]
-restore = ["restore"]
-
