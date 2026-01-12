@@ -5,7 +5,8 @@ name = "ray"
 email = "kjwsl@fatherslab.com"
 
 [ui]
-diff-formatter = "difft"
+diff-formatter = ":git"
+pager = "delta"
 editor = "nvim"
 diff-editor = ["nvim", "-c", "DiffviewOpen"]
 
@@ -15,7 +16,6 @@ default-command = "log"
 
 [diff]
 tool.difftastic.command = ["difft", "--color=always"]
-tool.delta.command = ["delta", "--paging=always"]
 
 [git]
 # Keep Git in the loop without surprises
@@ -49,8 +49,8 @@ concat(
 # Status & inspection
 lg = ["log", "-r", "ancestors(@, 20)"]
 df = ["diff"]
-dfh = ["diff", "-r", "@"]      # diff current commit vs working copy
 dfp = ["diff", "-r", "@-"]     # diff parent commit
+dft = ["diff", "--tool", "difft"]
 
 # Navigation
 co = ["checkout"]
