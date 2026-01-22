@@ -1,7 +1,15 @@
 if status is-interactive
-    # Commands to run in interactive sessions can go here
-    source $HOME/.config/fish/functions.fish
+    # Core settings
+    export EDITOR="nvim"
+    export VISUAL=$EDITOR
 
+    # Paths
+    export PATH="$HOME/.local/bin:$PATH"
+    fish_add_path "$HOME/.rustup/toolchains/stable-aarch64-apple-darwin/bin/"
+    fish_add_path "$HOME/.cargo/bin/"
+    export PKG_CONFIG_PATH="$HOME/.luarocks/share/lua/5.1:$HOME/.nix-profile/bin:$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+    # Plugin Manager (Fisher) - Automatic Installation
     if not type -q fisher
         curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
     end
@@ -10,15 +18,17 @@ if status is-interactive
         fisher install edc/bass
     end
 
+    # Load Aliases
     if test -f $HOME/.config/fish/alias.fish
         source $HOME/.config/fish/alias.fish
     end
 
-    if [ -f $HOME/.envrc ]
+    # Environment Loading
+    if test -f $HOME/.envrc
         bass source $HOME/.envrc
     end
 
-    if [ -d $HOME/modules ]
+    if test -d $HOME/modules
         for file in $HOME/modules/*.sh
             bass source $file
         end
@@ -26,45 +36,18 @@ if status is-interactive
 
     alias fish_reload="source $HOME/.config/fish/config.fish"
 
-    export EDITOR="nvim"
-    export VISUAL=$EDITOR
-    export PATH="$HOME/.local/bin:$PATH"
-    fish_add_path "$HOME/.rustup/toolchains/stable-aarch64-apple-darwin/bin/"
-    fish_add_path "$HOME/.cargo/bin/"
-    export PKG_CONFIG_PATH="$HOME/.luarocks/share/lua/5.1:$HOME/.nix-profile/bin:$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH"
-    # export TERM=xterm-256color
-    # export TERM=screen-256color
-    # export COLORTERM=truecolor
-
+    # Tool Initializations
     if type -q pyenv 
           set -Ux PYENV_ROOT $HOME/.pyenv
           fish_add_path $PYENV_ROOT/bin
           pyenv init - fish | source
     end
 
-
-    if uname -o | grep -q "GNU/Linux"
-        set glibc_version (ldd --version | head -n 1 | awk '{print $NF}')
-        if test $glibc_version -lt 2.33
-            if type -q neofetch
-                neofetch
-            end
-        else
-            if type -q fastfetch
-                fastfetch
-            end
-        end
-    else
-        if type -q fastfetch
-            fastfetch
-        else if type -q neofetch
-            neofetch
-        end
+    if type -q starship
+        starship init fish | source
     end
-
-    if type -q zoxide
-        zoxide init fish | source
-    end
+    
+    # Note: zoxide is initialized by the kidonng/zoxide.fish plugin
 
     alias zo="z (dirname (fzf))"
 
@@ -73,6 +56,14 @@ if status is-interactive
         alias ll="eza --icons --group-directories-first -la"
     end
 
+    # System Info
+    if type -q fastfetch
+        fastfetch
+    else if type -q neofetch
+        neofetch
+    end
+
+    # Secrets and Work
     if test -f $HOME/.secrets
         envsource $HOME/.secrets
     end
