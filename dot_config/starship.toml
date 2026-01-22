@@ -5,6 +5,7 @@ palette = "custom"
 format = """
 [░▒▓](accent_light)\
 $os\
+$shell\
 [](bg:primary fg:accent_light)\
 $directory\
 [](fg:primary bg:secondary)\
@@ -194,3 +195,14 @@ Ubuntu = ""
 Unknown = ""
 Void = ""
 Windows = "󰍲"
+
+[shell]
+disabled = false
+style = "bg:accent_light fg:base_dark"
+format = "[](fg:base_dark bg:accent_light)[ $indicator]($style)"
+fish_indicator = "󰈺 "
+zsh_indicator = "󱆃 "
+bash_indicator = " "
+nu_indicator = " "
+powershell_indicator = " "
+unknown_indicator = " "
