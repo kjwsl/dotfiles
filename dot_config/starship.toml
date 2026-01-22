@@ -17,6 +17,7 @@ $golang\
 $php\
 [](fg:tertiary bg:quaternary)\
 $time\
+$cmd_duration\
 [ ](fg:quaternary)\
 \n$character"""
 
@@ -77,6 +78,12 @@ disabled = false
 time_format = "%R" # Hour:Minute Format
 style = "bg:quaternary"
 format = '[[  $time ](fg:text_dim bg:quaternary)]($style)'
+
+[cmd_duration]
+min_time = 2_000
+show_milliseconds = false
+style = "bg:quaternary"
+format = '[[ 󱎫 $duration ](fg:yellow bg:quaternary)]($style)'
 
 [character]
 success_symbol = "[❯](character)"
