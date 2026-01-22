@@ -19,6 +19,9 @@ $python\
 $lua\
 $c\
 $dart\
+$nix_shell\
+$package\
+$docker_context\
 [](fg:tertiary)\
 $fill\
 [](quaternary)\
@@ -104,8 +107,22 @@ format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
 full_symbol = ""
 charging_symbol = ""
 discharging_symbol = ""
-style = "bg:quaternary"
-format = '[[ $symbol $percentage ](fg:text_dim bg:quaternary)]($style)'
+format = '[[ $symbol $percentage ](fg:text_dim bg:quaternary)]'
+
+[docker_context]
+symbol = ""
+style = "bg:tertiary"
+format = '[[ $symbol $context ](fg:primary bg:tertiary)]($style)'
+
+[package]
+symbol = "󰏗"
+style = "bg:tertiary"
+format = '[[ $symbol $version ](fg:primary bg:tertiary)]($style)'
+
+[nix_shell]
+symbol = ""
+style = "bg:tertiary"
+format = '[[ $symbol $state ](fg:primary bg:tertiary)]($style)'
 
 
 [time]
