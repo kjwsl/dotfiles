@@ -15,11 +15,13 @@ $nodejs\
 $rust\
 $golang\
 $php\
-[](fg:tertiary bg:quaternary)\
-$time\
-$cmd_duration\
 [ ](fg:quaternary)\
 \n$character"""
+
+right_format = """
+[](quaternary)\
+[ $cmd_duration$time ](bg:quaternary fg:text_dim)\
+[▓▒░](quaternary)"""
 
 [palettes.custom]
 accent_light = "#a3aed2"
