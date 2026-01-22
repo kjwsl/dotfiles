@@ -74,4 +74,6 @@ if status is-interactive
     if test -f $HOME/work.fish
         source $HOME/work.fish
     end
+
+    fish_vi_key_bindings
 end

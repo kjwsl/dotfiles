@@ -90,3 +90,7 @@ format = '[[ 󱎫 $duration ](fg:yellow bg:quaternary)]($style)'
 [character]
 success_symbol = "[❯](character)"
 error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](yellow)"
+vimcmd_visual_symbol = "[❮](red)"
+vimcmd_replace_symbol = "[❮](red)"
+vimcmd_replace_one_symbol = "[❮](red)"
