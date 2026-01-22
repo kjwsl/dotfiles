@@ -348,7 +348,7 @@ plugins {
     status-bar location="zellij:status-bar"
     strider location="zellij:strider"
     tab-bar location="zellij:tab-bar"
-    vim-zellij-navigator location="file:/home/ray/.config/zellij/plugins/vim-zellij-navigator.wasm"
+    vim-zellij-navigator location="file:~/.config/zellij/plugins/vim-zellij-navigator.wasm"
     welcome-screen location="zellij:session-manager" {
         welcome_screen true
     }
