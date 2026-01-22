@@ -47,7 +47,10 @@ if status is-interactive
         starship init fish | source
     end
     
-    # Note: zoxide is initialized by the kidonng/zoxide.fish plugin
+    # Initialize zoxide (fallback if plugin fails)
+    if type -q zoxide
+        zoxide init fish | source
+    end
 
     alias zo="z (dirname (fzf))"
 
