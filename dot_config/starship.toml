@@ -15,10 +15,14 @@ $nodejs\
 $rust\
 $golang\
 $php\
+$python\
+$lua\
+$c\
+$dart\
 [](fg:tertiary)\
 $fill\
 [](quaternary)\
-$cmd_duration$time\
+$cmd_duration$time$battery\
 [▓▒░](quaternary)\
 \n$character"""
 
@@ -75,6 +79,34 @@ format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
 symbol = ""
 style = "bg:tertiary"
 format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
+
+[python]
+symbol = ""
+style = "bg:tertiary"
+format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
+
+[lua]
+symbol = ""
+style = "bg:tertiary"
+format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
+
+[c]
+symbol = ""
+style = "bg:tertiary"
+format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
+
+[dart]
+symbol = ""
+style = "bg:tertiary"
+format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
+
+[battery]
+full_symbol = ""
+charging_symbol = ""
+discharging_symbol = ""
+style = "bg:quaternary"
+format = '[[ $symbol $percentage ](fg:text_dim bg:quaternary)]($style)'
+
 
 [time]
 disabled = false
