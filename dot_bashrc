@@ -1,151 +1,163 @@
 # Enable the subsequent settings only in interactive sessions
 case $- in
   *i*) ;;
-    *) return;;
+    *) return;; 
 esac
 
-# Path to your oh-my-bash installation.
-export OSH="$HOME/.oh-my-bash"
+# -----------------------------------------------------------------------------
+# Environment Variables & Path
+# -----------------------------------------------------------------------------
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="agnoster"
+# Add local bin to PATH
+if [[ -d "$HOME/.local/bin" ]]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
 
-# If you set OSH_THEME to "random", you can ignore themes you don't like.
-# OMB_THEME_RANDOM_IGNORED=("powerbash10k" "wanelo")
-
-# Uncomment the following line to use case-sensitive completion.
-# OMB_CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-# OMB_HYPHEN_SENSITIVE="false"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_OSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you don't want the repository to be considered dirty
-# if there are untracked files.
-# SCM_GIT_DISABLE_UNTRACKED_DIRTY="true"
-
-# Uncomment the following line if you want to completely ignore the presence
-# of untracked files in the repository.
-# SCM_GIT_IGNORE_UNTRACKED="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.  One of the following values can
-# be used to specify the timestamp format.
-# * 'mm/dd/yyyy'     # mm/dd/yyyy + time
-# * 'dd.mm.yyyy'     # dd.mm.yyyy + time
-# * 'yyyy-mm-dd'     # yyyy-mm-dd + time
-# * '[mm/dd/yyyy]'   # [mm/dd/yyyy] + [time] with colors
-# * '[dd.mm.yyyy]'   # [dd.mm.yyyy] + [time] with colors
-# * '[yyyy-mm-dd]'   # [yyyy-mm-dd] + [time] with colors
-# If not set, the default value is 'yyyy-mm-dd'.
-# HIST_STAMPS='yyyy-mm-dd'
-
-# Uncomment the following line if you do not want OMB to overwrite the existing
-# aliases by the default OMB aliases defined in lib/*.sh
-# OMB_DEFAULT_ALIASES="check"
-
-# Would you like to use another custom folder than $OSH/custom?
-# OSH_CUSTOM=/path/to/new-custom-folder
-
-# To disable the uses of "sudo" by oh-my-bash, please set "false" to
-# this variable.  The default behavior for the empty value is "true".
-OMB_USE_SUDO=true
-
-# To enable/disable display of Python virtualenv and condaenv
-# OMB_PROMPT_SHOW_PYTHON_VENV=true  # enable
-# OMB_PROMPT_SHOW_PYTHON_VENV=false # disable
-
-# Which completions would you like to load? (completions can be found in ~/.oh-my-bash/completions/*)
-# Custom completions may be added to ~/.oh-my-bash/custom/completions/
-# Example format: completions=(ssh git bundler gem pip pip3)
-# Add wisely, as too many completions slow down shell startup.
-completions=(
-  git
-  composer
-  ssh
-)
-
-# Which aliases would you like to load? (aliases can be found in ~/.oh-my-bash/aliases/*)
-# Custom aliases may be added to ~/.oh-my-bash/custom/aliases/
-# Example format: aliases=(vagrant composer git-avh)
-# Add wisely, as too many aliases slow down shell startup.
-aliases=(
-  general
-)
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
-# Custom plugins may be added to ~/.oh-my-bash/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  bashmarks
-)
-
-# Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
-# Custom plugins may be added to ~/.oh-my-bash/custom/plugins/
-# Example format:
-#  if [ "$DISPLAY" ] || [ "$SSH" ]; then
-#      plugins+=(tmux-autoattach)
-#  fi
-
-source "$OSH"/oh-my-bash.sh
-
-# User configuration
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-bash libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-bash
-# users are encouraged to define aliases within the OSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias bashconfig="mate ~/.bashrc"
-# alias ohmybash="mate ~/.oh-my-bash"
+# -----------------------------------------------------------------------------
+# Source External Configs
+# -----------------------------------------------------------------------------
 
 if [ -f ~/.bash_local ]; then
     . ~/.bash_local
 fi
+
+if [[ -f "$HOME/.aliasrc" ]]; then
+    source "$HOME/.aliasrc"
+fi
+
+if [[ -f "$HOME/.envrc" ]]; then
+    source "$HOME/.envrc"
+fi
+
+if [ -d "$HOME/modules" ]; then
+    for f in "$HOME/modules/"*.sh; do
+        source "$f"
+    done
+fi
+
+if [ -f .bash_eww ]; then
+    . .bash_eww
+fi
+
+# -----------------------------------------------------------------------------
+# Tool Initialization
+# -----------------------------------------------------------------------------
+
+# Homebrew
+if command -v brew > /dev/null; then
+    eval "$(brew shellenv)"
+fi
+
+# fnm
+FNM_PATH="/home/ray/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
+# Cargo
+if [ -f "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
+
+# Zoxide (smarter cd)
+if command -v zoxide > /dev/null; then
+    eval "$(zoxide init bash)"
+fi
+
+# FZF
+[ -f ~/.fzf.bash ] && source "$HOME/.fzf.bash"
+
+# -----------------------------------------------------------------------------
+# Functions & Completions
+# -----------------------------------------------------------------------------
+
+smartdd() {
+    local source="$1"
+    local dest="$2"
+    local bs_size="4M"
+    local count_bytes=0
+    local mode=""
+
+    # 1. Input Validation
+    if [[ -z "$source" || -z "$dest" ]]; then
+        echo "Usage: smartdd <input_file_or_dev_zero> <destination_device>"
+        return 1
+    fi
+
+    if [[ ! -e "$dest" ]]; then
+        echo "Error: Destination $dest does not exist."
+        return 1
+    fi
+
+    # 2. Determine Mode & Calculate Size
+    if [[ "$source" == "/dev/zero" ]]; then
+        # --- MODE: ZERO WIPE ---
+        mode="WIPE"
+        
+        # Method A: Try lsblk (Standard Linux)
+        if command -v lsblk &> /dev/null; then
+             count_bytes=$(lsblk -b -n -o SIZE "$dest" | head -n 1)
+        fi
+
+        # Method B: Fallback for Git Bash / MSYS (if Method A failed or returned nothing)
+        # This parses /proc/partitions, gets the 1K-block count, and multiplies by 1024
+        if [[ -z "$count_bytes" ]]; then
+            local base_dest=$(basename "$dest")
+            local blocks=$(cat /proc/partitions | grep "${base_dest}$" | awk '{print $3}')
+            
+            if [[ -n "$blocks" ]]; then
+                count_bytes=$((blocks * 1024))
+            fi
+        fi
+
+    else
+        # --- MODE: FLASH IMAGE ---
+        mode="FLASH"
+        
+        if [[ ! -e "$source" ]]; then
+            echo "Error: Source file $source not found."
+            return 1
+        fi
+
+        # Get file size using stat
+        # Check if GNU stat (Linux/GitBash) or BSD stat (Mac)
+        if stat --version &> /dev/null; then
+            count_bytes=$(stat -c %s "$source") # GNU
+        else
+            count_bytes=$(stat -f %z "$source") # BSD/Mac
+        fi
+    fi
+
+    # 3. Safety Check
+    if [[ -z "$count_bytes" || "$count_bytes" -eq 0 ]]; then
+        echo "Error: Could not determine size automatically. Aborting."
+        return 1
+    fi
+
+    # Calculate MB for display (Integer math)
+    local size_mb=$((count_bytes / 1024 / 1024))
+
+    # 4. Confirmation Prompt
+    echo "---------------------------------------------------"
+    echo "Mode:      $mode"
+    echo "Source:    $source"
+    echo "Target:    $dest"
+    echo "Data Size: $count_bytes bytes (~$size_mb MB)"
+    echo "---------------------------------------------------"
+    echo "Press [Enter] to start or [Ctrl+C] to cancel..."
+    read -r
+
+    # 5. Execution
+    # iflag=count_bytes ensures we stop exactly at the limit
+    dd if="$source" of="$dest" bs="$bs_size" count="$count_bytes" iflag=count_bytes status=progress
+    
+    # 6. Final Sync
+    echo "Syncing cache..."
+    sync
+    echo "Done."
+}
+
 # bash completion V2 for darkman                              -*- shell-script -*-
 
 __darkman_debug()
@@ -195,10 +207,10 @@ __darkman_get_completion_results() {
     # Use eval to handle any environment variables and such
     out=$(eval "${requestComp}" 2>/dev/null)
 
-    # Extract the directive integer at the very end of the output following a colon (:)
+    # Extract the directive integer at the very end of the output following a colon (:) 
     directive=${out##*:}
     # Remove the directive
-    out=${out%:*}
+    out=${out%:*} 
     if [[ ${directive} == "${out}" ]]; then
         # There is not directive specified
         directive=0
@@ -350,7 +362,7 @@ __darkman_handle_completion_types() {
     *)
         # Type: complete (normal completion)
         __darkman_handle_standard_completion_case
-        ;;
+        ;; 
     esac
 }
 
@@ -483,140 +495,7 @@ else
     complete -o default -o nospace -F __start_darkman darkman
 fi
 
-# ex: ts=4 sw=4 et filetype=sh
-#
-
-if [ -f .bash_eww ]; then
-    . .bash_eww
-fi
-
-if command -v brew > /dev/null; then
-    eval "$(/bin/brew shellenv)"
-fi
-
-if command -v zoxide > /dev/null; then
-    eval "$(zoxide init bash)"
-fi
-
-if [[ -d "$HOME/.local/bin" ]]; then
-    export PATH="$HOME/.local/bin:$PATH"
-fi
-
-if [[ -f "$HOME/.aliasrc" ]]; then
-    source "$HOME/.aliasrc"
-fi
-
-if [[ -f "$HOME/.envrc" ]]; then
-    source "$HOME/.envrc"
-fi
-
-if [ -d "$HOME/modules" ]; then
-    for f in "$HOME/modules/"*.sh; do
-        source "$f"
-    done
-fi
-
-if command -v zoxide > /dev/null; then
-    eval "$(zoxide init bash)"
-fi
-
-[ -f ~/.fzf.bash ] && source "$HOME/.fzf.bash"
-if [ -f "$HOME/.cargo/env" ]; then
-    . "$HOME/.cargo/env"
-fi
-
-# fnm
-FNM_PATH="/home/ray/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
-fi
-
-
-# Functions
-
-smartdd() {
-    local source="$1"
-    local dest="$2"
-    local bs_size="4M"
-    local count_bytes=0
-    local mode=""
-
-    # 1. Input Validation
-    if [[ -z "$source" || -z "$dest" ]]; then
-        echo "Usage: smartdd <input_file_or_dev_zero> <destination_device>"
-        return 1
-    fi
-
-    if [[ ! -e "$dest" ]]; then
-        echo "Error: Destination $dest does not exist."
-        return 1
-    fi
-
-    # 2. Determine Mode & Calculate Size
-    if [[ "$source" == "/dev/zero" ]]; then
-        # --- MODE: ZERO WIPE ---
-        mode="WIPE"
-        
-        # Method A: Try lsblk (Standard Linux)
-        if command -v lsblk &> /dev/null; then
-             count_bytes=$(lsblk -b -n -o SIZE "$dest" | head -n 1)
-        fi
-
-        # Method B: Fallback for Git Bash / MSYS (if Method A failed or returned nothing)
-        # This parses /proc/partitions, gets the 1K-block count, and multiplies by 1024
-        if [[ -z "$count_bytes" ]]; then
-            local base_dest=$(basename "$dest")
-            local blocks=$(cat /proc/partitions | grep "${base_dest}$" | awk '{print $3}')
-            
-            if [[ -n "$blocks" ]]; then
-                count_bytes=$((blocks * 1024))
-            fi
-        fi
-
-    else
-        # --- MODE: FLASH IMAGE ---
-        mode="FLASH"
-        
-        if [[ ! -e "$source" ]]; then
-            echo "Error: Source file $source not found."
-            return 1
-        fi
-
-        # Get file size using stat
-        # Check if GNU stat (Linux/GitBash) or BSD stat (Mac)
-        if stat --version &> /dev/null; then
-            count_bytes=$(stat -c %s "$source") # GNU
-        else
-            count_bytes=$(stat -f %z "$source") # BSD/Mac
-        fi
-    fi
-
-    # 3. Safety Check
-    if [[ -z "$count_bytes" || "$count_bytes" -eq 0 ]]; then
-        echo "Error: Could not determine size automatically. Aborting."
-        return 1
-    fi
-
-    # Calculate MB for display (Integer math)
-    local size_mb=$((count_bytes / 1024 / 1024))
-
-    # 4. Confirmation Prompt
-    echo "---------------------------------------------------"
-    echo "Mode:      $mode"
-    echo "Source:    $source"
-    echo "Target:    $dest"
-    echo "Data Size: $count_bytes bytes (~$size_mb MB)"
-    echo "---------------------------------------------------"
-    echo "Press [Enter] to start or [Ctrl+C] to cancel..."
-    read -r
-
-    # 5. Execution
-    # iflag=count_bytes ensures we stop exactly at the limit
-    dd if="$source" of="$dest" bs="$bs_size" count="$count_bytes" iflag=count_bytes status=progress
-    
-    # 6. Final Sync
-    echo "Syncing cache..."
-    sync
-    echo "Done."
-}
+# -----------------------------------------------------------------------------
+# Prompt (Starship) - Keep Last
+# -----------------------------------------------------------------------------
+eval "$(starship init bash)"
