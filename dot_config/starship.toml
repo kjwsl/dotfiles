@@ -29,6 +29,7 @@ tertiary = "#212736"
 quaternary = "#1d2230"
 text_light = "#e3e5e5"
 text_dim = "#a0a9cb"
+character = "#cba6f7"
 
 [directory]
 style = "fg:text_light bg:primary"
@@ -76,3 +77,7 @@ disabled = false
 time_format = "%R" # Hour:Minute Format
 style = "bg:quaternary"
 format = '[[  $time ](fg:text_dim bg:quaternary)]($style)'
+
+[character]
+success_symbol = "[❯](character)"
+error_symbol = "[❯](red)"
