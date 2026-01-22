@@ -3,6 +3,9 @@ if status is-interactive
     export EDITOR="nvim"
     export VISUAL=$EDITOR
 
+    # Enable transient prompt
+    set -g fish_transient_prompt 1
+
     # Paths
     export PATH="$HOME/.local/bin:$PATH"
     fish_add_path "$HOME/.rustup/toolchains/stable-aarch64-apple-darwin/bin/"
