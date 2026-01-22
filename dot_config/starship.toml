@@ -1,25 +1,37 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+palette = "custom"
+
 format = """
-[░▒▓](#a3aed2)\
-[  ](bg:#a3aed2 fg:#090c0c)\
-[](bg:#769ff0 fg:#a3aed2)\
+[░▒▓](accent_light)\
+[  ](bg:accent_light fg:base_dark)\
+[](bg:primary fg:accent_light)\
 $directory\
-[](fg:#769ff0 bg:#394260)\
+[](fg:primary bg:secondary)\
 $git_branch\
 $git_status\
-[](fg:#394260 bg:#212736)\
+[](fg:secondary bg:tertiary)\
 $nodejs\
 $rust\
 $golang\
 $php\
-[](fg:#212736 bg:#1d2230)\
+[](fg:tertiary bg:quaternary)\
 $time\
-[ ](fg:#1d2230)\
+[ ](fg:quaternary)\
 \n$character"""
 
+[palettes.custom]
+accent_light = "#a3aed2"
+base_dark = "#090c0c"
+primary = "#769ff0"
+secondary = "#394260"
+tertiary = "#212736"
+quaternary = "#1d2230"
+text_light = "#e3e5e5"
+text_dim = "#a0a9cb"
+
 [directory]
-style = "fg:#e3e5e5 bg:#769ff0"
+style = "fg:text_light bg:primary"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -32,35 +44,35 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:#394260"
-format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
+style = "bg:secondary"
+format = '[[ $symbol $branch ](fg:primary bg:secondary)]($style)'
 
 [git_status]
-style = "bg:#394260"
-format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
+style = "bg:secondary"
+format = '[[($all_status$ahead_behind )](fg:primary bg:secondary)]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:tertiary"
+format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
 
 [rust]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:tertiary"
+format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
 
 [golang]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:tertiary"
+format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
 
 [php]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:tertiary"
+format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
 
 [time]
 disabled = false
 time_format = "%R" # Hour:Minute Format
-style = "bg:#1d2230"
-format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+style = "bg:quaternary"
+format = '[[  $time ](fg:text_dim bg:quaternary)]($style)'
