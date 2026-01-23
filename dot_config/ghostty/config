@@ -1,2 +1,10 @@
 font-size = 18
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
+
+background-image = bg.jpg
+# Make the window transparent
+background-image-opacity = 0.3
+
+background-opacity = 0.9
+background-blur = true
+
