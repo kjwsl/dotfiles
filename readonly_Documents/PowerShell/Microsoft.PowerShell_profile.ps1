@@ -1,5 +1,5 @@
 
-oh-my-posh init pwsh --config "C:\Program Files (x86)\oh-my-posh\themes\kushal.omp.json" | Invoke-Expression
+
 
 if (Test-path "C:\Program Files\Neovim\bin\nvim.exe")
 {
@@ -32,4 +32,10 @@ if (Test-Path ~/work.ps1)
 # Initialize mise
 if (Get-Command mise.exe -ErrorAction SilentlyContinue) {
     mise activate pwsh | Out-String | Invoke-Expression
+}
+
+
+# Initialize starship
+if (Get-Command starship -ErrorAction SilentlyContinue) {
+    Invoke-Expression (&starship init powershell)
 }
