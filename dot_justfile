@@ -1,6 +1,31 @@
 # Global Justfile - General purpose commands
 # Vault-specific commands are in ~/obsidian-vault/justfile
 
+# ============== AI Configuration ==============
+# Set your preferred AI: claude, gemini, ollama, or a custom command
+# Override with: AI=gemini just ask "question"
+export AI := env_var_or_default("AI", "claude")
+
+# AI command wrapper - routes to configured AI
+[private]
+ai prompt:
+    #!/usr/bin/env bash
+    case "{{AI}}" in
+        claude)
+            claude -p "{{prompt}}"
+            ;;
+        gemini)
+            gemini "{{prompt}}"
+            ;;
+        ollama)
+            ollama run llama3.2 "{{prompt}}"
+            ;;
+        *)
+            # Custom command
+            {{AI}} "{{prompt}}"
+            ;;
+    esac
+
 # List available recipes
 default:
     @just --list
@@ -9,11 +34,110 @@ default:
 
 # Ask a single quick question
 ask question:
-    @claude -p "{{question}}"
+    @just ai "{{question}}"
 
 # Ask about a specific file
 ask-about file question:
-    @claude -p "Given this file content, {{question}}" < "{{file}}"
+    #!/usr/bin/env bash
+    content=$(cat "{{file}}")
+    just ai "Given this file content, {{question}}
+
+$content"
+
+# ============== Study Guide Generation ==============
+
+# Generate a study guide on a topic (outputs Typst → PDF)
+study topic output="study-guide":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    echo "Generating study guide for: {{topic}}..."
+
+    typst_file="{{output}}.typ"
+    pdf_file="{{output}}.pdf"
+
+    just ai "Create a comprehensive study guide about: {{topic}}
+
+Output in Typst format. Structure:
+1. Title page with topic name
+2. Table of contents
+3. Introduction/Overview
+4. Main concepts (with clear headings)
+5. Key terms and definitions
+6. Examples and practice problems
+7. Summary/Quick reference
+8. Further reading suggestions
+
+Use Typst formatting:
+- #heading for sections
+- #text for emphasis
+- #table for data
+- #list for bullet points
+- #block for callouts/tips
+- Use #pagebreak() between major sections
+
+Make it visually appealing and easy to read. Include diagrams described in text where helpful." > "$typst_file"
+
+    echo "Created: $typst_file"
+
+    if command -v typst &>/dev/null; then
+        typst compile "$typst_file" "$pdf_file"
+        echo "Compiled: $pdf_file"
+    else
+        echo "Typst not installed. Run: cargo install typst-cli"
+        echo "Then: typst compile $typst_file"
+    fi
+
+# Generate study guide from a file/document
+study-from file output="study-guide":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    echo "Generating study guide from: {{file}}..."
+
+    content=$(cat "{{file}}")
+    typst_file="{{output}}.typ"
+    pdf_file="{{output}}.pdf"
+
+    just ai "Create a comprehensive study guide based on this content:
+
+$content
+
+Output in Typst format. Structure:
+1. Title page
+2. Table of contents
+3. Key concepts explained simply
+4. Important terms defined
+5. Examples and applications
+6. Practice questions with answers
+7. Quick reference summary
+
+Use proper Typst formatting for a professional look." > "$typst_file"
+
+    echo "Created: $typst_file"
+
+    if command -v typst &>/dev/null; then
+        typst compile "$typst_file" "$pdf_file"
+        echo "Compiled: $pdf_file"
+    else
+        echo "Typst not installed. Install with: cargo install typst-cli"
+    fi
+
+# Generate flashcards from a topic
+flashcards topic output="flashcards":
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    just ai "Create flashcards for studying: {{topic}}
+
+Format as a markdown table:
+| Front | Back |
+|-------|------|
+| Question/Term | Answer/Definition |
+
+Include 20-30 cards covering key concepts, terms, and applications." > "{{output}}.md"
+
+    echo "Created: {{output}}.md"
 
 # ============== Commit Message Generation ==============
 
@@ -44,7 +168,7 @@ commit:
 
     echo "Generating commit message using $VCS..."
 
-    claude -p "Generate commit messages for these changes.
+    just ai "Generate commit messages for these changes.
 
 IMPORTANT:
 - Look at the previous commit messages and match their style/convention
@@ -95,7 +219,7 @@ auto-commit:
         exit 0
     fi
 
-    MSG=$(claude -p "Generate a single concise commit message for these changes. Match the style of previous commits. Output ONLY the commit message, nothing else.
+    MSG=$(just ai "Generate a single concise commit message for these changes. Match the style of previous commits. Output ONLY the commit message, nothing else.
 
 Previous commits:
 $LOG
@@ -125,7 +249,7 @@ learn lang:
     echo "Starting {{lang}} learning session..."
     echo ""
 
-    claude -p "You are a {{lang}} language tutor. Start an interactive learning session:
+    just ai "You are a {{lang}} language tutor. Start an interactive learning session:
 
 1. First, ask about my current level (beginner/intermediate/advanced)
 2. Then provide a short lesson appropriate for that level
@@ -139,11 +263,11 @@ Make it conversational and engaging. Use the target language with translations."
 
 # Generate vocabulary list
 vocab lang topic:
-    @claude -p "Create a vocabulary list for {{lang}} on the topic '{{topic}}'. Include: word, pronunciation, meaning, example sentence. Format as a markdown table. Include 10-15 words."
+    @just ai "Create a vocabulary list for {{lang}} on the topic '{{topic}}'. Include: word, pronunciation, meaning, example sentence. Format as a markdown table. Include 10-15 words."
 
 # Translate with explanation
 translate lang text:
-    @claude -p "Translate to {{lang}}: '{{text}}'. Provide: 1) The translation, 2) Literal breakdown, 3) Cultural notes if relevant, 4) Alternative ways to say it."
+    @just ai "Translate to {{lang}}: '{{text}}'. Provide: 1) The translation, 2) Literal breakdown, 3) Cultural notes if relevant, 4) Alternative ways to say it."
 
 # ============== Autonomous AI Work ==============
 
@@ -168,7 +292,7 @@ auto-pr task:
         git checkout -b "$BRANCH_NAME"
     fi
 
-    claude -p "Complete this task autonomously: {{task}}
+    claude "Complete this task autonomously: {{task}}
 
 IMPORTANT GUIDELINES:
 1. Make changes in logical, small commits
@@ -186,7 +310,7 @@ Work through this step by step." 2>&1 | tee "$LOG_FILE"
     echo ""
     echo "Task complete. Creating PR..."
 
-    PR_BODY=$(claude -p "Based on this work log, create a PR description:
+    PR_BODY=$(just ai "Based on this work log, create a PR description:
 
 $(cat "$LOG_FILE")
 
@@ -227,4 +351,41 @@ notify title message="":
 
 # Summarize a file
 summarize file:
-    @claude -p "Summarize this content concisely:" < "{{file}}"
+    #!/usr/bin/env bash
+    content=$(cat "{{file}}")
+    just ai "Summarize this content concisely:
+
+$content"
+
+# Explain code
+explain file:
+    #!/usr/bin/env bash
+    content=$(cat "{{file}}")
+    just ai "Explain this code clearly:
+
+$content
+
+Include:
+1. What it does (high-level)
+2. How it works (step by step)
+3. Key concepts used
+4. Potential issues or improvements"
+
+# Review code
+review file:
+    #!/usr/bin/env bash
+    content=$(cat "{{file}}")
+    just ai "Review this code for:
+1. Bugs or logical errors
+2. Security issues
+3. Performance problems
+4. Style/readability improvements
+
+Code:
+$content"
+
+# Show current AI backend
+which-ai:
+    @echo "Current AI: {{AI}}"
+    @echo "Available: claude, gemini, ollama"
+    @echo "Override with: AI=gemini just ask 'question'"
