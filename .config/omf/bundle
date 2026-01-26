@@ -1,0 +1,5 @@
+package bass
+package pyenv
+package zoxide
+theme bobthefish
+theme default

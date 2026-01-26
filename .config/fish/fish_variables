@@ -1,0 +1,17 @@
+# This file contains fish universal variable definitions.
+# VERSION: 3.0
+SETUVAR --export PYENV_ROOT:/home/ray/\x2epyenv
+SETUVAR __fish_initialized:4300
+SETUVAR _fish_abbr_za:zoxide\x20add
+SETUVAR _fish_abbr_zq:zoxide\x20query
+SETUVAR _fish_abbr_zqi:zoxide\x20query\x20\x2di
+SETUVAR _fish_abbr_zr:zoxide\x20remove
+SETUVAR _fisher_edc_2F_bass_files:\x7e/\x2econfig/fish/functions/__bass\x2epy\x1e\x7e/\x2econfig/fish/functions/bass\x2efish
+SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
+SETUVAR _fisher_kidonng_2F_zoxide_2E_fish_files:\x7e/\x2econfig/fish/functions/__zoxide_cd\x2efish\x1e\x7e/\x2econfig/fish/functions/__zoxide_pwd\x2efish\x1e\x7e/\x2econfig/fish/functions/__zoxide_z\x2efish\x1e\x7e/\x2econfig/fish/functions/__zoxide_z_complete\x2efish\x1e\x7e/\x2econfig/fish/functions/__zoxide_zi\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/zoxide\x2efish
+SETUVAR _fisher_lilyball_2F_nix_2D_env_2E_fish_files:\x7e/\x2econfig/fish/conf\x2ed/nix\x2denv\x2efish
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1elilyball/nix\x2denv\x2efish\x1ekidonng/zoxide\x2efish\x1eedc/bass
+SETUVAR _fisher_upgraded_to_4_4:\x1d
+SETUVAR fish_greeting:Welcome\x20to\x20fish\x2c\x20the\x20friendly\x20interactive\x20shell
+SETUVAR fish_prompt_pwd_dir_length:2
+SETUVAR fish_user_paths:/Users/ray/\x2erustup/toolchains/stable\x2daarch64\x2dapple\x2ddarwin/bin\x1e/home/ray/\x2ecargo/bin\x1e/home/ray/\x2epyenv/bin\x1e/home/ray/\x2elocal/bin

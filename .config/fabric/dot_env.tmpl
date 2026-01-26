@@ -1,0 +1,22 @@
+DEFAULT_VENDOR=Gemini
+DEFAULT_MODEL=gemini-2.5-pro
+DEFAULT_MODEL_CONTEXT_LENGTH=2000000
+PATTERNS_LOADER_GIT_REPO_URL=https://github.com/danielmiessler/fabric.git
+PATTERNS_LOADER_GIT_REPO_PATTERNS_FOLDER=data/patterns
+PROMPT_STRATEGIES_GIT_REPO_URL=https://github.com/danielmiessler/fabric.git
+PROMPT_STRATEGIES_GIT_REPO_STRATEGIES_FOLDER=data/strategies
+{{- if lookPath "bw" }}
+{{- $bw_status := output "bw" "status" | fromJson }}
+{{- if eq $bw_status.status "unlocked" }}
+{{- $items := output "bw" "list" "items" "--search" "dotfiles-secrets" | fromJson }}
+{{- range $items }}
+{{- if eq .name "dotfiles-secrets" }}
+{{- range .fields }}
+{{- if eq .name "gemini_api_key" }}
+GEMINI_API_KEY={{ .value }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

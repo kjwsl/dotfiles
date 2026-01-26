@@ -1,0 +1,102 @@
+ls
+v
+$env.config.buffer_editor = nvim
+$env.config.buffer_editor = "nvim"
+config nu
+v
+. ~/.config/nushell/config.nu
+sourced ~/.config/nushell/config.nu
+source ~/.config/nushell/config.nu
+config nu
+source ~/.config/nushell/config.nu
+config nu
+source ~/.config/nushell/config.nu
+v
+z ~/.config/nullshell
+ls
+z 
+config nu 
+nvim ~/.config/wezterm/wezterm.lua
+z
+zoxide
+v .
+zoxide init nu
+zoxide init nushell
+cd ~/.config/nushell/
+ls
+v env.nu
+v config.nu
+zoxide init nushell
+zoxide init nushell | save -f ~/.zoxide.nu
+$nu.config-path
+v env.nu
+nvim env.nu
+source ~/.config/nushell/config.nu
+rm ~/.zoxide.nu
+zoxide init nushell | save -f ~/.zoxide.nu
+source ~/.zoxide.nu
+echo $nu.env-path
+nvim echo $nu.env-path
+nvim $nu.env-path
+nvim $nu.config-path
+nu --version
+winget install ajeetdsouza.zoxide
+winget update nushell
+winget
+zoxide
+zoxide -v
+zoxide --version
+winget reinstall zoxide
+winget install ajeetdsouza.zoxide -f
+winget install ajeetdsouza.zoxide --force
+zoxide -V
+nu --version
+winget uninstall zoxide
+zoxide
+choco uninstall zoxide
+choco uninstall zoxide
+winget install ajeetdsouza.zoxide --force
+z
+z gh
+g cl https://github.com/catppuccin/nushell
+v $nu.config-path
+source $nu.config-path
+g cl https://github.com/catppuccin/nushell
+z nushell\
+ls
+cp -r themes\ ~/.config/nushell/
+z ~/.config/nushell/
+ls
+v env.nu
+v config.nu
+source $nu.config-path
+v aliases.nu
+source $nu.config-path
+v aliases.nu
+source $nu.config-path
+ls
+source themes\catppuccin_mocha.nu
+ls
+v config.nu
+source $nu.config-path
+ls
+source $nu.config-path
+v config.nu
+source $nu.config-path
+ls
+z
+ls
+z ~/.config/nushell/
+pwd
+ls
+z
+ls
+z C:\ESD\
+ls
+z
+ls
+z
+ls
+v config.nu
+chezmoi add ~/.config/nushell/
+chezmoi update
