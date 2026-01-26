@@ -92,8 +92,19 @@ if status is-interactive
     function __notify_on_long_command --on-event fish_postexec
         if test $CMD_DURATION -gt 10000
             set -l secs (math "$CMD_DURATION / 1000")
-            set -l cmd (string shorten -m 50 "$argv[1]")
-            curl -s -d "$cmd finished ($secs s)" "ntfy.sh/$NTFY_TOPIC" >/dev/null 2>&1 &
+            set -l status_emoji (test $status -eq 0 && echo "✅" || echo "❌")
+            set -l status_text (test $status -eq 0 && echo "Success" || echo "Failed (exit $status)")
+            set -l cmd (string shorten -m 100 "$argv[1]")
+            set -l dir (string replace $HOME "~" $PWD)
+            set -l host $hostname
+            curl -s \
+                -H "Title: $status_emoji $host: Command finished" \
+                -d "$cmd
+
+Status: $status_text
+Duration: $secs seconds
+Directory: $dir" \
+                "ntfy.sh/$NTFY_TOPIC" >/dev/null 2>&1 &
         end
     end
 end
