@@ -96,7 +96,7 @@ Directory: $dir" \
 
     # Auto-notify for commands taking longer than 10 seconds
     function __notify_on_long_command --on-event fish_postexec
-        if test $CMD_DURATION -gt 10000
+        if test $CMD_DURATION -gt 30000
             set -l secs (math "$CMD_DURATION / 1000")
             set -l status_emoji (test $status -eq 0 && echo "✅" || echo "❌")
             set -l status_text (test $status -eq 0 && echo "Success" || echo "Failed (exit $status)")
