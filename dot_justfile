@@ -1,0 +1,230 @@
+# Global Justfile - General purpose commands
+# Vault-specific commands are in ~/obsidian-vault/justfile
+
+# List available recipes
+default:
+    @just --list
+
+# ============== Quick AI ==============
+
+# Ask a single quick question
+ask question:
+    @claude -p "{{question}}"
+
+# Ask about a specific file
+ask-about file question:
+    @claude -p "Given this file content, {{question}}" < "{{file}}"
+
+# ============== Commit Message Generation ==============
+
+# Generate commit message options (uses jj if available)
+commit:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    if command -v jj &>/dev/null && jj status &>/dev/null 2>&1; then
+        VCS="jj"
+        DIFF=$(jj diff)
+        LOG=$(jj log --limit 10 --no-graph -T 'description ++ "\n"' 2>/dev/null | head -20)
+        STATUS=$(jj status)
+    else
+        VCS="git"
+        DIFF=$(git diff --cached)
+        if [ -z "$DIFF" ]; then
+            DIFF=$(git diff)
+        fi
+        LOG=$(git log --oneline -10)
+        STATUS=$(git status --short)
+    fi
+
+    if [ -z "$DIFF" ] && [ "$VCS" = "git" ]; then
+        echo "No changes to commit. Stage changes first with 'git add'."
+        exit 1
+    fi
+
+    echo "Generating commit message using $VCS..."
+
+    claude -p "Generate commit messages for these changes.
+
+IMPORTANT:
+- Look at the previous commit messages and match their style/convention
+- Provide 3 different options (concise, detailed, conventional-commits style)
+- Each message should explain WHY, not just WHAT
+
+Previous commits for style reference:
+$LOG
+
+Current changes:
+$STATUS
+
+Diff:
+$DIFF
+
+Format:
+## Option 1 (Concise)
+<message>
+
+## Option 2 (Detailed)
+<message>
+
+## Option 3 (Conventional Commits)
+<type>(<scope>): <message>
+
+<body>
+
+Recommend which option fits best based on the existing commit style."
+
+# Auto-commit with AI-generated message (non-interactive)
+auto-commit:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    if command -v jj &>/dev/null && jj status &>/dev/null 2>&1; then
+        VCS="jj"
+        DIFF=$(jj diff)
+        LOG=$(jj log --limit 5 --no-graph -T 'description ++ "\n"' 2>/dev/null)
+    else
+        VCS="git"
+        DIFF=$(git diff --cached)
+        [ -z "$DIFF" ] && DIFF=$(git diff)
+        LOG=$(git log --oneline -5)
+    fi
+
+    if [ -z "$DIFF" ]; then
+        echo "No changes to commit."
+        exit 0
+    fi
+
+    MSG=$(claude -p "Generate a single concise commit message for these changes. Match the style of previous commits. Output ONLY the commit message, nothing else.
+
+Previous commits:
+$LOG
+
+Changes:
+$DIFF")
+
+    echo "Generated message: $MSG"
+    echo ""
+
+    if [ "$VCS" = "jj" ]; then
+        jj describe -m "$MSG"
+        echo "Described current commit with message."
+    else
+        git add -A
+        git commit -m "$MSG"
+        echo "Committed."
+    fi
+
+# ============== Language Learning ==============
+
+# Interactive language learning session
+learn lang:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    echo "Starting {{lang}} learning session..."
+    echo ""
+
+    claude -p "You are a {{lang}} language tutor. Start an interactive learning session:
+
+1. First, ask about my current level (beginner/intermediate/advanced)
+2. Then provide a short lesson appropriate for that level
+3. Include:
+   - 3-5 new vocabulary words with pronunciation
+   - 1-2 grammar points
+   - A practice exercise
+   - Common mistakes to avoid
+
+Make it conversational and engaging. Use the target language with translations."
+
+# Generate vocabulary list
+vocab lang topic:
+    @claude -p "Create a vocabulary list for {{lang}} on the topic '{{topic}}'. Include: word, pronunciation, meaning, example sentence. Format as a markdown table. Include 10-15 words."
+
+# Translate with explanation
+translate lang text:
+    @claude -p "Translate to {{lang}}: '{{text}}'. Provide: 1) The translation, 2) Literal breakdown, 3) Cultural notes if relevant, 4) Alternative ways to say it."
+
+# ============== Autonomous AI Work ==============
+
+# Run AI autonomously on a task in a new branch, then create PR
+auto-pr task:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    BRANCH_NAME="ai/$(echo '{{task}}' | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | cut -c1-40)"
+    TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+    LOG_FILE="/tmp/auto-pr-${TIMESTAMP}.log"
+
+    echo "Starting autonomous AI task..."
+    echo "Branch: $BRANCH_NAME"
+    echo "Log: $LOG_FILE"
+    echo ""
+
+    if command -v jj &>/dev/null && jj status &>/dev/null 2>&1; then
+        jj new main -m "AI task: {{task}}"
+        jj bookmark create "$BRANCH_NAME"
+    else
+        git checkout -b "$BRANCH_NAME"
+    fi
+
+    claude -p "Complete this task autonomously: {{task}}
+
+IMPORTANT GUIDELINES:
+1. Make changes in logical, small commits
+2. After each significant change, describe what you did and why
+3. Consider alternative approaches and explain why you chose this one
+4. Note any potential issues or things the reviewer should check
+5. When done, summarize:
+   - What was done
+   - Why this approach was chosen over alternatives
+   - What to look out for during review
+   - Any follow-up tasks
+
+Work through this step by step." 2>&1 | tee "$LOG_FILE"
+
+    echo ""
+    echo "Task complete. Creating PR..."
+
+    PR_BODY=$(claude -p "Based on this work log, create a PR description:
+
+$(cat "$LOG_FILE")
+
+Format:
+## Summary
+<what was done>
+
+## Approach
+<why this approach, what alternatives were considered>
+
+## Review Notes
+<what reviewers should pay attention to>
+
+## Testing
+<how to test these changes>")
+
+    if command -v gh &>/dev/null; then
+        if command -v jj &>/dev/null && jj status &>/dev/null 2>&1; then
+            jj git push --bookmark "$BRANCH_NAME"
+        else
+            git push -u origin "$BRANCH_NAME"
+        fi
+
+        gh pr create --title "AI: {{task}}" --body "$PR_BODY"
+        echo "PR created!"
+    else
+        echo "gh CLI not found. Push manually and create PR."
+        echo ""
+        echo "PR Description:"
+        echo "$PR_BODY"
+    fi
+
+# ============== Utilities ==============
+
+# Show notification
+notify title message="":
+    @printf '\e]777;notify;{{title}};{{message}}\e\\'
+
+# Summarize a file
+summarize file:
+    @claude -p "Summarize this content concisely:" < "{{file}}"
