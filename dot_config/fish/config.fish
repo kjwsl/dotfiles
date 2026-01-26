@@ -85,7 +85,13 @@ if status is-interactive
 
     function notify
         set -l msg (test (count $argv) -gt 0; and string join " " $argv; or echo "Task completed")
-        curl -s -d "$msg" "ntfy.sh/$NTFY_TOPIC" >/dev/null 2>&1 &
+        set -l dir (string replace $HOME "~" $PWD)
+        curl -s \
+            -H "Title: 🔔 $hostname: Manual notification" \
+            -d "$msg
+
+Directory: $dir" \
+            "ntfy.sh/$NTFY_TOPIC" >/dev/null 2>&1 &
     end
 
     # Auto-notify for commands taking longer than 10 seconds
