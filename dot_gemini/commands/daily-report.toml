@@ -1,0 +1,23 @@
+description = "Generates a formatted daily report for team standup from the progress log"
+prompt = """
+1. Locate the progress log: Find `Work/flab/Daily Progress.md` in the obsidian-vault.
+2. Extract Today's Entry:
+   - Identify today's date (formatted as YYYY-MM-DD).
+   - Read the content under the header `## YYYY-MM-DD`.
+   - If today's header doesn't exist or is empty, check for the most recent previous header.
+3. Format for Standup:
+   - Convert the notes into this specific format:
+   
+F.LAB - Ray:
+Yesterday's progress:
+<bullet points of what was done>
+
+Today's plan:
+<bullet points of planned work>
+
+Blocker:
+<blockers or 'No'>
+
+4. Output:
+   - Provide the final formatted text, ready for copy-pasting.
+"""
