@@ -92,7 +92,8 @@ if status is-interactive
     function __notify_on_long_command --on-event fish_postexec
         if test $CMD_DURATION -gt 10000
             set -l secs (math "$CMD_DURATION / 1000")
-            curl -s -d "Command finished ($secs s)" "ntfy.sh/$NTFY_TOPIC" >/dev/null 2>&1 &
+            set -l cmd (string shorten -m 50 "$argv[1]")
+            curl -s -d "$cmd finished ($secs s)" "ntfy.sh/$NTFY_TOPIC" >/dev/null 2>&1 &
         end
     end
 end
