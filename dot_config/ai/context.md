@@ -63,6 +63,9 @@ When I ask for something that has multiple approaches:
 -
 
 ## Things to Remember
+- Lesson: Prefer global configuration files (like ~/.justfile) over multiple bin wrappers.
+- Meta: When I learn a user preference or correction, I must record it in context.md to avoid repeating the mistake.
+- If you can infer something about my info, preferences, or environment, add it to `~/.config/ai/pending.md` for me to review later. Do not add it directly to this file.
 
 <!-- Add persistent context here -->
 -

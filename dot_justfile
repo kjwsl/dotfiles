@@ -389,3 +389,273 @@ which-ai:
     @echo "Current AI: {{AI}}"
     @echo "Available: claude, gemini, ollama"
     @echo "Override with: AI=gemini just ask 'question'"
+
+# ============== Obsidian Vault Recipes (Imported) ==============
+    @just --list
+
+# ============== Questions & Research ==============
+
+# Answer pending questions from the inbox
+answer:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    questions=$(sed -n '/^## Pending/,/^## Answered/p' "{{questions_file}}" | grep -E '^\- \[ \]' | sed 's/^- \[ \] //' || true)
+
+    if [ -z "$questions" ]; then
+        echo "No pending questions found."
+        exit 0
+    fi
+
+    echo "Found questions:"
+    echo "$questions"
+    echo ""
+    echo "Processing with Claude..."
+
+    response_file=$(mktemp)
+    claude -p "Answer these questions concisely. Format each answer with the question as a header (##) followed by the answer:
+
+$questions" > "$response_file"
+
+    echo "" >> "{{questions_file}}"
+    echo "### $(date +%Y-%m-%d)" >> "{{questions_file}}"
+    cat "$response_file" >> "{{questions_file}}"
+
+    sed -i '/^## Pending/,/^## Answered/{s/^- \[ \]/- [x]/}' "{{questions_file}}"
+
+    echo ""
+    echo "Done! Answers added to Questions Inbox.md"
+    rm "$response_file"
+
+# Research a topic and create a note
+research topic:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    output_file="/home/ray/obsidian-vault/Fleeting Notes/{{topic}}.md"
+    claude -p "Research and summarize: {{topic}}
+
+    Format as markdown with:
+    - Overview section
+    - Key points as bullet lists
+    - Links/references if relevant" > "$output_file"
+    echo "Created: $output_file"
+
+# ============== Info Dump & Organization ==============
+
+# Sort and organize the info dump using AI
+sort-dump:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    dump_content=$(cat "{{dump_file}}")
+
+    if ! grep -q '[^[:space:]]' <<< "$(sed -n '/<!-- Add anything below this line -->/,$p' "{{dump_file}}" | tail -n +2)"; then
+        echo "Info dump is empty. Add some content first."
+        exit 0
+    fi
+
+    echo "Analyzing and organizing info dump..."
+
+    claude -p "I have random pieces of information dumped in one place. Please:
+1. Categorize each piece of information
+2. Suggest which existing note in my vault it might belong to, or suggest a new note name
+3. Format each item with: Category | Suggested Location | The Information
+
+Here's the dump:
+
+$dump_content
+
+Format your response as a markdown table."
+
+# ============== Personal Context ==============
+
+# Verify and update personal context file
+verify-context:
+    #!/usr/bin/env bash
+    echo "Reviewing your context file for potentially outdated information..."
+    echo ""
+
+    claude -p "Review this personal context file and:
+1. Identify any fields that are empty or say '(update...)'
+2. Ask me specific questions to fill in missing information
+3. For any dated information, ask if it's still current
+4. Suggest any additional context that might be useful
+
+Context file:
+$(cat "{{context_file}}")
+
+Format as a numbered list of questions/prompts for me to answer."
+
+# ============== AI History Export ==============
+
+# Export Claude Code sessions to vault (all or specific date)
+export-claude date="":
+    #!/usr/bin/env bash
+    python3 "/home/ray/obsidian-vault/scripts/export-claude-history.py" "{{date}}"
+
+# Export today's Claude session
+export-claude-today:
+    @just export-claude "$(date +%Y-%m-%d)"
+
+# ============== Daily Work Reports ==============
+
+# Export AI history and generate daily report
+daily-report-full:
+    @just export-claude-today
+    @just daily-report
+
+# Generate formatted daily report for team standup
+daily-report:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    today=$(date +%Y-%m-%d)
+    file="{{progress_file}}"
+
+    today_content=$(sed -n "/## $today/,/^## [0-9]/p" "$file" | head -n -1)
+
+    if [ -z "$today_content" ]; then
+        echo "No progress logged for today. Use 'just progress \"your update\"' first."
+        exit 1
+    fi
+
+    claude -p "Convert this progress log into the team daily standup format.
+
+Progress log:
+$today_content
+
+Output format (copy-paste ready):
+
+F.LAB - Ray:
+Yesterday's progress:
+<bullet points of what was done>
+
+Today's plan:
+<bullet points of planned work>
+
+Blocker:
+<blockers or 'No'>
+
+Be concise and professional. Use the actual content from the log."
+
+# Log progress during the day
+progress entry:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    today=$(date +%Y-%m-%d)
+    day_name=$(date +%a)
+    file="{{progress_file}}"
+
+    if ! grep -q "## $today" "$file"; then
+        sed -i "/^---$/,/^---$/!b; /^---$/a\\
+\\
+## $today ($day_name)\\
+\\
+### Progress\\
+\\
+### Tomorrow's Plan\\
+\\
+### Blockers\\
+- None\\
+" "$file"
+    fi
+
+    sed -i "/## $today/,/### Tomorrow/{ /### Progress/a\\
+- {{entry}}
+}" "$file"
+
+    echo "Added: {{entry}}"
+
+# Add to today's plan
+plan entry:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    today=$(date +%Y-%m-%d)
+    file="{{progress_file}}"
+
+    if ! grep -q "## $today" "$file"; then
+        just progress "Started day"
+    fi
+
+    sed -i "/## $today/,/### Blockers/{ /### Tomorrow's Plan/a\\
+- {{entry}}
+}" "$file"
+
+    echo "Added to plan: {{entry}}"
+
+# Add a blocker
+blocker entry:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    today=$(date +%Y-%m-%d)
+    file="{{progress_file}}"
+
+    sed -i "/## $today/,/^## [0-9]/{ /### Blockers/,/^###/{ s/- None//; /### Blockers/a\\
+- {{entry}}
+}}" "$file"
+
+    echo "Added blocker: {{entry}}"
+
+# ============== Inference Management ==============
+
+pending_file := vault_dir / "CLAUDE.pending.md"
+
+# Review pending inferences and confirm which to save permanently
+confirm-inferences:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    echo "Pending inferences about you:"
+    echo ""
+    cat "{{pending_file}}"
+    echo ""
+    echo "---"
+    echo "Opening file for you to review. Check the boxes [x] for items to keep."
+    echo "Then run 'just save-inferences' to move confirmed items to CLAUDE.md"
+
+# Save confirmed inferences to CLAUDE.md
+save-inferences:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    pending="{{pending_file}}"
+    context="{{context_file}}"
+
+    # Extract checked items
+    confirmed=$(grep -E '^\- \[x\]' "$pending" | sed 's/- \[x\] /- /' || true)
+
+    if [ -z "$confirmed" ]; then
+        echo "No confirmed inferences. Check items with [x] first."
+        exit 0
+    fi
+
+    echo "Confirmed items:"
+    echo "$confirmed"
+    echo ""
+
+    # Append to CLAUDE.md under "Things to Remember"
+    echo "" >> "$context"
+    echo "## Inferences confirmed $(date +%Y-%m-%d)" >> "$context"
+    echo "$confirmed" >> "$context"
+
+    # Clear confirmed items from pending
+    sed -i 's/- \[x\]/- [saved]/g' "$pending"
+
+    echo "Saved to CLAUDE.md"
+
+# Add a new inference (for AI to call)
+infer category note:
+    #!/usr/bin/env bash
+    echo "- [ ] {{note}}" >> "{{pending_file}}"
+    echo "Added inference: {{note}}"
+
+# ============== Prompts Archive ==============
+
+# List all archived AI prompts
+prompts:
+    @echo "=== AI Prompts ===" && ls -1 "/home/ray/obsidian-vault/Archive/AI/Prompts/" 2>/dev/null || echo "No prompts yet"
+    @echo ""
+    @echo "=== System Prompts ===" && ls -1 "/home/ray/obsidian-vault/Archive/AI/System_Prompts/" 2>/dev/null || echo "No system prompts yet"
