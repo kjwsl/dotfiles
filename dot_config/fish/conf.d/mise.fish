@@ -1,9 +1,40 @@
 set -gx MISE_SHELL fish
 set -gx __MISE_ORIG_PATH $PATH
 
+# -------------------------------------------------------------------------
+# Dynamic 'mise' binary detection for portability (NixOS vs Non-NixOS)
+# -------------------------------------------------------------------------
+set -l current_user "$USER"
+set -l mise_candidates \
+    "/home/$current_user/.nix-profile/bin/mise" \
+    "/etc/profiles/per-user/$current_user/bin/mise" \
+    "/usr/bin/mise" \
+    "/usr/local/bin/mise"
+
+set -g MISE_BIN ""
+
+# First, try to find it in known absolute paths (fixing the startup PATH issue)
+for candidate in $mise_candidates
+    if test -x "$candidate"
+        set -g MISE_BIN "$candidate"
+        break
+    end
+end
+
+# If not found in candidate paths, fall back to PATH lookup
+if test -z "$MISE_BIN"
+    if type -q mise
+        set -g MISE_BIN (type -p mise)
+    else
+        # Last resort fallback to bare command, though this may fail if not in PATH
+        set -g MISE_BIN "mise"
+    end
+end
+# -------------------------------------------------------------------------
+
 function mise
   if test (count $argv) -eq 0
-    command /etc/profiles/per-user/ray/bin/mise
+    command $MISE_BIN
     return
   end
 
@@ -11,7 +42,7 @@ function mise
   set -e argv[1]
 
   if contains -- --help $argv
-    command /etc/profiles/per-user/ray/bin/mise "$command" $argv
+    command $MISE_BIN "$command" $argv
     return $status
   end
 
@@ -19,26 +50,26 @@ function mise
   case deactivate shell sh
     # if help is requested, don't eval
     if contains -- -h $argv
-      command /etc/profiles/per-user/ray/bin/mise "$command" $argv
+      command $MISE_BIN "$command" $argv
     else if contains -- --help $argv
-      command /etc/profiles/per-user/ray/bin/mise "$command" $argv
+      command $MISE_BIN "$command" $argv
     else
-      source (command /etc/profiles/per-user/ray/bin/mise "$command" $argv |psub)
+      source (command $MISE_BIN "$command" $argv |psub)
     end
   case '*'
-    command /etc/profiles/per-user/ray/bin/mise "$command" $argv
+    command $MISE_BIN "$command" $argv
   end
 end
 
 function __mise_env_eval --on-event fish_prompt --description 'Update mise environment when changing directories';
-    /etc/profiles/per-user/ray/bin/mise hook-env -s fish | source;
+    command $MISE_BIN hook-env -s fish | source;
 
     if test "$mise_fish_mode" != "disable_arrow";
         function __mise_cd_hook --on-variable PWD --description 'Update mise environment when changing directories';
             if test "$mise_fish_mode" = "eval_after_arrow";
                 set -g __mise_env_again 0;
             else;
-                /etc/profiles/per-user/ray/bin/mise hook-env -s fish | source;
+                command $MISE_BIN hook-env -s fish | source;
             end;
         end;
     end;
@@ -47,7 +78,7 @@ end;
 function __mise_env_eval_2 --on-event fish_preexec --description 'Update mise environment when changing directories';
     if set -q __mise_env_again;
         set -e __mise_env_again;
-        /etc/profiles/per-user/ray/bin/mise hook-env -s fish | source;
+        command $MISE_BIN hook-env -s fish | source;
         echo;
     end;
 
@@ -62,8 +93,8 @@ end
 
 function fish_command_not_found
     if string match -qrv -- '^(?:mise$|mise-)' $argv[1] &&
-        /etc/profiles/per-user/ray/bin/mise hook-not-found -s fish -- $argv[1]
-        /etc/profiles/per-user/ray/bin/mise hook-env -s fish | source
+        command $MISE_BIN hook-not-found -s fish -- $argv[1]
+        command $MISE_BIN hook-env -s fish | source
     else if functions -q __mise_fish_command_not_found
         __mise_fish_command_not_found $argv
     else
