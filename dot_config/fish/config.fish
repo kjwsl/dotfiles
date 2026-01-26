@@ -79,4 +79,20 @@ if status is-interactive
     end
 
     fish_vi_key_bindings
+
+    # ntfy.sh notifications
+    set -gx NTFY_TOPIC "notify-3152210757"
+
+    function notify
+        set -l msg (test (count $argv) -gt 0; and string join " " $argv; or echo "Task completed")
+        curl -s -d "$msg" "ntfy.sh/$NTFY_TOPIC" >/dev/null 2>&1 &
+    end
+
+    # Auto-notify for commands taking longer than 10 seconds
+    function __notify_on_long_command --on-event fish_postexec
+        if test $CMD_DURATION -gt 10000
+            set -l secs (math "$CMD_DURATION / 1000")
+            curl -s -d "Command finished ($secs s)" "ntfy.sh/$NTFY_TOPIC" >/dev/null 2>&1 &
+        end
+    end
 end
