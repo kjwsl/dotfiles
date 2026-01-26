@@ -1,0 +1,14 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "general": {
+    "previewFeatures": true,
+    "include-directories": [
+      "~/.gemini",
+      "~/obsidian-vault"
+    ]
+  }
+}
