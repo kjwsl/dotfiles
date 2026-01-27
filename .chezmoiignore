@@ -6,7 +6,6 @@ LICENSE
 windows
 
 {{ if ne .chezmoi.os "windows" }}
-Documents
 readonly_Documents
 komorebi.json
 komorebi.bar.json
