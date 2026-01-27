@@ -4,7 +4,13 @@
       "selectedType": "oauth-personal"
     },
     "enablePermanentToolApproval": true,
-    "folderTrust": true,
+    "folderTrust": {
+      "enabled": true,
+      "trustedDirectories": [
+        "{{ .chezmoi.homeDir }}/obsidian-vault",
+        "{{ .chezmoi.homeDir }}/projects" 
+      ]
+    }
     "enableEnvVarRedaction": true
   },
   "general": {
