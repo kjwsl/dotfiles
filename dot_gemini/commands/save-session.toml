@@ -1,0 +1,12 @@
+description = "Summarizes the current chat session and appends it to today's daily note in Obsidian"
+prompt = """
+1. Review the current session and generate a concise summary:
+   - Accomplishments: List key tasks completed (e.g., config updates, guide edits).
+   - Learnings/Corrections: Note any mistakes fixed or new preferences learned.
+   - Patterns to Avoid: Explicitly state any technical patterns or behaviors to avoid in the future.
+2. Determine today's date and the path: `~/obsidian-vault/Diary/YYYY-MM-DD.md`.
+3. Action:
+   - Check if the file exists. If not, create it with a basic template.
+   - Append the summary to the end of the file under the header `### 🤖 AI Session Log - Gemini`.
+4. Inform the user when the save is complete.
+"""

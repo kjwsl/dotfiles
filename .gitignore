@@ -1,0 +1,30 @@
+Downloads
+rpmbuild
+.viminfo
+.ssh
+.local
+.var/app
+.cache
+.bash_history
+.fonts/CascadiaCode/.uuid
+.fonts/.uuid
+.config/dconf/user
+.config/nvim/lazy-lock.json
+.config/mimeapps.list
+.config/tmux/plugins/*
+!.config/tmux/plugins/tpm
+.config/sops/age/keys.txt
+.config/github-copilot/
+.config/gh/hosts.yml
+.config/wslu
+.config/fish/conf.d/nix.fish
+.config/wslu/*
+.config/Bitwarden\ CLI/*
+.config/menus/*
+**/.DS_Store
+.config/tmux/plugins/tpm
+
+# Large files
+images/
+.vst3/
+.vst/

@@ -1,0 +1,22 @@
+description = "Generates a thorough commit message based on local changes and history"
+prompt = """
+1. Detect VCS:
+   - Check if `jj root` succeeds. If so, use `jj`.
+   - Otherwise, check if `git rev-parse --is-inside-work-tree` succeeds. If so, use `git`.
+
+2. Gather Context:
+   - If `jj`: Run `jj diff --no-pager` and `jj log -n 5 --no-graph --no-pager`.
+   - If `git`: Run `git diff --staged --no-pager` (check if empty, if so, run `git diff --no-pager`) and `git log -n 5 --oneline`.
+
+3. Generate Message:
+   - Write a concise, conventional commit message (type: subject).
+   - Follow the style and verbosity of the recent history gathered.
+   - Include a body if the changes are complex.
+   - Output ONLY the raw commit message text.
+
+4. Finalize:
+   - Present the message to the user.
+   - Ask for confirmation before applying:
+     - For `jj`: `jj describe -m "<message>"`
+     - For `git`: `git commit -m "<message>"`
+"""

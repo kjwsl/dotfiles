@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+
+eval "$(zoxide init bash)"
+
+export VISUAL="/snap/bin/nvim"
+export EDITOR="$VISUAL"
+
+alias ls='ls --color'
+alias ll='ls --color -lah'
+alias vim='nvim'
+
+if [ -f ~/runscripts.sh ]; then
+    . ~/runscripts.sh
+fi
