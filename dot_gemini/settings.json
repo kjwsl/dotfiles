@@ -2,13 +2,31 @@
   "security": {
     "auth": {
       "selectedType": "oauth-personal"
-    }
+    },
+    "enablePermanentToolApproval": true,
+    "folderTrust": true,
+    "enableEnvVarRedaction": true
   },
   "general": {
     "previewFeatures": true,
-    "include-directories": [
-      "~/.gemini",
-      "~/obsidian-vault"
+    "useAlternateScreenBuffer": true
+  },
+  "ui": {
+    "showStatusInTitle": true,
+    "showCitations": true,
+    "showModelInfoInChat": true
+  },
+  "context": {
+    "loadMemoryFromIncludeDirectories": true,
+    "includeDirectories": [
+      "/home/jungwoo/.gemini",
+      "/home/jungwoo/obsidian-vault"
     ]
+  },
+  "tools": {
+    "shell": {
+      "showColor": true
+    },
+    "autoAccept": true
   }
 }
