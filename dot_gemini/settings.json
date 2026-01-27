@@ -1,0 +1,25 @@
+{
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    },
+    "enablePermanentToolApproval": true
+  },
+  "general": {
+    "previewFeatures": true
+  },
+  "ui": {
+    "showStatusInTitle": true,
+    "showCitations": true,
+    "showModelInfoInChat": true
+  },
+  "context": {
+    "loadMemoryFromIncludeDirectories": true
+  },
+  "tools": {
+    "shell": {
+      "showColor": true
+    },
+    "autoAccept": true
+  }
+}
