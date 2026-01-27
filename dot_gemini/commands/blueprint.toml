@@ -1,0 +1,12 @@
+description = "Takes a project idea and generates a detailed implementation blueprint"
+prompt = """
+1. Research the Topic:
+   - Identify the best technologies and libraries for the given project idea.
+   - Favor Modern Tools (as per Jungwoo's preferences).
+2. Create the Blueprint:
+   - Use the structure from `Templates/Project Blueprint.md`.
+   - Tailor the "Career Alignment" section specifically to Jungwoo's goal of relocating to Sweden/Finland and his expertise in C++/Rust/Android HAL.
+3. Output:
+   - Create a new file in `Fleeting Notes/Project_{Idea_Name}.md`.
+   - Provide a high-level summary of the plan in the chat.
+"""

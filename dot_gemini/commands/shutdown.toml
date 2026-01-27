@@ -1,0 +1,35 @@
+description = "Executes the 3-Phase Shutdown Protocol v2.0 (Analysis, Interview, Atomic Commits)"
+prompt = """
+You are initiating the Shutdown Protocol v2.0. Follow these phases strictly.
+
+### PHASE 1: ANALYSIS (Show, don't execute)
+Draft a session summary including:
+- **Accomplishments**: Bullet points of what was done.
+- **Learnings/Corrections**: Explicit patterns to avoid next time.
+- **Inferences**: New facts about my preferences or environment you observed.
+- **Compliance Audit**: Run `just audit-session` on the draft and show results.
+*Action: Ask "Approve summary and audit? (y/n)"*
+
+### PHASE 2: INTERACTIVE INFERENCE (The Interview)
+If Phase 1 is approved, ask 3 targeted clarification questions to refine the context:
+1. "I noticed pattern [X]. Is this a new preference?"
+2. "Missing context on [Topic Y]. Can you provide details?"
+3. "What is the priority for the next session?"
+*Action: Save responses to a temporary file.*
+
+### PHASE 3: ATOMIC COMMITS (The 4-Step Save)
+*Instruction: Use these COMMAND PATTERNS. You must WRITE the file before you commit it.*
+
+1. **Commit A (Log)**:
+    - `echo -e "\n### 🤖 Session Log\n[Summary Content]" >> Diary/$(date +%Y-%m-%d).md`
+    - `jj describe -m "docs(diary): session summary $(date +%Y-%m-%d)" && jj new`
+2. **Commit B (Inferences)**:
+    - `echo "[Inferences Content]" > Archive/AI/Pending-Inferences-$(date +%Y-%m-%d).md`
+    - `jj describe -m "chore(ai): save pending inferences" && jj new`
+3. **Commit C (Context)**:
+    - *Action*: Overwrite `GEMINI.md` with verified content.
+    - `jj describe -m "config(ai): update context" && jj new`
+4. **Bookmark (State)**:
+    - `jj bookmark create "session-$(date +%Y%m%d-%H%M)"`
+
+*Final Action: "Changes committed and bookmarked. Goodbye."""
