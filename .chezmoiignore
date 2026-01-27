@@ -11,3 +11,11 @@ komorebi.json
 komorebi.bar.json
 dot_config/whkdrc
 {{ end }}
+
+# Gemini CLI: Ignore dynamic state and auth tokens
+.gemini/google_accounts.json
+.gemini/oauth_creds.json
+.gemini/state.json
+.gemini/trustedFolders.json
+.gemini/installation_id
+.gemini/tmp
