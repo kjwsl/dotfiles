@@ -96,6 +96,11 @@ Directory: $dir" \
 
     # Auto-notify for commands taking longer than 10 seconds
     function __notify_on_long_command --on-event fish_postexec
+        # Skip for interactive editors and common long-running interactive tools
+        set -l command_name (string split -m 1 " " $argv[1])[1]
+        if contains $command_name nvim vi vim ssh hx btop
+            return
+        end
         if test $CMD_DURATION -gt 30000
             set -l secs (math "$CMD_DURATION / 1000")
             set -l status_emoji (test $status -eq 0 && echo "✅" || echo "❌")
