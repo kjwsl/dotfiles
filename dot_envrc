@@ -17,3 +17,9 @@ fi
 if [[ -d /usr/local/bin ]]; then
     export PATH=/usr/local/bin:$PATH
 fi
+
+# Claude Code Token Optimization
+export MAX_THINKING_TOKENS=8000
+export ENABLE_TOOL_SEARCH=auto:5
+export CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=60
+export CLAUDE_CODE_SUBAGENT_MODEL=haiku
