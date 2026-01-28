@@ -79,10 +79,10 @@
 {{- if $ghPath }}
 [credential "https://github.com"]
 	helper =
-	helper = !"{{ $ghPath }}" auth git-credential
+	helper = !'{{ $ghPath | replace "\\" "\\\\" }}' auth git-credential
 [credential "https://gist.github.com"]
 	helper =
-	helper = !"{{ $ghPath }}" auth git-credential
+	helper = !'{{ $ghPath | replace "\\" "\\\\" }}' auth git-credential
 {{- end }}
 
 {{- if (lookPath "git-lfs") }}
