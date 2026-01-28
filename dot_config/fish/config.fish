@@ -40,16 +40,16 @@ if status is-interactive
     alias fish_reload="source $HOME/.config/fish/config.fish"
 
     # Tool Initializations
-    if type -q pyenv 
-          set -Ux PYENV_ROOT $HOME/.pyenv
-          fish_add_path $PYENV_ROOT/bin
-          pyenv init - fish | source
+    if type -q pyenv
+        set -Ux PYENV_ROOT $HOME/.pyenv
+        fish_add_path $PYENV_ROOT/bin
+        pyenv init - fish | source
     end
 
     if type -q starship
         starship init fish | source
     end
-    
+
     # Initialize zoxide (fallback if plugin fails)
     if type -q zoxide
         zoxide init fish | source
@@ -81,7 +81,7 @@ if status is-interactive
     fish_vi_key_bindings
 
     # ntfy.sh notifications
-    set -gx NTFY_TOPIC "notify-3152210757"
+    set -gx NTFY_TOPIC notify-3152210757
 
     function notify
         set -l msg (test (count $argv) -gt 0; and string join " " $argv; or echo "Task completed")
@@ -117,5 +117,14 @@ Duration: $secs seconds
 Directory: $dir" \
                 "ntfy.sh/$NTFY_TOPIC" >/dev/null 2>&1 &
         end
+    end
+
+    # -----------------------------------------------------------------------------
+    # Neural Orchestrator Context Integration
+    # -----------------------------------------------------------------------------
+    # Dynamically add the Context Vault's function library if it exists.
+    # This avoids manual symlinking and keeps the system portable.
+    if test -d $HOME/.context/integrations/fish
+        set -p fish_function_path $HOME/.context/integrations/fish
     end
 end
