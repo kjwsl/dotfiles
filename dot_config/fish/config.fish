@@ -126,5 +126,6 @@ Directory: $dir" \
     # This avoids manual symlinking and keeps the system portable.
     if test -d $HOME/.context/integrations/fish
         set -p fish_function_path $HOME/.context/integrations/fish
+        source $HOME/.context/integrations/fish/gemini-profiles.fish
     end
 end

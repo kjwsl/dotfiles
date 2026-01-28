@@ -7,6 +7,7 @@
     "folderTrust": {
       "enabled": true,
       "trustedDirectories": [
+        "{{ .chezmoi.homeDir }}/.context",
         "{{ .chezmoi.homeDir }}/obsidian-vault",
         "{{ .chezmoi.homeDir }}/projects" 
       ]
@@ -25,6 +26,7 @@
   "context": {
     "loadMemoryFromIncludeDirectories": true,
     "includeDirectories": [
+      "{{ .chezmoi.homeDir }}/.context",
       "{{ .chezmoi.homeDir }}/.gemini",
       "{{ .chezmoi.homeDir }}/obsidian-vault"
     ]
