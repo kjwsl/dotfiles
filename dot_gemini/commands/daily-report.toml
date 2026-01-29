@@ -1,23 +1,28 @@
-description = "Generates a formatted daily report for team standup from the progress log"
+description = "Generates a natural, engineering-focused standup report from provided logs"
 prompt = """
-1. Locate the progress log: Find `Work/flab/Daily Progress.md` in the obsidian-vault.
-2. Extract Today's Entry:
-   - Identify today's date (formatted as YYYY-MM-DD).
-   - Read the content under the header `## YYYY-MM-DD`.
-   - If today's header doesn't exist or is empty, check for the most recent previous header.
-3. Format for Standup:
-   - Convert the notes into this specific format:
-   
+Task: Generate a standup report for 'F.LAB - Ray' based on the context provided in the input stream.
+
+Context received includes:
+1. Main Progress Log (Daily Progress.md)
+2. Detailed Project Log (Progress.md)
+3. Recent jj log activity from the repository.
+
+Guidelines:
+- Strategy: Use a 'slow-release' approach. Share only a small, granular portion of the technical work done to show consistent, steady progress.
+- Tone: Natural, developer-to-developer.
+- FORBIDDEN: Do not use corporate buzzwords or fluff (e.g., no "deep dive", "leverage", "utilize", "robust", "synergy").
+- Selection: Pick one or two specific technical highlights from the recent work.
+
+Format:
 F.LAB - Ray:
 Yesterday's progress:
-<bullet points of what was done>
+- <granular technical point>
 
 Today's plan:
-<bullet points of planned work>
+- <next small technical step>
 
 Blocker:
-<blockers or 'No'>
+- <actual blocker or 'No'>
 
-4. Output:
-   - Provide the final formatted text, ready for copy-pasting.
+Output ONLY the raw formatted text.
 """
