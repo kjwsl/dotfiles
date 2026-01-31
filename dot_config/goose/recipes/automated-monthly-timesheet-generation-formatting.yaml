@@ -1,0 +1,10 @@
+version: 1.0.0
+title: Automated Monthly Timesheet Generation & Formatting
+description: Converts daily work logs into a professionally formatted, sanitized Excel timesheet based on a strict template.
+instructions: Analyze daily work logs to consolidate activities into a monthly view. Sanitize and rephrase task descriptions to be professional and billable, avoiding casual or sensitive terms (e.g., replacing 'debugging' with 'analysis' when hardware is unavailable). Generate an Excel (.xlsx) output that strictly adheres to a provided previous timesheet template, preserving formulas, fonts, and alignment. Apply specific visual formatting rules, such as using distinct border styles to group tasks by date (e.g., solid borders between days, dotted borders within days). Ensure accurate column mapping for metadata and filter out non-billable entries like holidays.
+activities:
+- Generate monthly timesheet
+- Sanitize task descriptions
+- Format Excel report
+- Consolidate daily logs
+parameters: []

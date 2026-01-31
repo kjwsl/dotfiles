@@ -1,0 +1,10 @@
+version: 1.0.0
+title: Automated Professional Timesheet Generation and Sanitization
+description: Converts daily engineering logs into professional, client-ready Excel timesheets with content sanitization and strict formatting.
+instructions: Analyze daily Markdown work logs to aggregate them into a monthly report, identifying and rewriting informal or sensitive task descriptions into professional, billable language (e.g., converting 'debugging' to 'analysis'). Using Python scripts and an existing Excel template, generate a submission-ready .xlsx file that strictly adheres to corporate formatting standards, including specific borders, fonts, and dynamic formulas for calculating hours.
+activities:
+- Generate monthly timesheet
+- Sanitize task descriptions
+- Format Excel reports
+- Automate reporting workflows
+parameters: []

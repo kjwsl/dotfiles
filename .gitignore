@@ -28,3 +28,9 @@ rpmbuild
 images/
 .vst3/
 .vst/
+
+# Goose
+**/goose/secrets.yaml
+**/goose/*.bak*
+**/goose/tunnel.lock
+**/goose/mcp-apps-cache/
