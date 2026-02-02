@@ -1,4 +1,5 @@
-oh-my-posh init pwsh --config "C:\Program Files (x86)\oh-my-posh\themes\kushal.omp.json" | Invoke-Expression
+# oh-my-posh init pwsh --config "C:\Program Files (x86)\oh-my-posh\themes\kushal.omp.json" | Invoke-Expression
+Invoke-Expression (&starship init powershell)
 
 if (Test-path "C:\Program Files\Neovim\bin\nvim.exe")
 {
@@ -16,4 +17,4 @@ Set-Alias -Name v -Value $nvimPath
 Set-Alias -Name v. -Value Open-NvimCurrentDir
 Set-Alias -Name g -Value git
 
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
+zoxide init powershell | Invoke-Expression
