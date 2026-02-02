@@ -72,7 +72,7 @@ end
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
 -- FPS
-config.max_fps = 144
+config.max_fps = tonumber(os.getenv("WEZTERM_FPS")) or 60
 
 -- Window
 config.window_padding = {
@@ -88,7 +88,7 @@ config.window_background_image_hsb = {
 config.window_background_opacity = 0.9
 
 -- Windows
-config.win32_system_backdrop = "Acrylic"
+-- config.win32_system_backdrop = "Acrylic"
 
 -- macOS
 config.macos_window_background_blur = 10
