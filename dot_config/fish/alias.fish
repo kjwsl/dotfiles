@@ -4,6 +4,9 @@ alias v.='nvim .'
 
 alias g='git'
 
+# Performance benchmarking
+alias fish-bench="time fish -i -c exit"
+
 function vf
     nvim (fzf -m --preview 'bat --style=numbers --color=always {}')
 end

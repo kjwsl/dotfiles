@@ -40,11 +40,12 @@ if status is-interactive
     alias fish_reload="source $HOME/.config/fish/config.fish"
 
     # Tool Initializations
-    if type -q pyenv
-        set -Ux PYENV_ROOT $HOME/.pyenv
-        fish_add_path $PYENV_ROOT/bin
-        pyenv init - fish | source
-    end
+    # DISABLED: pyenv and mise slow down startup and aren't used (you use nix instead)
+    # if type -q pyenv
+    #     set -Ux PYENV_ROOT $HOME/.pyenv
+    #     fish_add_path $PYENV_ROOT/bin
+    #     pyenv init - fish | source
+    # end
 
     if type -q starship
         starship init fish | source
@@ -62,12 +63,12 @@ if status is-interactive
         alias ll="eza --icons --group-directories-first -la"
     end
 
-    # System Info
-    if type -q fastfetch
-        fastfetch
-    else if type -q neofetch
-        neofetch
-    end
+    # System Info (disabled for performance - use 'fastfetch' command to run on demand)
+    # if type -q fastfetch
+    #     fastfetch
+    # else if type -q neofetch
+    #     neofetch
+    # end
 
     # Secrets and Work
     if test -f $HOME/.secrets
@@ -126,6 +127,9 @@ Directory: $dir" \
     # This avoids manual symlinking and keeps the system portable.
     if test -d $HOME/.context/integrations/fish
         set -p fish_function_path $HOME/.context/integrations/fish
-        source $HOME/.context/integrations/fish/gemini-profiles.fish
+        # Only source if the file actually exists
+        if test -f $HOME/.context/integrations/fish/gemini-profiles.fish
+            source $HOME/.context/integrations/fish/gemini-profiles.fish
+        end
     end
 end
