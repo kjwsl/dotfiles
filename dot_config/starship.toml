@@ -6,12 +6,12 @@ format = """
 [░▒▓](accent_light)\
 $os\
 $shell\
-[](bg:primary fg:accent_light)\
+[](bg:primary fg:accent_light)\
 $directory\
-[](fg:primary bg:secondary)\
+[](fg:primary bg:secondary)\
 $git_branch\
 $git_status\
-[](fg:secondary bg:tertiary)\
+[](fg:secondary bg:tertiary)\
 $nodejs\
 $rust\
 $golang\
