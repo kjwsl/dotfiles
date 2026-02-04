@@ -6,12 +6,12 @@ format = """
 [░▒▓](accent_light)\
 $os\
 $shell\
-[](bg:primary fg:accent_light)\
+[](bg:primary fg:accent_light)\
 $directory\
-[](fg:primary bg:secondary)\
+[](fg:primary bg:secondary)\
 $git_branch\
 $git_status\
-[](fg:secondary bg:tertiary)\
+[](fg:secondary bg:tertiary)\
 $nodejs\
 $rust\
 $golang\
@@ -21,12 +21,10 @@ $lua\
 $c\
 $dart\
 $nix_shell\
-$package\
-$docker_context\
-[](fg:tertiary)\
+[](fg:tertiary)\
 $fill\
-[](quaternary)\
-$cmd_duration$time$battery\
+[](quaternary)\
+$cmd_duration$time\
 [▓▒░](quaternary)\
 \n$character"""
 
@@ -51,12 +49,12 @@ truncation_symbol = "…/"
 
 [directory.substitutions]
 "Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = " "
-"Pictures" = " "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
 
 [git_branch]
-symbol = ""
+symbol = ""
 style = "bg:secondary"
 format = '[[ $symbol $branch ](fg:primary bg:secondary)]($style)'
 
@@ -64,73 +62,57 @@ format = '[[ $symbol $branch ](fg:primary bg:secondary)]($style)'
 style = "bg:secondary"
 format = '[[($all_status$ahead_behind )](fg:primary bg:secondary)]($style)'
 
+# Language modules - icons only, no versions
 [nodejs]
-symbol = ""
+symbol = ""
 style = "bg:tertiary"
-format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
+format = '[[ $symbol ](fg:primary bg:tertiary)]($style)'
 
 [rust]
-symbol = ""
+symbol = ""
 style = "bg:tertiary"
-format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
+format = '[[ $symbol ](fg:primary bg:tertiary)]($style)'
 
 [golang]
-symbol = ""
+symbol = ""
 style = "bg:tertiary"
-format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
+format = '[[ $symbol ](fg:primary bg:tertiary)]($style)'
 
 [php]
-symbol = ""
+symbol = ""
 style = "bg:tertiary"
-format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
+format = '[[ $symbol ](fg:primary bg:tertiary)]($style)'
 
 [python]
-symbol = ""
+symbol = ""
 style = "bg:tertiary"
-format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
+format = '[[ $symbol ](fg:primary bg:tertiary)]($style)'
 
 [lua]
-symbol = ""
+symbol = ""
 style = "bg:tertiary"
-format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
+format = '[[ $symbol ](fg:primary bg:tertiary)]($style)'
 
 [c]
-symbol = ""
+symbol = ""
 style = "bg:tertiary"
-format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
+format = '[[ $symbol ](fg:primary bg:tertiary)]($style)'
 
 [dart]
-symbol = ""
+symbol = ""
 style = "bg:tertiary"
-format = '[[ $symbol ($version) ](fg:primary bg:tertiary)]($style)'
-
-[battery]
-full_symbol = ""
-charging_symbol = ""
-discharging_symbol = ""
-format = '[[ $symbol $percentage ](fg:text_dim bg:quaternary)]'
-
-[docker_context]
-symbol = ""
-style = "bg:tertiary"
-format = '[[ $symbol $context ](fg:primary bg:tertiary)]($style)'
-
-[package]
-symbol = "󰏗"
-style = "bg:tertiary"
-format = '[[ $symbol $version ](fg:primary bg:tertiary)]($style)'
+format = '[[ $symbol ](fg:primary bg:tertiary)]($style)'
 
 [nix_shell]
-symbol = ""
+symbol = ""
 style = "bg:tertiary"
-format = '[[ $symbol $state ](fg:primary bg:tertiary)]($style)'
-
+format = '[[ $symbol ](fg:primary bg:tertiary)]($style)'
 
 [time]
 disabled = false
-time_format = "%R" # Hour:Minute Format
+time_format = "%R"
 style = "bg:quaternary"
-format = '[[  $time ](fg:text_dim bg:quaternary)]($style)'
+format = '[[  $time ](fg:text_dim bg:quaternary)]($style)'
 
 [cmd_duration]
 min_time = 2_000
@@ -149,52 +131,6 @@ vimcmd_replace_one_symbol = "[❮](red)"
 [os]
 disabled = false
 style = "bg:accent_light fg:base_dark"
-format = "[ $symbol ]($style)"
-
-[os.symbols]
-Alpaquita = ""
-Alpine = ""
-AlmaLinux = ""
-Amazon = ""
-Android = ""
-Arch = ""
-Artix = ""
-CentOS = ""
-Debian = ""
-DragonFly = ""
-Emscripten = "󰈄"
-EndeavourOS = ""
-Fedora = ""
-FreeBSD = ""
-Garuda = "󰈄"
-Gentoo = ""
-HardenedBSD = "󰈄"
-Illumos = "󰈄"
-Kali = ""
-Linux = ""
-Mabox = "󰈄"
-Macos = ""
-Manjaro = ""
-Mariner = ""
-MidnightBSD = "󰈄"
-Mint = ""
-NetBSD = ""
-NixOS = ""
-OpenBSD = ""
-openSUSE = ""
-OracleLinux = "󰈄"
-Pop = ""
-Raspbian = ""
-Redhat = ""
-RedHatEnterprise = ""
-RockyLinux = ""
-Redox = "󰈄"
-Solus = ""
-SUSE = ""
-Ubuntu = ""
-Unknown = ""
-Void = ""
-Windows = "󰍲"
 
 [shell]
 disabled = false
