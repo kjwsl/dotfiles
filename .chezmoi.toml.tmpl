@@ -1,0 +1,17 @@
+{{- $osID := .chezmoi.os -}}
+
+[data]
+    os = "{{ $osID }}"
+
+    [data.screenpipe]
+        # Screenpipe configuration (adjusted for your 2-3 monitor setup)
+        fps = "0.02"                          # 1 frame per 50 seconds
+        capture_mode = "external-monitors-only"  # Options: all | external-monitors-only | primary-only
+        ocr_engine = "windows-native"         # Options: windows-native | tesseract | cloud
+
+        {{- if eq $osID "windows" }}
+        # Windows-specific settings
+        {{- else }}
+        # Linux/macOS settings
+        ocr_engine = "tesseract"
+        {{- end }}

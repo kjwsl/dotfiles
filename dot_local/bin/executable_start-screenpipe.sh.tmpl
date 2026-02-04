@@ -1,0 +1,151 @@
+#!/usr/bin/env bash
+# ===========================================================================
+# SCREENPIPE ADAPTIVE CONFIGURATION (Cross-platform: Linux/macOS/Windows)
+# ===========================================================================
+# Automatically detects and selects monitors based on your preferences
+# No hardcoded monitor IDs - fully portable across machines
+# ===========================================================================
+
+set -e
+
+# ==================== CONFIGURATION ====================
+# Edit these values as needed:
+PREFERRED_FPS="{{ .screenpipe.fps }}"
+CAPTURE_MODE="{{ .screenpipe.capture_mode }}"  # all | external-monitors-only | primary-only
+
+# ==================== OS DETECTION ====================
+detect_os() {
+    case "$(uname -s)" in
+        Linux*)     echo "linux" ;;
+        Darwin*)    echo "macos" ;;
+        CYGWIN*|MINGW*|MSYS*) echo "windows" ;;
+        *)          echo "unknown" ;;
+    esac
+}
+
+OS="$(detect_os)"
+echo "[screenpipe] Detected OS: $OS"
+
+# ==================== FIND SCREENPIPE ====================
+find_screenpipe() {
+    local screenpipe_path=""
+
+    case "$OS" in
+        linux)
+            screenpipe_path="$(command -v screenpipe 2>/dev/null || true)"
+            [ -z "$screenpipe_path" ] && screenpipe_path="$HOME/.local/bin/screenpipe"
+            ;;
+        macos)
+            screenpipe_path="$(command -v screenpipe 2>/dev/null || true)"
+            [ -z "$screenpipe_path" ] && screenpipe_path="/Applications/screenpipe.app/Contents/MacOS/screenpipe"
+            ;;
+        windows)
+            # Try LOCALAPPDATA first (proper Windows path in Git Bash)
+            screenpipe_path="$LOCALAPPDATA/screenpipe - Development/screenpipe.exe"
+            if [ ! -f "$screenpipe_path" ]; then
+                # Fallback: try WSL path
+                screenpipe_path="/mnt/c/Users/$USER/AppData/Local/screenpipe - Development/screenpipe.exe"
+            fi
+            ;;
+    esac
+
+    echo "$screenpipe_path"
+}
+
+SCREENPIPE_PATH="$(find_screenpipe)"
+
+if [ ! -f "$SCREENPIPE_PATH" ]; then
+    echo "[screenpipe] ERROR: screenpipe not found at $SCREENPIPE_PATH" >&2
+    exit 1
+fi
+
+echo "[screenpipe] Found: $SCREENPIPE_PATH"
+
+# ==================== DETECT MONITORS ====================
+get_monitors() {
+    "$SCREENPIPE_PATH" vision list 2>/dev/null | grep -E '^\s*[0-9]+\.' || true
+}
+
+monitors="$(get_monitors)"
+if [ -z "$monitors" ]; then
+    echo "[screenpipe] ERROR: No monitors detected" >&2
+    exit 1
+fi
+
+echo "[screenpipe] Available monitors:"
+echo "$monitors" | sed 's/^/  /'
+
+# ==================== SELECT MONITORS ====================
+selected_monitors=""
+case "$CAPTURE_MODE" in
+    all)
+        selected_monitors="$monitors"
+        echo "[screenpipe] Mode: Capture ALL monitors"
+        ;;
+    external-monitors-only)
+        # Filter for HDMI/DisplayPort/etc in name, or IDs > 200000
+        selected_monitors="$(echo "$monitors" | grep -E '(HDMI|DisplayPort|DP|DVI)' || true)"
+
+        # Fallback: skip first monitor (usually laptop screen)
+        if [ -z "$selected_monitors" ] && [ "$(echo "$monitors" | wc -l)" -gt 1 ]; then
+            selected_monitors="$(echo "$monitors" | tail -n +2)"
+        fi
+        echo "[screenpipe] Mode: EXTERNAL monitors only"
+        ;;
+    primary-only)
+        selected_monitors="$(echo "$monitors" | head -n 1)"
+        echo "[screenpipe] Mode: PRIMARY monitor only"
+        ;;
+esac
+
+echo "[screenpipe] Selected monitors:"
+echo "$selected_monitors" | sed 's/^/  /'
+
+# ==================== EXTRACT MONITOR IDS ====================
+declare -a monitor_ids
+
+while IFS= read -r line; do
+    if [[ $line =~ ^[[:space:]]*([0-9]+)\. ]]; then
+        monitor_ids+=("${BASH_REMATCH[1]}")
+    fi
+done <<< "$selected_monitors"
+
+# ==================== BUILD ARGUMENTS ====================
+monitor_args=()
+for id in "${monitor_ids[@]}"; do
+    monitor_args+=(--monitor-id "$id")
+done
+
+# ==================== CALCULATE FPS ====================
+monitor_count=${#monitor_ids[@]}
+adjusted_fps="$PREFERRED_FPS"
+
+if [ "$monitor_count" -ge 3 ]; then
+    adjusted_fps="0.01"  # Cap at 0.01 for 3+ monitors
+elif [ "$monitor_count" -eq 2 ]; then
+    adjusted_fps="0.02"  # Cap at 0.02 for 2 monitors
+fi
+
+echo "[screenpipe] Monitor count: $monitor_count"
+echo "[screenpipe] FPS: $adjusted_fps (1 frame per $(( 1 / adjusted_fps )) seconds)"
+
+# ==================== SETUP DATA DIRECTORY ====================
+{{ if eq .chezmoi.os "windows" }}
+DATA_DIR="$LOCALAPPDATA/.screenpipe"
+{{ else }}
+DATA_DIR="$HOME/.screenpipe"
+{{ end }}
+
+mkdir -p "$DATA_DIR"
+echo "[screenpipe] Data directory: $DATA_DIR"
+
+# ==================== START SCREENPIPE ====================
+echo "[screenpipe] Starting screenpipe..."
+exec "$SCREENPIPE_PATH" \
+    --fps "$adjusted_fps" \
+    --disable-audio \
+    --video-chunk-duration 300 \
+    --ocr-engine {{ .screenpipe.ocr_engine }} \
+    --disable-telemetry \
+    --data-dir "$DATA_DIR" \
+    "${monitor_args[@]}"
