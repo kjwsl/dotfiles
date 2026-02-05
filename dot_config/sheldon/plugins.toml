@@ -1,0 +1,21 @@
+shell = "zsh"
+
+# Autosuggestions (grey text as you type)
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+
+# Syntax highlighting (colors as you type)
+[plugins.fast-syntax-highlighting]
+github = "zdharma-continuum/fast-syntax-highlighting"
+
+# "You should use" alias reminders
+[plugins.zsh-you-should-use]
+github = "MichaelAquilina/zsh-you-should-use"
+
+# History search
+[plugins.history-search-multi-word]
+github = "zdharma-continuum/history-search-multi-word"
+
+# History database
+[plugins.zsh-histdb]
+github = "larkery/zsh-histdb"
