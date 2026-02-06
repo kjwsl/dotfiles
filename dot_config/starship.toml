@@ -6,6 +6,9 @@ format = """
 [░▒▓](accent_light)\
 $os\
 $shell\
+[](bg:accent_light fg:accent_light)\
+$username\
+[](bg:accent_light fg:hostname_bg)\
 $hostname\
 [](bg:primary fg:accent_light)\
 $directory\
@@ -38,6 +41,7 @@ quaternary = "#1d2230"
 text_light = "#e3e5e5"
 text_dim = "#a0a9cb"
 character = "#cba6f7"
+hostname_bg = "#2d3548"
 
 [directory]
 style = "fg:text_light bg:primary"
@@ -51,8 +55,17 @@ truncation_symbol = "…/"
 "Music" = " "
 "Pictures" = " "
 
+[username]
+show_always = true
+style_user = "bg:accent_light fg:base_dark"
+style_root = "bg:accent_light fg:red"
+format = '[ $user ]($style)'
+
 [hostname]
-style = "bg:accent_light fg:base_dark"
+ssh_only = false
+style = "bg:hostname_bg fg:text_light"
+format = '[ 󰒋 $hostname ]($style)'
+trim_at = "."
 
 [git_branch]
 symbol = ""
