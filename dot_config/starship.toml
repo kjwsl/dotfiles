@@ -6,6 +6,7 @@ format = """
 [░▒▓](accent_light)\
 $os\
 $shell\
+$hostname\
 [](bg:primary fg:accent_light)\
 $directory\
 [](fg:primary bg:secondary)\
@@ -49,6 +50,9 @@ truncation_symbol = "…/"
 "Downloads" = " "
 "Music" = " "
 "Pictures" = " "
+
+[hostname]
+style = "bg:accent_light fg:base_dark"
 
 [git_branch]
 symbol = ""
