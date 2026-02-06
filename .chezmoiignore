@@ -1,5 +1,8 @@
 .secrets
+docs
 install.sh
+scripts/install-screenpipe.sh
+scripts/setup-screenpipe-startup.ps1
 note.md
 README.md
 LICENSE
