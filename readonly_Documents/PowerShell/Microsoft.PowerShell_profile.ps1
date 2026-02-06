@@ -1,3 +1,13 @@
+$moduleDir = Join-Path -Path $PSScriptRoot -ChildPath "modules"
+
+# Run every script in modules
+Get-ChildItem -Path $moduleDir -File | ForEach-Object {
+    # Perform your action here using the $_ variable
+
+    # Source each script
+    . $_
+}
+
 # Initialize mise
 if (Get-Command mise.exe -ErrorAction SilentlyContinue) {
     mise activate pwsh | Out-String | Invoke-Expression
