@@ -1,4 +1,3 @@
-
 # Initialize mise
 if (Get-Command mise.exe -ErrorAction SilentlyContinue) {
     mise activate pwsh | Out-String | Invoke-Expression
@@ -27,7 +26,11 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
 }
 
 if (Get-Command zoxide -ErrorAction SilentlyContinue) {
-    zoxide init powershell | Invoke-Expression
+    Invoke-Expression (zoxide init powershell | Out-String)
+}
+
+if (Test-Path ~/local.ps1) {
+    . ~/local.ps1
 }
 
 if (Test-Path ~/work.ps1)
