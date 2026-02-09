@@ -1,19 +1,31 @@
-# oh-my-posh init pwsh --config "C:\Program Files (x86)\oh-my-posh\themes\kushal.omp.json" | Invoke-Expression
+$moduleDir = Join-Path -Path $PSScriptRoot -ChildPath "modules"
+
+# Check if the directory exists and is actually a container (folder)
+if (Test-Path -Path $moduleDir -PathType Container) {
+    Get-ChildItem -Path $moduleDir -File | ForEach-Object {
+        . $_.FullName
+    }
+}
+
+# Initialize mise
+if (Get-Command mise.exe -ErrorAction SilentlyContinue) {
+    mise activate pwsh | Out-String | Invoke-Expression
+}
+
 if (Get-Command starship -ErrorAction SilentlyContinue) {
     Invoke-Expression (&starship init powershell)
 }
 
-if (Test-Path "C:\Program Files\Neovim\bin\nvim.exe") {
-    $nvimPath = "C:\Program Files\Neovim\bin\nvim.exe"
-} elseif (Test-Path "C:\tools\neovim\nvim-win64\bin\nvim.exe") {
-    $nvimPath = "C:\tools\neovim\nvim-win64\bin\nvim.exe"
-}
+$nvim = Get-Command nvim -ErrorAction SilentlyContinue
 
-if ($nvimPath) {
+if ($nvim) {
+    # $nvim.Source gives the absolute path to the executable found by gcm
+    Set-Alias -Name v -Value $nvim.Source
+
+    # Define the function dynamically using the found path
     function Open-NvimCurrentDir {
-        & $nvimPath .
+        & $nvim.Source .
     }
-    Set-Alias -Name v -Value $nvimPath
     Set-Alias -Name v. -Value Open-NvimCurrentDir
 }
 
@@ -22,5 +34,15 @@ if (Get-Command git -ErrorAction SilentlyContinue) {
 }
 
 if (Get-Command zoxide -ErrorAction SilentlyContinue) {
-    zoxide init powershell | Invoke-Expression
+    Invoke-Expression (zoxide init powershell | Out-String)
 }
+
+if (Test-Path ~/local.ps1) {
+    . ~/local.ps1
+}
+
+if (Test-Path ~/work.ps1)
+{
+    . ~/work.ps1
+}
+

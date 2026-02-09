@@ -1,11 +1,10 @@
 $moduleDir = Join-Path -Path $PSScriptRoot -ChildPath "modules"
 
-# Run every script in modules
-Get-ChildItem -Path $moduleDir -File | ForEach-Object {
-    # Perform your action here using the $_ variable
-
-    # Source each script
-    . $_
+# Check if the directory exists and is actually a container (folder)
+if (Test-Path -Path $moduleDir -PathType Container) {
+    Get-ChildItem -Path $moduleDir -File | ForEach-Object {
+        . $_.FullName
+    }
 }
 
 # Initialize mise
@@ -17,17 +16,16 @@ if (Get-Command starship -ErrorAction SilentlyContinue) {
     Invoke-Expression (&starship init powershell)
 }
 
-if (Test-Path "C:\Program Files\Neovim\bin\nvim.exe") {
-    $nvimPath = "C:\Program Files\Neovim\bin\nvim.exe"
-} elseif (Test-Path "C:\tools\neovim\nvim-win64\bin\nvim.exe") {
-    $nvimPath = "C:\tools\neovim\nvim-win64\bin\nvim.exe"
-}
+$nvim = Get-Command nvim -ErrorAction SilentlyContinue
 
-if ($nvimPath) {
+if ($nvim) {
+    # $nvim.Source gives the absolute path to the executable found by gcm
+    Set-Alias -Name v -Value $nvim.Source
+
+    # Define the function dynamically using the found path
     function Open-NvimCurrentDir {
-        & $nvimPath .
+        & $nvim.Source .
     }
-    Set-Alias -Name v -Value $nvimPath
     Set-Alias -Name v. -Value Open-NvimCurrentDir
 }
 
@@ -47,3 +45,5 @@ if (Test-Path ~/work.ps1)
 {
     . ~/work.ps1
 }
+
+
