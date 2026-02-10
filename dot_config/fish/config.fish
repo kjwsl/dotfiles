@@ -3,6 +3,11 @@ if status is-interactive
     export EDITOR="nvim"
     export VISUAL=$EDITOR
 
+    # Plugin Manager (Fisher) - Automatic Installation
+    if not type -q fisher
+        curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher $plugins
+    end
+
     # Enable transient prompt
     set -g fish_transient_prompt 1
 
@@ -11,12 +16,6 @@ if status is-interactive
     fish_add_path "$HOME/.rustup/toolchains/stable-aarch64-apple-darwin/bin/"
     fish_add_path "$HOME/.cargo/bin/"
     export PKG_CONFIG_PATH="$HOME/.luarocks/share/lua/5.1:$HOME/.nix-profile/bin:$HOME/.local/lib/pkgconfig:$PKG_CONFIG_PATH"
-
-    # Plugin Manager (Fisher) - Automatic Installation
-    if not type -q fisher
-        curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher $plugins
-    end
-
 
     # Load Aliases
     if test -f $__fish_config_dir/alias.fish
