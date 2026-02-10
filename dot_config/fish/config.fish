@@ -14,16 +14,13 @@ if status is-interactive
 
     # Plugin Manager (Fisher) - Automatic Installation
     if not type -q fisher
-        curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+        curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher $plugins
     end
 
-    if not type -q bass
-        fisher install edc/bass
-    end
 
     # Load Aliases
-    if test -f $HOME/.config/fish/alias.fish
-        source $HOME/.config/fish/alias.fish
+    if test -f $__fish_config_dir/alias.fish
+        source $__fish_config_dir/alias.fish
     end
 
     # Environment Loading
@@ -37,15 +34,7 @@ if status is-interactive
         end
     end
 
-    alias fish_reload="source $HOME/.config/fish/config.fish"
-
-    # Tool Initializations
-    # DISABLED: pyenv and mise slow down startup and aren't used (you use nix instead)
-    # if type -q pyenv
-    #     set -Ux PYENV_ROOT $HOME/.pyenv
-    #     fish_add_path $PYENV_ROOT/bin
-    #     pyenv init - fish | source
-    # end
+    alias fish_reload="source $__fish_config_dir/config.fish"
 
     if type -q starship
         starship init fish | source
