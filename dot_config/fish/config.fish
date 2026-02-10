@@ -8,6 +8,9 @@ if status is-interactive
         curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher $plugins
     end
 
+    # Theme
+    fish_config theme choose "Catppuccin Mocha"
+
     # Enable transient prompt
     set -g fish_transient_prompt 1
 
@@ -20,6 +23,11 @@ if status is-interactive
     # Load Aliases
     if test -f $__fish_config_dir/alias.fish
         source $__fish_config_dir/alias.fish
+    end
+
+    # Load Functions
+    if test -f $__fish_config_dir/functions.fish
+        source $__fish_config_dir/functions.fish
     end
 
     # Environment Loading
