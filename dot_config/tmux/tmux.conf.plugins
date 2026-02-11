@@ -10,6 +10,10 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-yank'
 
+# Command palette and keybinding discovery
+set -g @plugin 'sainnhe/tmux-fzf'
+set -g @plugin 'alexwforsythe/tmux-which-key'
+
 set-option -g status-position top
 
 set -g @plugin 'catppuccin/tmux#v2.1.2'
