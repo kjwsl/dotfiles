@@ -1,15 +1,18 @@
 if status is-interactive
+    # Disable greeting message
+    set -g fish_greeting
+
     # Core settings
     export EDITOR="nvim"
     export VISUAL=$EDITOR
 
     # Plugin Manager (Fisher) - Automatic Installation
     if not type -q fisher
-        curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher $plugins
+        curl -sL https://git.io/fisher | source && fisher update
     end
 
-    # Theme
-    fish_config theme choose "Catppuccin Mocha"
+    # Theme - Explicitly use dark mode variant
+    fish_config theme choose "Catppuccin Mocha" --color-theme=dark
 
     # Enable transient prompt
     set -g fish_transient_prompt 1
