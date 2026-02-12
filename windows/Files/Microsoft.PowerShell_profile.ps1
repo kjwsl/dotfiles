@@ -7,7 +7,8 @@ if (Test-Path -Path $moduleDir -PathType Container) {
     }
 }
 
-# Initialize mise
+# Initialize mise (suppress chpwd warning on PS 5.1 - used by WSL done.fish plugin)
+$env:MISE_PWSH_CHPWD_WARNING = "0"
 if (Get-Command mise.exe -ErrorAction SilentlyContinue) {
     mise activate pwsh | Out-String | Invoke-Expression
 }

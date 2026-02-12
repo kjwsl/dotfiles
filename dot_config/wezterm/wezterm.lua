@@ -71,6 +71,9 @@ end
 -- Ligature
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
+-- Front End
+config.front_end = 'WebGpu'
+
 -- FPS
 config.max_fps = tonumber(os.getenv("WEZTERM_FPS")) or 60
 
