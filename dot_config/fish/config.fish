@@ -11,6 +11,11 @@ if status is-interactive
         curl -sL https://git.io/fisher | source && fisher update
     end
 
+    # Mise 
+    if type -q mise
+        mise activate fish | source
+    end
+
     # Theme - Explicitly use dark mode variant
     fish_config theme choose "Catppuccin Mocha" --color-theme=dark
 
