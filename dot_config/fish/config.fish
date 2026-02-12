@@ -76,7 +76,7 @@ if status is-interactive
 
     # Secrets and Work
     if test -f $HOME/.secrets
-        envsource $HOME/.secrets
+        bass source $HOME/.secrets
     end
 
     if test -f $HOME/work.fish
@@ -137,3 +137,10 @@ Directory: $dir" \
         end
     end
 end
+
+# pnpm
+set -gx PNPM_HOME "/Users/ray/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
