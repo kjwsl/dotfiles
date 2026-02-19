@@ -1,7 +1,7 @@
+# TPM (Tmux Plugin Manager)
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'nhdaly/tmux-better-mouse-mode'
 set -g @plugin 'tmux-plugins/tmux-battery'
-set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'tmux-plugins/tmux-logging'
 set -g @plugin 'tmux-plugins/tmux-open'
@@ -10,8 +10,36 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-yank'
 
+# Catppuccin Colorscheme
+set -g @plugin 'catppuccin/tmux'
+set -g @catppuccin_flavour 'mocha'  # Or 'latte', 'frappe', 'macchiato'
+set -g @catppuccin_window_status_style "rounded"
+# Load catppuccin
+run ~/.config/tmux/plugins/tmux/catppuccin.tmux
+# For TPM, instead use `run ~/.config/tmux/plugins/tmux/catppuccin.tmux`
+
+# Make the status line pretty and add some modules
+set -g status-right-length 100
+set -g status-left-length 100
+set -g status-left ""
+set -g status-right "#{E:@catppuccin_status_application}"
+set -agF status-right "#{E:@catppuccin_status_cpu}"
+set -ag status-right "#{E:@catppuccin_status_session}"
+set -ag status-right "#{E:@catppuccin_status_uptime}"
+set -agF status-right "#{E:@catppuccin_status_battery}"
+
+run ~/.config/tmux/plugins/tmux-cpu/cpu.tmux
+run ~/.config/tmux/plugins/tmux-battery/battery.tmux
+
+# Enable Command Palette
+# Requires tmux >=3.3, fzf >=0.24.0
+set -g @plugin 'lost-melody/tmux-command-palette'
+
 # Command palette and keybinding discovery
 set -g @plugin 'sainnhe/tmux-fzf'
+
+# Which-key Support
+# <prefix> + space will show up the 
 set -g @plugin 'alexwforsythe/tmux-which-key'
 
 # Status indicators
@@ -19,65 +47,73 @@ set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
 
 set-option -g status-position top
 
-# Theme: tmux-nova (modern, built for custom indicators)
-set -g @plugin 'o0th/tmux-nova'
-
-# Tmux Continuum
-# set -g @continuum-boot 'on' # Start tmux automatically
-set -g @continuum-restore 'on' # Restore tmux sessions automatically
-
 # ~/.tmux.conf
 
 # Options to make tmux more pleasant
 set -g mouse on
 set -g default-terminal "tmux-256color"
 
-# ============================================
-# tmux-nova configuration (Catppuccin Mocha)
-# ============================================
+## Disabled ##
 
-# Enable Nerd Fonts
-set -g @nova-nerdfonts true
-set -g @nova-nerdfonts-left
-set -g @nova-nerdfonts-right
+# set -g @plugin 'tmux-plugins/tmux-continuum'
 
-# Color palette (Catppuccin Mocha)
-set -g @nova-pane-active-border-style "#89b4fa"
-set -g @nova-pane-border-style "#45475a"
-set -g @nova-status-style-bg "#1e1e2e"
-set -g @nova-status-style-fg "#cdd6f4"
-set -g @nova-status-style-active-bg "#89b4fa"
-set -g @nova-status-style-active-fg "#1e1e2e"
+# Tmux Continuum
+# set -g @continuum-boot 'on' # Start tmux automatically
+# set -g @continuum-restore 'on' # Restore tmux sessions automatically
 
-# Segment: Mode indicators (left side, always visible)
-set -g @nova-segment-mode "#{?client_prefix,⌨️  PREFIX,#{?pane_in_mode,📋 COPY,#{?pane_synchronized,🔄 SYNC,#{?window_zoomed_flag,🔍 ZOOM,}}}}"
-set -g @nova-segment-mode-colors "#fab387 #1e1e2e"
 
-# Segment: Session name
-set -g @nova-segment-session " #S"
-set -g @nova-segment-session-colors "#a6e3a1 #1e1e2e"
+## Nova
 
-# Segment: CPU usage
-set -g @nova-segment-cpu " #{cpu_percentage}"
-set -g @nova-segment-cpu-colors "#f9e2af #1e1e2e"
+# # Theme: tmux-nova (modern, built for custom indicators)
+# set -g @plugin 'o0th/tmux-nova'
 
-# Segment: Battery
-set -g @nova-segment-battery "#{battery_icon} #{battery_percentage}"
-set -g @nova-segment-battery-colors "#f38ba8 #1e1e2e"
+# # ============================================
+# # tmux-nova configuration (Catppuccin Mocha)
+# # ============================================
+#
+# # Enable Nerd Fonts
+# set -g @nova-nerdfonts true
+# set -g @nova-nerdfonts-left
+# set -g @nova-nerdfonts-right
+#
+# # Color palette (Catppuccin Mocha)
+# set -g @nova-pane-active-border-style "#89b4fa"
+# set -g @nova-pane-border-style "#45475a"
+# set -g @nova-status-style-bg "#1e1e2e"
+# set -g @nova-status-style-fg "#cdd6f4"
+# set -g @nova-status-style-active-bg "#89b4fa"
+# set -g @nova-status-style-active-fg "#1e1e2e"
+#
+# # Segment: Mode indicators (left side, always visible)
+# set -g @nova-segment-mode "#{?client_prefix,⌨️  PREFIX,#{?pane_in_mode,📋 COPY,#{?pane_synchronized,🔄 SYNC,#{?window_zoomed_flag,🔍 ZOOM,}}}}"
+# set -g @nova-segment-mode-colors "#fab387 #1e1e2e"
+#
+# # Segment: Session name
+# set -g @nova-segment-session " #S"
+# set -g @nova-segment-session-colors "#a6e3a1 #1e1e2e"
+#
+# # Segment: CPU usage
+# set -g @nova-segment-cpu " #{cpu_percentage}"
+# set -g @nova-segment-cpu-colors "#f9e2af #1e1e2e"
+#
+# # Segment: Battery
+# set -g @nova-segment-battery "#{battery_icon} #{battery_percentage}"
+# set -g @nova-segment-battery-colors "#f38ba8 #1e1e2e"
+#
+# # Segment: Uptime
+# set -g @nova-segment-uptime " #{uptime}"
+# set -g @nova-segment-uptime-colors "#b4befe #1e1e2e"
+#
+# # Segment: User and host
+# set -g @nova-segment-whoami "#(whoami)@#h"
+# set -g @nova-segment-whoami-colors "#89b4fa #1e1e2e"
+#
+# # Pane format (shows pane number, mode, and window name)
+# set -g @nova-pane "#I#{?pane_in_mode,  #{pane_mode},}  #W"
+# set -g @nova-pane-justify "left"
+#
+# # Status bar layout
+# set -g @nova-rows 0
+# set -g @nova-segments-0-left "mode"
+# set -g @nova-segments-0-right "cpu battery session whoami"
 
-# Segment: Uptime
-set -g @nova-segment-uptime " #{uptime}"
-set -g @nova-segment-uptime-colors "#b4befe #1e1e2e"
-
-# Segment: User and host
-set -g @nova-segment-whoami "#(whoami)@#h"
-set -g @nova-segment-whoami-colors "#89b4fa #1e1e2e"
-
-# Pane format (shows pane number, mode, and window name)
-set -g @nova-pane "#I#{?pane_in_mode,  #{pane_mode},}  #W"
-set -g @nova-pane-justify "left"
-
-# Status bar layout
-set -g @nova-rows 0
-set -g @nova-segments-0-left "mode"
-set -g @nova-segments-0-right "cpu battery session whoami"
