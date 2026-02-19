@@ -38,6 +38,10 @@ set -g @plugin 'lost-melody/tmux-command-palette'
 # Command palette and keybinding discovery
 set -g @plugin 'sainnhe/tmux-fzf'
 
+# FZF URL opener
+# <prefix> + u 
+set -g @plugin 'wfxr/tmux-fzf-url'
+
 # Which-key Support
 # <prefix> + space will show up the 
 set -g @plugin 'alexwforsythe/tmux-which-key'
