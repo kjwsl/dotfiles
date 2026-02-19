@@ -16,7 +16,6 @@ set -g @catppuccin_flavour 'mocha'  # Or 'latte', 'frappe', 'macchiato'
 set -g @catppuccin_window_status_style "rounded"
 # Load catppuccin
 run ~/.config/tmux/plugins/tmux/catppuccin.tmux
-# For TPM, instead use `run ~/.config/tmux/plugins/tmux/catppuccin.tmux`
 
 # Make the status line pretty and add some modules
 set -g status-right-length 100
@@ -31,6 +30,11 @@ set -agF status-right "#{E:@catppuccin_status_battery}"
 run ~/.config/tmux/plugins/tmux-cpu/cpu.tmux
 run ~/.config/tmux/plugins/tmux-battery/battery.tmux
 
+
+# Bitwarden Integration
+# <prefix> + b to open a new pane for Bitwarden
+set -g @plugin 'Alkindi42/tmux-bitwarden'
+
 # Enable Command Palette
 # Requires tmux >=3.3, fzf >=0.24.0
 set -g @plugin 'lost-melody/tmux-command-palette'
@@ -38,8 +42,8 @@ set -g @plugin 'lost-melody/tmux-command-palette'
 # Command palette and keybinding discovery
 set -g @plugin 'sainnhe/tmux-fzf'
 
-# FZF URL opener
-# <prefix> + u 
+# FZF URL Opener
+# <prefix> + u to open
 set -g @plugin 'wfxr/tmux-fzf-url'
 
 # Which-key Support
