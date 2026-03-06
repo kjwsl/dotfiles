@@ -8,7 +8,7 @@ email = "kjwdev01@gmail.com"
 diff-formatter = ":git"
 pager = "delta"
 editor = "nvim"
-diff-editor = ["nvim", "-c", "DiffviewOpen"]
+# diff-editor = ["nvim", "-c", "DiffviewOpen"]
 
 # Make logs readable for humans, not graph theorists
 log-format = "builtin"
